@@ -15,63 +15,53 @@
 ```
 CorrofeaBlog/
 │
-├── index.html              # 首页：数据内嵌，同步渲染文章列表
-├── post.html               # 文章详情：通用模板，?slug=xxx 加载 MD
-├── about.html              # 关于页（静态 + i18n）
-├── archive.html            # 归档页（按年份分组）
-├── tags.html               # 标签页（按标签聚合）
-├── projects.html           # 项目展示页
+├── public/                     ← ★ Nginx root，唯一部署目录
+│   ├── index.html              #   首页：数据内嵌，同步渲染
+│   ├── post.html               #   文章详情：通用模板
+│   ├── about.html              #   关于页
+│   ├── archive.html            #   归档页（按年份分组）
+│   ├── tags.html               #   标签页（按标签聚合）
+│   ├── projects.html           #   项目展示页
+│   ├── 404.html
+│   ├── styles/
+│   │   └── bundle.css          #   ★ 合并版 CSS（build.py 生成）
+│   ├── scripts/                #   JavaScript（模块化）
+│   │   ├── lib/marked.min.js
+│   │   ├── utils/i18n.js       #   ★ 国际化引擎
+│   │   ├── utils/router.js
+│   │   ├── utils/posts.js      #   ★ 文章加载器
+│   │   ├── utils/marked-setup.js
+│   │   ├── components/         #   header.js, footer.js, theme.js, comments.js
+│   │   └── main.js             #   ★ 总入口
+│   ├── posts/
+│   │   ├── zh/*.md             #   中文文章
+│   │   └── en/*.md             #   英文文章
+│   ├── i18n/                   #   翻译 JSON
+│   ├── components/             #   HTML 片段（header, footer）
+│   ├── assets/                 #   图片 / 字体 / 文件
+│   ├── demos/                  #   托管项目 Demo
+│   ├── posts-index.json        #   ★ 文章索引（build.py 生成）
+│   ├── projects.json           #   项目索引
+│   ├── robots.txt
+│   └── sitemap.xml
 │
-├── posts/                  # ★ 博客文章（Markdown）
-│   ├── zh/                 #   中文文章 .md
-│   └── en/                 #   英文文章 .md
-├── posts-index.json        # ★ 文章索引（元数据注册表）
-├── projects.json           # ★ 项目索引（元数据注册表）
+├── src/                        ← ★ 源文件（不部署）
+│   └── styles/                 #   CSS 模块，build.py 读取
+│       ├── reset.css
+│       ├── variables.css
+│       ├── typography.css
+│       ├── layout.css
+│       ├── components/         #   header.css, footer.css, card.css, ...
+│       └── pages/              #   home.css, archive.css, about.css, ...
 │
-├── styles/                 # CSS
-│   ├── reset.css           #   Reset
-│   ├── variables.css       #   设计变量（颜色、间距、深浅色）
-│   ├── typography.css      #   排版系统
-│   ├── layout.css          #   布局
-│   ├── components/         #   组件样式（header, footer, card, button 等）
-│   ├── pages/              #   页面样式（home, archive, about, projects）
-│   ├── main.css            #   开发用入口（@import 全部）
-│   └── bundle.css          # ★ 生产用单文件（cat 合并，无 @import）
-│
-├── scripts/                # JavaScript
-│   ├── lib/
-│   │   └── marked.min.js   #   Markdown 解析器
-│   ├── utils/
-│   │   ├── i18n.js         #   ★ 国际化引擎（预加载优先，fetch 兜底）
-│   │   ├── router.js       #   URL 参数解析
-│   │   ├── posts.js        #   ★ 文章加载器（同步 + 异步双模式）
-│   │   └── marked-setup.js #   marked 配置（图片懒加载、链接处理）
-│   ├── components/
-│   │   ├── header.js       #   导航栏注入 + 按钮事件
-│   │   ├── footer.js       #   页脚注入
-│   │   ├── theme.js        #   ★ 深浅色主题切换
-│   │   └── comments.js     #   评论系统预留
-│   └── main.js             #   ★ 总入口：初始化调度 + 超时兜底
-│
-├── i18n/                   # 翻译文件（其他页面 fetch 使用）
-│   ├── zh.json
-│   └── en.json
-│
-├── components/             # 共享 HTML 片段（JS fetch 后注入）
-│   ├── header.html
-│   ├── footer.html
-│   └── comment-section.html
-│
-├── assets/                 # 静态资源
-│   ├── images/common/      #   站点图片（logo, avatar, favicon）
-│   ├── images/blog/        #   文章配图（按 slug 分目录）
-│   ├── fonts/              #   自托管字体（预留）
-│   └── files/              #   可下载文件（简历等）
-│
-├── demos/                  # ★ 托管项目 Demo（网页游戏等）
-│
+├── docs/                       ← 文档
 ├── nginx/
-│   └── corrofea.conf       # Nginx 部署配置
+│   └── corrofea.conf           # Nginx 部署配置
+├── scripts/
+│   └── build.py                # 构建脚本
+├── .gitignore
+└── README.md
+```
 │
 ├── docs/                   # 文档
 │   ├── architecture.md     #   本文
@@ -151,7 +141,7 @@ post.html?slug=xxx
 
 ### 为什么 CSS 合并为 bundle.css？
 
-`@import` 创建加载依赖链：一个文件 404/超时 → 后续文件可能不加载。合并为单文件后一次请求即可，14 个源文件保留用于分模块编辑。
+CSS 源文件在 `src/styles/` 下按模块编辑（14 个文件），`build.py` 将其合并为 `public/styles/bundle.css`。单文件一次请求即可加载全部样式，无 `@import` 依赖链。
 
 ### 为什么是 IIFE 而非 ES Module？
 

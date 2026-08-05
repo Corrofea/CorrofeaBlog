@@ -11,57 +11,81 @@ python3 -m http.server 8080
 # 浏览器打开 http://localhost:8080
 ```
 
-## 写文章
+## 写文章（优化版）
 
-### 步骤 1：创建 Markdown 文件
+### 只需 3 步
+
+**1. 创建 Markdown 文件（含 YAML 头部）**
 
 在 `posts/zh/` 和 `posts/en/` 下各创建一个同名 `.md` 文件：
 
-```
-posts/
-├── zh/
-│   └── my-new-post.md    ← 中文版
-└── en/
-    └── my-new-post.md    ← 英文版
+```markdown
+---
+title: 我的新文章标题
+title_en: My New Post Title
+date: 2025-08-10
+tags: [前端, JavaScript]
+summary: 一句话摘要，会显示在首页卡片上。
+summary_en: One-line summary shown on the home page card.
+draft: false
+---
+
+# 我的新文章标题
+
+正文开始……
 ```
 
-Markdown 支持标准语法 + GFM 表格 + 代码块。图片放在 `assets/images/blog/{slug}/`，文中用相对路径引用：
+中英文各一份，`slug` 就是文件名（不含 `.md`）。
+
+图片放在 `assets/images/blog/{slug}/`：
 
 ```markdown
 ![配图](my-new-post/screenshot.png)
 ```
 
-### 步骤 2：注册到索引
+**2. 运行构建脚本**
 
-编辑 `posts-index.json`，在数组末尾添加一条：
-
-```json
-{
-  "slug": "my-new-post",
-  "title": {
-    "zh": "我的新文章标题",
-    "en": "My New Post Title"
-  },
-  "date": "2025-08-10",
-  "tags": ["前端", "JavaScript"],
-  "summary": {
-    "zh": "一句话摘要，会显示在首页卡片上。",
-    "en": "One-line summary shown on the home page card."
-  },
-  "draft": false
-}
+```bash
+python3 scripts/build.py
 ```
+
+这行命令自动完成三件事：
+- 扫描 `posts/zh/` 和 `posts/en/` 下所有 `.md`，解析 YAML frontmatter
+- 生成 `posts-index.json`
+- 更新 `index.html` 中的 `window.__POSTS__` 数据
+- 重新合并 `styles/bundle.css`
+
+**3. 预览**
+
+```bash
+python3 -m http.server 8080
+```
+
+打开 `http://localhost:8080` 即可看到新文章。
+
+### YAML frontmatter 字段说明
 
 | 字段 | 说明 |
 |------|------|
-| `slug` | 唯一标识，与文件名一致（不含 `.md`），用于 URL：`post.html?slug=my-new-post` |
-| `title` | 中英文标题 |
+| `title` | 中文标题 |
+| `title_en` | 英文标题 |
 | `date` | `YYYY-MM-DD` 格式，用于排序和显示 |
-| `tags` | 标签数组，用于标签页聚合 |
-| `summary` | 摘要，首页卡片显示 |
+| `tags` | 标签数组：`[前端, JavaScript]` |
+| `summary` | 中文摘要，首页卡片显示 |
+| `summary_en` | 英文摘要 |
 | `draft` | `true` 时首页和归档隐藏，`false` 时公开 |
 
-### 步骤 3：部署
+### 旧文章迁移
+
+如果你的 `.md` 文件还没有 YAML frontmatter，运行：
+
+```bash
+python3 scripts/build.py
+```
+
+脚本会为缺少 frontmatter 的文件使用默认值（标题取自正文第一行 `#`）。
+
+## 部署
 
 上传后即生效——`post.html?slug=my-new-post` 自动加载对应 MD 文件。
 
@@ -221,7 +245,13 @@ sudo certbot --nginx -d corrofea.com -d www.corrofea.com
 
 ### 修改了 posts-index.json 但首页不更新
 
-首页文章列表数据内嵌在 `index.html` 的 `<script>window.__POSTS__</script>` 中，不通过 fetch 获取。修改 `posts-index.json` 后需要同步更新 `index.html` 中的这段数据。
+运行 `python3 scripts/build.py` 即可同步 `index.html`。`posts-index.json` 由构建脚本自动生成，不应手动编辑。
+
+### 添加了 .md 文件但首页不显示
+
+1. 确认 .md 文件有正确的 YAML frontmatter（`---` 包裹的元数据）
+2. 运行 `python3 scripts/build.py`
+3. 确认 `draft: false`
 
 ### 文章详情页打不开
 

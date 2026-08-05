@@ -1,3 +1,13 @@
+---
+title: 给 Claude Code 换脑：让 DeepSeek 跑在 Claude Code 上
+title_en: Giving Claude Code a Brain Transplant: Running DeepSeek on Claude Code
+date: 2025-07-28
+tags: ["AI", "工具链", "Claude Code"]
+summary: 如何配置 Claude Code 使用 DeepSeek 作为后端模型，以及过程中踩的坑。
+summary_en: How to configure Claude Code to use DeepSeek as the backend model, and the pitfalls along the way.
+draft: false
+---
+
 # 给 Claude Code 换脑：让 DeepSeek 跑在 Claude Code 上
 
 > 2025.07.28 | AI · 工具链 · Claude Code

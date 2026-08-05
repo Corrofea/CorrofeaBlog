@@ -1,3 +1,13 @@
+---
+title: From Interactive Fiction to Deployment: A Tech Note on One Hundred Years of Solitude
+title_en: From Interactive Fiction to Deployment: A Tech Note on One Hundred Years of Solitude
+date: 2025-08-05
+tags: ["前端", "Node.js", "部署"]
+summary: Built an interactive fiction with Twine and documented the entire deployment journey.
+summary_en: Built an interactive fiction with Twine and documented the entire deployment journey.
+draft: false
+---
+
 # From Interactive Fiction to Deployment: A Tech Note on *One Hundred Years of Solitude*
 
 > Written 2025.08.05 | Frontend · Node.js · Deployment

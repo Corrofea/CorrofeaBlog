@@ -1,3 +1,13 @@
+---
+title: The Trials of ICP Filing for a Personal Blog
+title_en: The Trials of ICP Filing for a Personal Blog
+date: 2025-07-15
+tags: ["博客", "运维", "备案"]
+summary: A complete guide to ICP filing for personal blogs in mainland China — from regulator review to public security filing.
+summary_en: A complete guide to ICP filing for personal blogs in mainland China — from regulator review to public security filing.
+draft: false
+---
+
 # The Trials of ICP Filing for a Personal Blog
 
 > 2025.07.15 | Blog · DevOps · ICP Filing

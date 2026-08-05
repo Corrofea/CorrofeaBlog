@@ -1,3 +1,13 @@
+---
+title: CSS unicode-range: Making Chinese and English Use Different Fonts Automatically
+title_en: CSS unicode-range: Making Chinese and English Use Different Fonts Automatically
+date: 2025-07-20
+tags: ["CSS", "排版", "前端"]
+summary: Using unicode-range to automatically switch fonts for mixed CJK and Latin text — no JavaScript needed.
+summary_en: Using unicode-range to automatically switch fonts for mixed CJK and Latin text — no JavaScript needed.
+draft: false
+---
+
 # CSS unicode-range: Making Chinese and English Use Different Fonts Automatically
 
 > 2025.07.20 | CSS · Typography · Frontend

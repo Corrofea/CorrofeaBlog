@@ -1,3 +1,13 @@
+---
+title: 如何在服务器上折腾 Nginx 以及为什么会 403
+title_en: Taming Nginx on a Server and Why You Get 403
+date: 2025-08-02
+tags: ["Linux", "Nginx", "运维"]
+summary: 从文件权限到 SELinux，一次 Nginx 403 排错的完整记录。
+summary_en: From file permissions to SELinux — a complete debugging journey of the dreaded Nginx 403.
+draft: false
+---
+
 # 如何在服务器上折腾 Nginx 以及为什么会 403
 
 > 2025.08.02 | Linux · Nginx · 运维

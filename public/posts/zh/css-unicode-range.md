@@ -1,3 +1,13 @@
+---
+title: CSS 中的 unicode-range：让中英文自动用不同字体
+title_en: CSS unicode-range: Making Chinese and English Use Different Fonts Automatically
+date: 2025-07-20
+tags: ["CSS", "排版", "前端"]
+summary: 利用 unicode-range 实现中英文混排时自动切换字体，无需 JS。
+summary_en: Using unicode-range to automatically switch fonts for mixed CJK and Latin text — no JavaScript needed.
+draft: false
+---
+
 # CSS 中的 unicode-range：让中英文自动用不同字体
 
 > 2025.07.20 | CSS · 排版 · 前端

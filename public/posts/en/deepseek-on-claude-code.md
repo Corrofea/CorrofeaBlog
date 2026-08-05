@@ -1,3 +1,13 @@
+---
+title: Giving Claude Code a Brain Transplant: Running DeepSeek on Claude Code
+title_en: Giving Claude Code a Brain Transplant: Running DeepSeek on Claude Code
+date: 2025-07-28
+tags: ["AI", "工具链", "Claude Code"]
+summary: How to configure Claude Code to use DeepSeek as the backend model, and the pitfalls along the way.
+summary_en: How to configure Claude Code to use DeepSeek as the backend model, and the pitfalls along the way.
+draft: false
+---
+
 # Giving Claude Code a Brain Transplant: Running DeepSeek on Claude Code
 
 > 2025.07.28 | AI · Toolchain · Claude Code

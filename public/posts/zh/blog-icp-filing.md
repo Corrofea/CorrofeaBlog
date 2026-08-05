@@ -1,3 +1,13 @@
+---
+title: 个人博客备案踩坑记
+title_en: The Trials of ICP Filing for a Personal Blog
+date: 2025-07-15
+tags: ["博客", "运维", "备案"]
+summary: 从管局审核到公安备案，中国大陆个人博客备案全流程与避坑指南。
+summary_en: A complete guide to ICP filing for personal blogs in mainland China — from regulator review to public security filing.
+draft: false
+---
+
 # 个人博客备案踩坑记
 
 > 2025.07.15 | 博客 · 运维 · 备案

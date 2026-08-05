@@ -1,3 +1,13 @@
+---
+title: 从写一个交互小说到部署：一篇关于「百年孤独」的技术笔记
+title_en: From Interactive Fiction to Deployment: A Tech Note on One Hundred Years of Solitude
+date: 2025-08-05
+tags: ["前端", "Node.js", "部署"]
+summary: 用 Twine 写了一个交互式小说，然后折腾部署的全过程记录。
+summary_en: Built an interactive fiction with Twine and documented the entire deployment journey.
+draft: false
+---
+
 # 从写一个交互小说到部署：一篇关于「百年孤独」的技术笔记
 
 > 写于 2025.08.05 | 前端 · Node.js · 部署
