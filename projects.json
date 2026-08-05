@@ -1,0 +1,31 @@
+[
+  {
+    "slug": "corrofea-blog",
+    "title": "蚀羽 · corrofea",
+    "description": {
+      "zh": "你现在正在看的这个博客。纯静态 HTML/CSS/JS 构建，Markdown 撰写，一键中英切换，深浅色主题。",
+      "en": "The blog you're reading right now. Built with pure static HTML/CSS/JS, Markdown-powered, one-click bilingual switch, light/dark themes."
+    },
+    "tech": ["HTML", "CSS", "JavaScript", "Nginx"],
+    "github": "https://github.com/corrofea/CorrofeaBlog",
+    "demo": null,
+    "type": "website",
+    "featured": true
+  },
+  {
+    "slug": "demo-game-example",
+    "title": {
+      "zh": "示例网页游戏",
+      "en": "Demo Web Game"
+    },
+    "description": {
+      "zh": "一个 Canvas 网页游戏示例。把游戏文件放入 demos/demo-game-example/ 目录即可通过 /demos/demo-game-example/ 访问。",
+      "en": "A Canvas web game example. Drop game files into demos/demo-game-example/ and access via /demos/demo-game-example/."
+    },
+    "tech": ["HTML5 Canvas", "JavaScript"],
+    "github": "https://github.com/corrofea/demo-game",
+    "demo": "/demos/demo-game-example/",
+    "type": "game",
+    "featured": false
+  }
+]

@@ -1,0 +1,72 @@
+/* ============================================
+   Card — 白夜書簡 · 蚀羽版
+   文章卡片：日期 + 极细分割线 + 标题
+   悬停时标题颜色极轻微加深，无花哨效果
+   ============================================ */
+
+.post-card {
+  padding: 1.2rem 0;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.post-card:first-child {
+  padding-top: 0;
+}
+
+/* ---- 日期 — 极轻、像印在纸上的编号 ---- */
+.post-card-date {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.06em;
+  margin-bottom: 0.5rem;
+  font-style: italic;
+}
+
+/* ---- 标题 — 首页使用极细字重 ---- */
+.post-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.4;
+  color: var(--color-heading);
+  margin-bottom: 0.4rem;
+}
+
+.post-card-title a {
+  color: inherit;
+}
+
+.post-card-title a:hover {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+/* ---- 摘要 — 可选，用于首页预览 ---- */
+.post-card-summary {
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-top: 0.3rem;
+}
+
+/* ---- 标签 — 极小，次要信息 ---- */
+.post-card-tags {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.post-card-tag {
+  font-size: 0.68rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-heading);
+  letter-spacing: 0.04em;
+  font-style: italic;
+}
+
+/* ---- 悬停效果：仅标题颜色极轻微过渡 ---- */
+.post-card-title a {
+  transition: color 0.4s ease;
+}

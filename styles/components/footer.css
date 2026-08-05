@@ -1,0 +1,25 @@
+/* ============================================
+   Footer — 白夜書簡 · 蚀羽版
+   极淡、极小、像页脚的尘埃
+   ============================================ */
+
+.site-footer {
+  padding: 3rem 0 2rem;
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.04em;
+  font-family: var(--font-heading);
+  font-style: italic;
+}
+
+.site-footer .footer-line {
+  display: block;
+  margin-bottom: 0.3em;
+}
+
+.site-footer .footer-divider {
+  display: inline-block;
+  margin: 0 0.5em;
+  opacity: 0.3;
+}

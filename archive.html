@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="文章归档 — 蚀羽 · corrofea" />
+  <title data-i18n="archive.title">归档 — 蚀羽 · corrofea</title>
+
+  <!-- Fonts — 非阻塞加载 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&family=Noto+Serif+SC:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'; this.onload=null;" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&family=Noto+Serif+SC:wght@300;400;500;600&display=swap" rel="stylesheet" /></noscript>
+
+  <!-- Critical inline -->
+  <style>
+    body{background:#F9F7F4;color:#2C2C2C;font-family:"Noto Serif SC",Georgia,serif;margin:0;min-height:100vh}
+    [data-theme="dark"] body{background:#1A1A1F;color:#E8E4DC}
+    .archive-title{font-family:"Cormorant Garamond","Noto Serif SC",serif;font-size:1.5rem;font-weight:300;padding-top:8vh}
+    #archive-content:empty::after{content:"Loading...";display:block;text-align:center;color:#A09890;padding:3rem 0;font-style:italic}
+  </style>
+
+  <!-- Styles (single bundle, no @import chain) -->
+  <link rel="stylesheet" href="styles/bundle.css" />
+</head>
+<body>
+  <div class="page">
+    <div id="site-header"></div>
+
+    <main>
+      <div class="container">
+        <div class="archive-header">
+          <h1 class="archive-title" data-i18n="archive.heading">文章归档</h1>
+        </div>
+
+        <div id="archive-content">
+          <!-- Dynamically rendered by year -->
+        </div>
+      </div>
+    </main>
+
+    <div id="site-footer"></div>
+  </div>
+
+  <button id="btn-back-to-top" class="btn-back-to-top" aria-label="Back to top">↑</button>
+
+  <!-- Scripts -->
+  <script src="scripts/utils/i18n.js"></script>
+  <script src="scripts/utils/router.js"></script>
+  <script src="scripts/utils/posts.js"></script>
+  <script src="scripts/components/theme.js"></script>
+  <script src="scripts/components/header.js"></script>
+  <script src="scripts/components/footer.js"></script>
+
+  <script>
+    async function renderArchive() {
+      const container = document.getElementById('archive-content');
+      const posts = await Posts.published();
+      const years = await Posts.years();
+      const lang = I18n.lang();
+
+      if (posts.length === 0) {
+        container.innerHTML = `<p style="text-align:center;color:var(--color-text-muted);padding:4rem 0;" data-i18n="archive.empty">暂无文章</p>`;
+        I18n.apply();
+        return;
+      }
+
+      container.innerHTML = years.map(({ year }) => {
+        const yearPosts = posts.filter(p => p.date.startsWith(year));
+        const items = yearPosts.map(p => {
+          const title = Posts.localize(p, 'title', lang);
+          const date = Posts.formatDate(p.date);
+          return `
+            <div class="archive-item">
+              <span class="archive-item-date">${date}</span>
+              <span class="archive-item-title">
+                <a href="post.html?slug=${p.slug}">${title}</a>
+              </span>
+            </div>
+          `;
+        }).join('');
+
+        return `
+          <section class="archive-year">
+            <div class="archive-year-label">${year}</div>
+            ${items}
+          </section>
+        `;
+      }).join('');
+
+      I18n.apply();
+    }
+
+    I18n.onChange(() => renderArchive());
+    window.renderPostList = renderArchive;
+    window.initArchive = renderArchive;
+  </script>
+
+  <script src="scripts/main.js"></script>
+</body>
+</html>

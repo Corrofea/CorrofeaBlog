@@ -1,0 +1,1175 @@
+/* ============================================
+   CorrofeaBlog Bundle CSS — 白夜書簡 · 蚀羽版
+   Auto-generated from source files. Edit individual
+   files in styles/ then regenerate this bundle.
+   ============================================ */
+
+
+/* ============================================
+   Reset — 白夜書簡 · 蚀羽版
+   极简重置，保留必要的可访问性
+   ============================================ */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+code,
+pre {
+  font-family: "JetBrains Mono", "SF Mono", "Cascadia Code", "Fira Code", monospace;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+/* 无障碍：保留 focus 可见轮廓（与主题色统一） */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   Design Variables — 白夜書簡 · 蚀羽版
+   无纯白、无纯黑。所有颜色带轻微风化感。
+   Theme transition: 1.2s ease on background-color
+   ============================================ */
+
+/* ---- 浅色主题（默认 / 跟随系统） ---- */
+:root,
+[data-theme="light"] {
+  /* 背景与表面 */
+  --color-bg:            #F9F7F4;
+  --color-surface:       #F0EDE8;
+  --color-surface-hover: #EBE6E0;
+  --color-border:        #E0DBD4;
+
+  /* 文字层级 */
+  --color-text:          #2C2C2C;
+  --color-text-secondary:#6B635B;
+  --color-text-muted:    #A09890;
+  --color-heading:       #1A1A1A;
+
+  /* 强调色 — 蚀羽棕 */
+  --color-accent:        #8B6F5C;
+  --color-accent-hover:  #7A5F4D;
+  --color-accent-subtle: #C4B5A9;
+
+  /* 代码块 */
+  --color-code-bg:       #2A2623;
+  --color-code-text:     #E8E0D8;
+  --color-code-border:   #3D3834;
+
+  /* 引用 */
+  --color-quote-text:    #5C5852;
+
+  /* 分割线 */
+  --color-divider:       #D8D2C8;
+
+  /* 选择 */
+  --color-selection-bg:  #C4B5A9;
+  --color-selection-text:#1A1A1A;
+}
+
+/* ---- 深色主题 ---- */
+[data-theme="dark"] {
+  --color-bg:            #1A1A1F;
+  --color-surface:       #222228;
+  --color-surface-hover: #2A2A32;
+  --color-border:        #33333A;
+
+  --color-text:          #E8E4DC;
+  --color-text-secondary:#9A948A;
+  --color-text-muted:    #6B6560;
+  --color-heading:       #F0EDE6;
+
+  --color-accent:        #B8A69A;
+  --color-accent-hover:  #C9B9AD;
+  --color-accent-subtle: #5C5046;
+
+  --color-code-bg:       #151418;
+  --color-code-text:     #D8D0C8;
+  --color-code-border:   #2A282D;
+
+  --color-quote-text:    #A09890;
+
+  --color-divider:       #2E2E36;
+
+  --color-selection-bg:  #5C5046;
+  --color-selection-text:#F0EDE6;
+}
+
+/* ---- 全局过渡（仅背景色参与，避免文字切换闪烁） ---- */
+html {
+  transition: background-color 1.2s ease;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  transition: background-color 1.2s ease, color 1.2s ease;
+}
+
+/* 所有依赖主题色的元素都参与平滑过渡 */
+a, button, hr, blockquote,
+header, footer, nav,
+.card, .post-card, .article-content {
+  transition: color 1.2s ease,
+              background-color 1.2s ease,
+              border-color 1.2s ease;
+}
+
+::selection {
+  background: var(--color-selection-bg);
+  color: var(--color-selection-text);
+}
+
+/* ============================================
+   Typography — 白夜書簡 · 蚀羽版
+   标题: Cormorant Garamond + Noto Serif SC
+   正文: Noto Serif SC + Georgia
+   代码: JetBrains Mono + SF Mono
+   ============================================ */
+
+/* ---- 字体栈 ---- */
+:root {
+  --font-heading:  "Cormorant Garamond", "Noto Serif SC", "STIX Two Text", "Times New Roman", serif;
+  --font-body:     "Noto Serif SC", "Georgia", "STIX Two Text", "Songti SC", serif;
+  --font-code:     "JetBrains Mono", "SF Mono", "Cascadia Code", "Fira Code", monospace;
+}
+
+/* 本地字体接口预留:
+   后续若需自托管字体，在此处引入 @font-face，
+   然后修改上方 --font-heading / --font-body 变量即可 */
+
+/* ---- 基础排版 ---- */
+html {
+  font-size: 18px;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.8;
+  font-weight: 400;
+  color: var(--color-text);
+  letter-spacing: 0.01em;
+}
+
+/* ---- 标题层级 ---- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--color-heading);
+  font-weight: 400;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+}
+
+h1 { font-size: 2.2rem; font-weight: 300; }
+h2 { font-size: 1.65rem; }
+h3 { font-size: 1.35rem; }
+h4 { font-size: 1.15rem; }
+h5 { font-size: 1rem; }
+h6 { font-size: 0.9rem; }
+
+/* ---- 段落与行内元素 ---- */
+p {
+  margin-bottom: 1.2em;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+strong {
+  font-weight: 600;
+}
+
+em {
+  font-style: italic;
+}
+
+/* ---- 链接 ---- */
+a {
+  color: var(--color-accent);
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+
+/* ---- 列表 ---- */
+ul, ol {
+  padding-left: 1.5em;
+  margin-bottom: 1.2em;
+}
+
+ul { list-style: disc; }
+ol { list-style: decimal; }
+
+li {
+  margin-bottom: 0.4em;
+}
+
+/* ---- 引用 ---- */
+blockquote {
+  margin: 1.5em 0;
+  padding: 0 1.2em;
+  font-style: italic;
+  color: var(--color-quote-text);
+  /* 左侧不加竖线 — 蚀羽风格 */
+  border: none;
+}
+
+/* ---- 内联代码 ---- */
+:not(pre) > code {
+  font-family: var(--font-code);
+  font-size: 0.88em;
+  background: var(--color-surface);
+  color: var(--color-accent);
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+}
+
+/* ---- 代码块 ---- */
+pre {
+  font-family: var(--font-code);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  background: var(--color-code-bg);
+  color: var(--color-code-text);
+  padding: 1.2em 1.4em;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 1.5em 0;
+  /* 不加边框 — 蚀羽风格 */
+}
+
+pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+}
+
+/* ---- 分割线 ---- */
+hr {
+  border: none;
+  height: 1px;
+  background: var(--color-divider);
+  margin: 2.5em 0;
+}
+
+/* ---- 响应式字号 ---- */
+@media (max-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.4rem; }
+  h3 { font-size: 1.2rem; }
+}
+
+/* ============================================
+   Layout — 白夜書簡 · 蚀羽版
+   内容最大宽度 680px，居中
+   ============================================ */
+
+/* ---- 内容容器 ---- */
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ---- 全宽容器（header/footer） ---- */
+.container-wide {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ---- 页面通用 ---- */
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  animation: pageFadeIn 0.8s ease both;
+}
+
+.page > main {
+  flex: 1;
+}
+
+@keyframes pageFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ---- 首页上方留白 ---- */
+.home-hero {
+  padding-top: 12vh;
+}
+
+/* ---- 文章列表通用布局 ---- */
+.post-list {
+  margin-top: 2rem;
+}
+
+/* ---- 响应式 ---- */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1.2rem;
+  }
+
+  .home-hero {
+    padding-top: 8vh;
+  }
+}
+
+/* ============================================
+   Header — 白夜書簡 · 蚀羽版
+   极简导航：站点标识 + 导航链接 + 控制按钮
+   ============================================ */
+
+.site-header {
+  padding: 2rem 0 1.5rem;
+  font-family: var(--font-body);
+}
+
+.site-header .header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ---- 站点标识：像版画签名，极小极淡 ---- */
+.site-brand {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--color-text-muted);
+  letter-spacing: 0.06em;
+  font-family: var(--font-heading);
+  font-style: italic;
+  white-space: nowrap;
+}
+
+.site-brand a:hover {
+  color: var(--color-accent-subtle);
+  text-decoration: none;
+}
+
+/* ---- 导航链接 ---- */
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.site-nav a {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.03em;
+}
+
+.site-nav a:hover {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.site-nav a.active {
+  color: var(--color-accent);
+}
+
+/* ---- 控制按钮组 ---- */
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.header-controls button {
+  background: none;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-size: 0.7rem;
+  padding: 0.25em 0.55em;
+  border-radius: 3px;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  font-family: var(--font-heading);
+}
+
+.header-controls button:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent-subtle);
+  text-decoration: none;
+}
+
+/* ---- 响应式 ---- */
+@media (max-width: 768px) {
+  .site-header .header-inner {
+    flex-direction: column;
+    gap: 0.8rem;
+    align-items: flex-start;
+  }
+
+  .site-nav {
+    gap: 1rem;
+  }
+
+  .header-controls {
+    position: absolute;
+    top: 2rem;
+    right: 1.5rem;
+  }
+}
+
+/* ============================================
+   Footer — 白夜書簡 · 蚀羽版
+   极淡、极小、像页脚的尘埃
+   ============================================ */
+
+.site-footer {
+  padding: 3rem 0 2rem;
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.04em;
+  font-family: var(--font-heading);
+  font-style: italic;
+}
+
+.site-footer .footer-line {
+  display: block;
+  margin-bottom: 0.3em;
+}
+
+.site-footer .footer-divider {
+  display: inline-block;
+  margin: 0 0.5em;
+  opacity: 0.3;
+}
+
+/* ============================================
+   Navbar — 白夜書簡 · 蚀羽版
+   （被 header.css 引用，导航栏内部细节）
+   ============================================ */
+
+/* 导航栏当前页面激活态 */
+.site-nav .nav-current {
+  color: var(--color-accent);
+}
+
+/* ============================================
+   Card — 白夜書簡 · 蚀羽版
+   文章卡片：日期 + 极细分割线 + 标题
+   悬停时标题颜色极轻微加深，无花哨效果
+   ============================================ */
+
+.post-card {
+  padding: 1.2rem 0;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.post-card:first-child {
+  padding-top: 0;
+}
+
+/* ---- 日期 — 极轻、像印在纸上的编号 ---- */
+.post-card-date {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.06em;
+  margin-bottom: 0.5rem;
+  font-style: italic;
+}
+
+/* ---- 标题 — 首页使用极细字重 ---- */
+.post-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.4;
+  color: var(--color-heading);
+  margin-bottom: 0.4rem;
+}
+
+.post-card-title a {
+  color: inherit;
+}
+
+.post-card-title a:hover {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+/* ---- 摘要 — 可选，用于首页预览 ---- */
+.post-card-summary {
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-top: 0.3rem;
+}
+
+/* ---- 标签 — 极小，次要信息 ---- */
+.post-card-tags {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.post-card-tag {
+  font-size: 0.68rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-heading);
+  letter-spacing: 0.04em;
+  font-style: italic;
+}
+
+/* ---- 悬停效果：仅标题颜色极轻微过渡 ---- */
+.post-card-title a {
+  transition: color 0.4s ease;
+}
+
+/* ============================================
+   Button — 白夜書簡 · 蚀羽版
+   按钮风格：极简、无花哨装饰
+   ============================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4em 1em;
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: color 0.3s ease,
+              border-color 0.3s ease;
+  user-select: none;
+}
+
+.btn:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent-subtle);
+  text-decoration: none;
+}
+
+.btn:active {
+  transform: none;
+}
+
+/* ---- 小尺寸按钮（语言切换、主题切换） ---- */
+.btn-sm {
+  padding: 0.2em 0.5em;
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+}
+
+/* ---- 回到顶部按钮 ---- */
+.btn-back-to-top {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 2.2rem;
+  height: 2.2rem;
+  padding: 0;
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-divider);
+  border-radius: 50%;
+  background: var(--color-bg);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease, color 0.3s ease, border-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-back-to-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.btn-back-to-top:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent-subtle);
+}
+
+/* ============================================
+   Post — 白夜書簡 · 蚀羽版
+   文章详情页排版：标题居中、正文行高 1.8
+   代码块深色无边、引用斜体无竖线
+   ============================================ */
+
+/* ---- 文章头部 ---- */
+.post-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-top: 6vh;
+}
+
+.post-header .post-back {
+  display: block;
+  text-align: left;
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-heading);
+  font-style: italic;
+  letter-spacing: 0.05em;
+  margin-bottom: 2rem;
+}
+
+.post-header .post-back:hover {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.post-header .post-title {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--color-heading);
+  line-height: 1.35;
+  margin-bottom: 0.8rem;
+}
+
+.post-header .post-meta {
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+  letter-spacing: 0.04em;
+}
+
+/* ---- 文章正文区域 ---- */
+.article-content {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--color-text);
+  /* 首行不缩进 */
+  text-indent: 0;
+}
+
+.article-content h1,
+.article-content h2,
+.article-content h3,
+.article-content h4,
+.article-content h5,
+.article-content h6 {
+  margin-top: 2em;
+  margin-bottom: 0.6em;
+}
+
+.article-content h1 { font-size: 1.8rem; font-weight: 300; }
+.article-content h2 { font-size: 1.45rem; }
+.article-content h3 { font-size: 1.2rem; }
+
+.article-content p {
+  margin-bottom: 1.2em;
+}
+
+/* ---- 文章内图片 ---- */
+.article-content img {
+  max-width: 100%;
+  height: auto;
+  margin: 2em auto;
+  border-radius: 2px;
+}
+
+/* ---- 文章底部 ---- */
+.post-footer {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-divider);
+}
+
+/* ---- 下一篇预览 ---- */
+.post-next-preview {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-heading);
+  font-style: italic;
+}
+
+.post-next-preview a {
+  display: block;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 300;
+  color: var(--color-heading);
+  margin-top: 0.3rem;
+}
+
+.post-next-preview a:hover {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+/* ---- 标签列表 ---- */
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 2rem 0 1rem;
+}
+
+.post-tag {
+  font-family: var(--font-heading);
+  font-size: 0.68rem;
+  font-style: italic;
+  color: var(--color-text-muted);
+  letter-spacing: 0.04em;
+}
+
+/* ---- 评论区占位 ---- */
+#comments {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-divider);
+  min-height: 2rem;
+}
+
+/* ---- 响应式 ---- */
+@media (max-width: 768px) {
+  .post-header .post-title {
+    font-size: 1.5rem;
+  }
+
+  .article-content {
+    font-size: 0.94rem;
+  }
+}
+
+/* ============================================
+   Home Page — 白夜書簡 · 蚀羽版
+   首页：站点标识极淡极小，文章列表
+   ============================================ */
+
+/* ---- 站点标识：像版画签名 ---- */
+.home-signature {
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--color-text-muted);
+  letter-spacing: 0.08em;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.home-signature .sig-zh {
+  color: var(--color-text-muted);
+}
+
+.home-signature .sig-sep {
+  margin: 0 0.5em;
+  color: var(--color-text-muted);
+  opacity: 0.4;
+}
+
+.home-signature .sig-en {
+  color: var(--color-text-muted);
+  font-size: 0.85em;
+}
+
+/* ---- 首页文章列表 ---- */
+.home-posts {
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+}
+
+/* ---- 首页无内容提示 ---- */
+.home-empty {
+  text-align: center;
+  color: var(--color-text-muted);
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 0.88rem;
+  padding: 4rem 0;
+}
+
+/* ---- 底部箭头暗示更多 ---- */
+.home-scroll-hint {
+  text-align: center;
+  margin-top: 2rem;
+  padding-bottom: 3rem;
+}
+
+.home-scroll-hint .arrow-down {
+  display: inline-block;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  opacity: 0.35;
+  animation: arrowPulse 3s ease infinite;
+  font-family: var(--font-heading);
+}
+
+@keyframes arrowPulse {
+  0%, 100% { opacity: 0.25; transform: translateY(0); }
+  50%      { opacity: 0.6;  transform: translateY(4px); }
+}
+
+@media (max-width: 768px) {
+  .home-signature {
+    margin-bottom: 2rem;
+  }
+}
+
+/* ============================================
+   Archive Page — 白夜書簡 · 蚀羽版
+   按年份分组的时间线
+   ============================================ */
+
+.archive-header {
+  padding-top: 8vh;
+  margin-bottom: 3rem;
+}
+
+.archive-header .archive-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--color-heading);
+  letter-spacing: 0.04em;
+}
+
+/* ---- 年份分组 ---- */
+.archive-year {
+  margin-bottom: 2.5rem;
+}
+
+.archive-year-label {
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--color-text-muted);
+  letter-spacing: 0.06em;
+  margin-bottom: 0.8rem;
+}
+
+/* ---- 归档文章条目：日期 + 标题 ---- */
+.archive-item {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.archive-item-date {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+  white-space: nowrap;
+  letter-spacing: 0.04em;
+}
+
+.archive-item-title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--color-heading);
+}
+
+.archive-item-title a:hover {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .archive-item {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+}
+
+/* ============================================
+   Projects Page — 白夜書簡 · 蚀羽版
+   项目卡片：名称 + 类型徽章 + 描述 + 技术栈
+   ============================================ */
+
+.projects-header {
+  padding-top: 8vh;
+  margin-bottom: 3rem;
+}
+
+.projects-header .projects-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--color-heading);
+  letter-spacing: 0.04em;
+}
+
+.projects-header .projects-subtitle {
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--color-text-muted);
+  margin-top: 0.4rem;
+  letter-spacing: 0.04em;
+}
+
+/* ---- 项目卡片 ---- */
+.project-card {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.project-card:first-of-type {
+  border-top: 1px solid var(--color-divider);
+}
+
+.project-card-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.project-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: var(--color-heading);
+  line-height: 1.4;
+}
+
+/* ---- 类型徽章 ---- */
+.project-type-badge {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 0.62rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+  padding: 0.15em 0.55em;
+  border-radius: 2px;
+  letter-spacing: 0.04em;
+  vertical-align: middle;
+}
+
+/* ---- 项目描述 ---- */
+.project-card-desc {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  margin-bottom: 0.8rem;
+}
+
+/* ---- 技术栈和链接 ---- */
+.project-card-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.project-tech {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.project-tech-tag {
+  font-family: var(--font-code);
+  font-size: 0.68rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.02em;
+}
+
+.project-links {
+  display: flex;
+  gap: 0.8rem;
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-style: italic;
+}
+
+.project-link {
+  color: var(--color-accent);
+  letter-spacing: 0.03em;
+}
+
+.project-link:hover {
+  text-decoration: underline;
+}
+
+.project-link-demo {
+  color: var(--color-text-secondary);
+}
+
+/* ---- GitHub 链接 ---- */
+.projects-more {
+  text-align: center;
+  padding: 3rem 0 4rem;
+}
+
+.projects-github-link {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--color-text-muted);
+  letter-spacing: 0.04em;
+}
+
+.projects-github-link:hover {
+  color: var(--color-accent);
+}
+
+/* ---- 空状态 ---- */
+.projects-empty {
+  text-align: center;
+  color: var(--color-text-muted);
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 0.88rem;
+  padding: 4rem 0;
+}
+
+/* ---- 响应式 ---- */
+@media (max-width: 768px) {
+  .project-card-meta {
+    flex-direction: column;
+  }
+
+  .project-card-title {
+    font-size: 1.05rem;
+  }
+}
+
+/* ============================================
+   About Page — 白夜書簡 · 蚀羽版
+   关于页：个人信息、博客说明
+   ============================================ */
+
+.about-header {
+  padding-top: 8vh;
+  margin-bottom: 3rem;
+}
+
+.about-header .about-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--color-heading);
+  letter-spacing: 0.04em;
+}
+
+/* ---- 关于内容区 ---- */
+.about-content {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--color-text);
+}
+
+.about-content p {
+  margin-bottom: 1em;
+}
+
+/* ---- 蚀羽意象说明 ---- */
+.about-motto {
+  margin: 2.5rem 0;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--color-divider);
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.about-motto blockquote {
+  text-align: center;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--color-text-secondary);
+}
+
+/* ---- 社交链接 ---- */
+.about-links {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.about-link {
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.03em;
+  font-style: italic;
+}

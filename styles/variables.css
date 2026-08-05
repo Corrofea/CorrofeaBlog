@@ -1,0 +1,94 @@
+/* ============================================
+   Design Variables — 白夜書簡 · 蚀羽版
+   无纯白、无纯黑。所有颜色带轻微风化感。
+   Theme transition: 1.2s ease on background-color
+   ============================================ */
+
+/* ---- 浅色主题（默认 / 跟随系统） ---- */
+:root,
+[data-theme="light"] {
+  /* 背景与表面 */
+  --color-bg:            #F9F7F4;
+  --color-surface:       #F0EDE8;
+  --color-surface-hover: #EBE6E0;
+  --color-border:        #E0DBD4;
+
+  /* 文字层级 */
+  --color-text:          #2C2C2C;
+  --color-text-secondary:#6B635B;
+  --color-text-muted:    #A09890;
+  --color-heading:       #1A1A1A;
+
+  /* 强调色 — 蚀羽棕 */
+  --color-accent:        #8B6F5C;
+  --color-accent-hover:  #7A5F4D;
+  --color-accent-subtle: #C4B5A9;
+
+  /* 代码块 */
+  --color-code-bg:       #2A2623;
+  --color-code-text:     #E8E0D8;
+  --color-code-border:   #3D3834;
+
+  /* 引用 */
+  --color-quote-text:    #5C5852;
+
+  /* 分割线 */
+  --color-divider:       #D8D2C8;
+
+  /* 选择 */
+  --color-selection-bg:  #C4B5A9;
+  --color-selection-text:#1A1A1A;
+}
+
+/* ---- 深色主题 ---- */
+[data-theme="dark"] {
+  --color-bg:            #1A1A1F;
+  --color-surface:       #222228;
+  --color-surface-hover: #2A2A32;
+  --color-border:        #33333A;
+
+  --color-text:          #E8E4DC;
+  --color-text-secondary:#9A948A;
+  --color-text-muted:    #6B6560;
+  --color-heading:       #F0EDE6;
+
+  --color-accent:        #B8A69A;
+  --color-accent-hover:  #C9B9AD;
+  --color-accent-subtle: #5C5046;
+
+  --color-code-bg:       #151418;
+  --color-code-text:     #D8D0C8;
+  --color-code-border:   #2A282D;
+
+  --color-quote-text:    #A09890;
+
+  --color-divider:       #2E2E36;
+
+  --color-selection-bg:  #5C5046;
+  --color-selection-text:#F0EDE6;
+}
+
+/* ---- 全局过渡（仅背景色参与，避免文字切换闪烁） ---- */
+html {
+  transition: background-color 1.2s ease;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  transition: background-color 1.2s ease, color 1.2s ease;
+}
+
+/* 所有依赖主题色的元素都参与平滑过渡 */
+a, button, hr, blockquote,
+header, footer, nav,
+.card, .post-card, .article-content {
+  transition: color 1.2s ease,
+              background-color 1.2s ease,
+              border-color 1.2s ease;
+}
+
+::selection {
+  background: var(--color-selection-bg);
+  color: var(--color-selection-text);
+}

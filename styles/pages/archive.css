@@ -1,0 +1,68 @@
+/* ============================================
+   Archive Page — 白夜書簡 · 蚀羽版
+   按年份分组的时间线
+   ============================================ */
+
+.archive-header {
+  padding-top: 8vh;
+  margin-bottom: 3rem;
+}
+
+.archive-header .archive-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--color-heading);
+  letter-spacing: 0.04em;
+}
+
+/* ---- 年份分组 ---- */
+.archive-year {
+  margin-bottom: 2.5rem;
+}
+
+.archive-year-label {
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--color-text-muted);
+  letter-spacing: 0.06em;
+  margin-bottom: 0.8rem;
+}
+
+/* ---- 归档文章条目：日期 + 标题 ---- */
+.archive-item {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.archive-item-date {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+  white-space: nowrap;
+  letter-spacing: 0.04em;
+}
+
+.archive-item-title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--color-heading);
+}
+
+.archive-item-title a:hover {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .archive-item {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+}

@@ -1,0 +1,60 @@
+/* ============================================
+   About Page — 白夜書簡 · 蚀羽版
+   关于页：个人信息、博客说明
+   ============================================ */
+
+.about-header {
+  padding-top: 8vh;
+  margin-bottom: 3rem;
+}
+
+.about-header .about-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--color-heading);
+  letter-spacing: 0.04em;
+}
+
+/* ---- 关于内容区 ---- */
+.about-content {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--color-text);
+}
+
+.about-content p {
+  margin-bottom: 1em;
+}
+
+/* ---- 蚀羽意象说明 ---- */
+.about-motto {
+  margin: 2.5rem 0;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--color-divider);
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.about-motto blockquote {
+  text-align: center;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--color-text-secondary);
+}
+
+/* ---- 社交链接 ---- */
+.about-links {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.about-link {
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.03em;
+  font-style: italic;
+}

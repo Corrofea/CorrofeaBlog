@@ -1,0 +1,56 @@
+/* ============================================
+   Layout — 白夜書簡 · 蚀羽版
+   内容最大宽度 680px，居中
+   ============================================ */
+
+/* ---- 内容容器 ---- */
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ---- 全宽容器（header/footer） ---- */
+.container-wide {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ---- 页面通用 ---- */
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  animation: pageFadeIn 0.8s ease both;
+}
+
+.page > main {
+  flex: 1;
+}
+
+@keyframes pageFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ---- 首页上方留白 ---- */
+.home-hero {
+  padding-top: 12vh;
+}
+
+/* ---- 文章列表通用布局 ---- */
+.post-list {
+  margin-top: 2rem;
+}
+
+/* ---- 响应式 ---- */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1.2rem;
+  }
+
+  .home-hero {
+    padding-top: 8vh;
+  }
+}

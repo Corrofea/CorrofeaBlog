@@ -1,0 +1,156 @@
+/* ============================================
+   Projects Page — 白夜書簡 · 蚀羽版
+   项目卡片：名称 + 类型徽章 + 描述 + 技术栈
+   ============================================ */
+
+.projects-header {
+  padding-top: 8vh;
+  margin-bottom: 3rem;
+}
+
+.projects-header .projects-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--color-heading);
+  letter-spacing: 0.04em;
+}
+
+.projects-header .projects-subtitle {
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--color-text-muted);
+  margin-top: 0.4rem;
+  letter-spacing: 0.04em;
+}
+
+/* ---- 项目卡片 ---- */
+.project-card {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.project-card:first-of-type {
+  border-top: 1px solid var(--color-divider);
+}
+
+.project-card-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.project-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: var(--color-heading);
+  line-height: 1.4;
+}
+
+/* ---- 类型徽章 ---- */
+.project-type-badge {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 0.62rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+  padding: 0.15em 0.55em;
+  border-radius: 2px;
+  letter-spacing: 0.04em;
+  vertical-align: middle;
+}
+
+/* ---- 项目描述 ---- */
+.project-card-desc {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  margin-bottom: 0.8rem;
+}
+
+/* ---- 技术栈和链接 ---- */
+.project-card-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.project-tech {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.project-tech-tag {
+  font-family: var(--font-code);
+  font-size: 0.68rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.02em;
+}
+
+.project-links {
+  display: flex;
+  gap: 0.8rem;
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-style: italic;
+}
+
+.project-link {
+  color: var(--color-accent);
+  letter-spacing: 0.03em;
+}
+
+.project-link:hover {
+  text-decoration: underline;
+}
+
+.project-link-demo {
+  color: var(--color-text-secondary);
+}
+
+/* ---- GitHub 链接 ---- */
+.projects-more {
+  text-align: center;
+  padding: 3rem 0 4rem;
+}
+
+.projects-github-link {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--color-text-muted);
+  letter-spacing: 0.04em;
+}
+
+.projects-github-link:hover {
+  color: var(--color-accent);
+}
+
+/* ---- 空状态 ---- */
+.projects-empty {
+  text-align: center;
+  color: var(--color-text-muted);
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 0.88rem;
+  padding: 4rem 0;
+}
+
+/* ---- 响应式 ---- */
+@media (max-width: 768px) {
+  .project-card-meta {
+    flex-direction: column;
+  }
+
+  .project-card-title {
+    font-size: 1.05rem;
+  }
+}

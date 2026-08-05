@@ -1,0 +1,74 @@
+/* ============================================
+   Home Page — 白夜書簡 · 蚀羽版
+   首页：站点标识极淡极小，文章列表
+   ============================================ */
+
+/* ---- 站点标识：像版画签名 ---- */
+.home-signature {
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--color-text-muted);
+  letter-spacing: 0.08em;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.home-signature .sig-zh {
+  color: var(--color-text-muted);
+}
+
+.home-signature .sig-sep {
+  margin: 0 0.5em;
+  color: var(--color-text-muted);
+  opacity: 0.4;
+}
+
+.home-signature .sig-en {
+  color: var(--color-text-muted);
+  font-size: 0.85em;
+}
+
+/* ---- 首页文章列表 ---- */
+.home-posts {
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+}
+
+/* ---- 首页无内容提示 ---- */
+.home-empty {
+  text-align: center;
+  color: var(--color-text-muted);
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 0.88rem;
+  padding: 4rem 0;
+}
+
+/* ---- 底部箭头暗示更多 ---- */
+.home-scroll-hint {
+  text-align: center;
+  margin-top: 2rem;
+  padding-bottom: 3rem;
+}
+
+.home-scroll-hint .arrow-down {
+  display: inline-block;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  opacity: 0.35;
+  animation: arrowPulse 3s ease infinite;
+  font-family: var(--font-heading);
+}
+
+@keyframes arrowPulse {
+  0%, 100% { opacity: 0.25; transform: translateY(0); }
+  50%      { opacity: 0.6;  transform: translateY(4px); }
+}
+
+@media (max-width: 768px) {
+  .home-signature {
+    margin-bottom: 2rem;
+  }
+}

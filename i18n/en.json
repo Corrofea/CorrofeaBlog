@@ -1,0 +1,61 @@
+{
+  "site": {
+    "name": "corrofea",
+    "subtitle": "蚀羽",
+    "description": "A feather corroded by time — personal tech blog"
+  },
+  "nav": {
+    "home": "Home",
+    "archive": "Archive",
+    "tags": "Tags",
+    "projects": "Projects",
+    "about": "About"
+  },
+  "home": {
+    "no_posts": "Feathers are still growing...",
+    "scroll_hint": "↓"
+  },
+  "post": {
+    "back": "← Back",
+    "not_found": "Failed to load this post. Perhaps this feather hasn't landed yet.",
+    "next": "Next",
+    "no_next": "No more posts",
+    "min_read": "min read"
+  },
+  "archive": {
+    "title": "Archive — corrofea",
+    "heading": "Archive",
+    "empty": "Time has left no trace yet."
+  },
+  "tags": {
+    "title": "Tags — corrofea",
+    "heading": "Tags",
+    "empty": "No tags yet."
+  },
+  "about": {
+    "title": "About — corrofea",
+    "heading": "About",
+    "p1": "This is corrofea's personal tech blog.",
+    "p2": "Corrofea — corrode + feather = a feather eroded by time. Technology, like time, imperceptibly changes the texture of every feather. This blog records my thoughts, mistakes, and reflections in the world of programming.",
+    "p3": "Main interests: frontend engineering, toolchains, server operations, and those moments of \"I finally got it working after all the tinkering.\"",
+    "motto": "Code becomes obsolete, feathers weather away, but the marks of erosion themselves carry meaning.",
+    "back_home": "← Back home"
+  },
+  "footer": {
+    "copyright": "© 2025 corrofea",
+    "powered": "白夜書簡 · corrofea"
+  },
+  "projects": {
+    "title": "Projects — corrofea",
+    "heading": "Projects",
+    "subtitle": "Things I've built",
+    "empty": "No projects to show yet.",
+    "view_github": "GitHub →",
+    "source": "Source",
+    "demo": "Demo"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark"
+  }
+}

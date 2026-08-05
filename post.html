@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="蚀羽 · corrofea — 文章详情" />
+  <meta property="og:type" content="article" />
+  <title>蚀羽 · corrofea</title>
+
+  <!-- Fonts — 非阻塞加载 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&family=Noto+Serif+SC:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'; this.onload=null;" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&family=Noto+Serif+SC:wght@300;400;500;600&display=swap" rel="stylesheet" /></noscript>
+
+  <!-- Critical inline -->
+  <style>
+    body{background:#F9F7F4;color:#2C2C2C;font-family:"Noto Serif SC",Georgia,serif;margin:0;min-height:100vh}
+    [data-theme="dark"] body{background:#1A1A1F;color:#E8E4DC}
+    .post-header{padding-top:6vh;text-align:center}
+    .post-back{font-size:.72rem;color:#A09890;font-style:italic}
+    [data-theme="dark"] .post-back{color:#6B6560}
+  </style>
+
+  <!-- Styles (single bundle, no @import chain) -->
+  <link rel="stylesheet" href="styles/bundle.css" />
+</head>
+<body>
+  <div class="page">
+    <div id="site-header"></div>
+
+    <main>
+      <article class="container">
+        <!-- Post header -->
+        <header class="post-header">
+          <a href="index.html" class="post-back" data-i18n="post.back">← 返回</a>
+          <h1 class="post-title" id="post-title"></h1>
+          <div class="post-meta" id="post-meta"></div>
+        </header>
+
+        <!-- Post content -->
+        <div class="article-content" id="post-content"></div>
+
+        <!-- Post footer: tags + next preview -->
+        <footer class="post-footer">
+          <div class="post-tags" id="post-tags"></div>
+          <div class="post-next-preview" id="post-next"></div>
+        </footer>
+
+        <!-- Comments placeholder -->
+        <div id="comments"></div>
+      </article>
+    </main>
+
+    <div id="site-footer"></div>
+  </div>
+
+  <button id="btn-back-to-top" class="btn-back-to-top" aria-label="Back to top">↑</button>
+
+  <!-- Scripts -->
+  <script src="scripts/utils/i18n.js"></script>
+  <script src="scripts/utils/router.js"></script>
+  <script src="scripts/utils/posts.js"></script>
+  <script src="scripts/utils/marked-setup.js"></script>
+  <script src="scripts/components/theme.js"></script>
+  <script src="scripts/components/header.js"></script>
+  <script src="scripts/components/footer.js"></script>
+  <script src="scripts/components/comments.js"></script>
+
+  <script>
+    let _currentSlug = null;
+
+    async function renderPost(slug) {
+      if (!slug) {
+        document.getElementById('post-title').textContent = 'Post not found';
+        document.getElementById('post-content').innerHTML = '';
+        return;
+      }
+
+      _currentSlug = slug;
+      const lang = I18n.lang();
+      const post = await Posts.getBySlug(slug);
+
+      if (!post) {
+        document.getElementById('post-title').textContent = 'Post not found';
+        document.getElementById('post-content').innerHTML = '';
+        return;
+      }
+
+      // Update document metadata
+      const title = Posts.localize(post, 'title', lang);
+      document.title = `${title} — 蚀羽 · corrofea`;
+      document.querySelector('meta[name="description"]').content =
+        Posts.localize(post, 'summary', lang) || title;
+      document.querySelector('meta[property="og:title"]').content = title;
+      document.querySelector('meta[property="og:description"]').content =
+        Posts.localize(post, 'summary', lang) || title;
+
+      // Render header
+      document.getElementById('post-title').textContent = title;
+      const date = Posts.formatDate(post.date);
+      const rt = `${date}`;
+      document.getElementById('post-meta').textContent = rt;
+
+      // Render tags
+      const tagsContainer = document.getElementById('post-tags');
+      tagsContainer.innerHTML = (post.tags || []).map(t =>
+        `<span class="post-tag">#${t}</span>`
+      ).join('');
+
+      // Render content (fetch & parse markdown)
+      const contentEl = document.getElementById('post-content');
+      contentEl.innerHTML = '<p style="text-align:center;color:var(--color-text-muted);">Loading...</p>';
+
+      // Fetch the raw markdown to estimate reading time
+      let mdText = '';
+      try {
+        const mdResp = await fetch(`/posts/${lang}/${slug}.md`);
+        if (mdResp.ok) mdText = await mdResp.text();
+      } catch (e) { /* ignore */ }
+
+      const html = await Posts.renderContent(slug, lang);
+      if (html) {
+        contentEl.innerHTML = html;
+      } else {
+        contentEl.innerHTML = `<p data-i18n="post.not_found">文章内容加载失败。</p>`;
+      }
+
+      // Update meta with reading time
+      const rtFull = `${date} · ${Posts.readingTime(mdText, lang)}`;
+      document.getElementById('post-meta').textContent = rtFull;
+
+      // Render next post preview
+      const next = await Posts.nextPost(slug);
+      const nextEl = document.getElementById('post-next');
+      if (next) {
+        const nextTitle = Posts.localize(next, 'title', lang);
+        nextEl.innerHTML = `
+          <span data-i18n="post.next">下一篇</span>
+          <a href="post.html?slug=${next.slug}">${nextTitle}</a>
+        `;
+      } else {
+        nextEl.innerHTML = '';
+      }
+
+      // Initialize comments
+      Comments.init();
+
+      // Apply i18n
+      I18n.apply();
+    }
+
+    /* Expose for language switch */
+    window.reloadPost = async function () {
+      await renderPost(_currentSlug);
+    };
+
+    /* Init */
+    window.initPost = async function (slug) {
+      await renderPost(slug || Router.get('slug'));
+    };
+  </script>
+
+  <script src="scripts/main.js"></script>
+</body>
+</html>

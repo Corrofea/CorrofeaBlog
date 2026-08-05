@@ -1,0 +1,149 @@
+/* ============================================
+   Typography — 白夜書簡 · 蚀羽版
+   标题: Cormorant Garamond + Noto Serif SC
+   正文: Noto Serif SC + Georgia
+   代码: JetBrains Mono + SF Mono
+   ============================================ */
+
+/* ---- 字体栈 ---- */
+:root {
+  --font-heading:  "Cormorant Garamond", "Noto Serif SC", "STIX Two Text", "Times New Roman", serif;
+  --font-body:     "Noto Serif SC", "Georgia", "STIX Two Text", "Songti SC", serif;
+  --font-code:     "JetBrains Mono", "SF Mono", "Cascadia Code", "Fira Code", monospace;
+}
+
+/* 本地字体接口预留:
+   后续若需自托管字体，在此处引入 @font-face，
+   然后修改上方 --font-heading / --font-body 变量即可 */
+
+/* ---- 基础排版 ---- */
+html {
+  font-size: 18px;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.8;
+  font-weight: 400;
+  color: var(--color-text);
+  letter-spacing: 0.01em;
+}
+
+/* ---- 标题层级 ---- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--color-heading);
+  font-weight: 400;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+}
+
+h1 { font-size: 2.2rem; font-weight: 300; }
+h2 { font-size: 1.65rem; }
+h3 { font-size: 1.35rem; }
+h4 { font-size: 1.15rem; }
+h5 { font-size: 1rem; }
+h6 { font-size: 0.9rem; }
+
+/* ---- 段落与行内元素 ---- */
+p {
+  margin-bottom: 1.2em;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+strong {
+  font-weight: 600;
+}
+
+em {
+  font-style: italic;
+}
+
+/* ---- 链接 ---- */
+a {
+  color: var(--color-accent);
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+
+/* ---- 列表 ---- */
+ul, ol {
+  padding-left: 1.5em;
+  margin-bottom: 1.2em;
+}
+
+ul { list-style: disc; }
+ol { list-style: decimal; }
+
+li {
+  margin-bottom: 0.4em;
+}
+
+/* ---- 引用 ---- */
+blockquote {
+  margin: 1.5em 0;
+  padding: 0 1.2em;
+  font-style: italic;
+  color: var(--color-quote-text);
+  /* 左侧不加竖线 — 蚀羽风格 */
+  border: none;
+}
+
+/* ---- 内联代码 ---- */
+:not(pre) > code {
+  font-family: var(--font-code);
+  font-size: 0.88em;
+  background: var(--color-surface);
+  color: var(--color-accent);
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+}
+
+/* ---- 代码块 ---- */
+pre {
+  font-family: var(--font-code);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  background: var(--color-code-bg);
+  color: var(--color-code-text);
+  padding: 1.2em 1.4em;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 1.5em 0;
+  /* 不加边框 — 蚀羽风格 */
+}
+
+pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+}
+
+/* ---- 分割线 ---- */
+hr {
+  border: none;
+  height: 1px;
+  background: var(--color-divider);
+  margin: 2.5em 0;
+}
+
+/* ---- 响应式字号 ---- */
+@media (max-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.4rem; }
+  h3 { font-size: 1.2rem; }
+}

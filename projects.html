@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="项目 — 蚀羽 · corrofea" />
+  <title data-i18n="projects.title">项目 — 蚀羽 · corrofea</title>
+
+  <!-- Fonts — 非阻塞加载 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&family=Noto+Serif+SC:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'; this.onload=null;" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&family=Noto+Serif+SC:wght@300;400;500;600&display=swap" rel="stylesheet" /></noscript>
+
+  <!-- Critical inline -->
+  <style>
+    body{background:#F9F7F4;color:#2C2C2C;font-family:"Noto Serif SC",Georgia,serif;margin:0;min-height:100vh}
+    [data-theme="dark"] body{background:#1A1A1F;color:#E8E4DC}
+    .projects-title{font-family:"Cormorant Garamond","Noto Serif SC",serif;font-size:1.5rem;font-weight:300;padding-top:8vh}
+    #projects-list:empty::after{content:"Loading...";display:block;text-align:center;color:#A09890;padding:3rem 0;font-style:italic}
+  </style>
+
+  <!-- Styles (single bundle, no @import chain) -->
+  <link rel="stylesheet" href="styles/bundle.css" />
+</head>
+<body>
+  <div class="page">
+    <div id="site-header"></div>
+
+    <main>
+      <div class="container">
+        <div class="projects-header">
+          <h1 class="projects-title" data-i18n="projects.heading">项目</h1>
+          <p class="projects-subtitle" data-i18n="projects.subtitle">一些自己折腾的东西</p>
+        </div>
+
+        <div id="projects-list">
+          <!-- Dynamically rendered -->
+        </div>
+
+        <!-- GitHub 链接 -->
+        <div class="projects-more">
+          <a href="https://github.com/corrofea" target="_blank" rel="noopener noreferrer" class="projects-github-link">
+            <span data-i18n="projects.view_github">GitHub →</span>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <div id="site-footer"></div>
+  </div>
+
+  <button id="btn-back-to-top" class="btn-back-to-top" aria-label="Back to top">↑</button>
+
+  <!-- Scripts -->
+  <script src="scripts/utils/i18n.js"></script>
+  <script src="scripts/utils/router.js"></script>
+  <script src="scripts/utils/posts.js"></script>
+  <script src="scripts/components/theme.js"></script>
+  <script src="scripts/components/header.js"></script>
+  <script src="scripts/components/footer.js"></script>
+
+  <script>
+    async function renderProjects() {
+      const container = document.getElementById('projects-list');
+      if (!container) return;
+
+      let projects = [];
+      try {
+        const resp = await fetch('/projects.json');
+        if (resp.ok) projects = await resp.json();
+      } catch (e) {
+        console.warn('[Projects] Failed to load projects.json', e);
+      }
+
+      const lang = I18n.lang();
+
+      if (projects.length === 0) {
+        container.innerHTML = `<p class="projects-empty" data-i18n="projects.empty">还没有项目展示。</p>`;
+        I18n.apply();
+        return;
+      }
+
+      // Separate featured and regular
+      const featured = projects.filter(p => p.featured);
+      const regular = projects.filter(p => !p.featured);
+      const sorted = [...featured, ...regular];
+
+      container.innerHTML = sorted.map(p => {
+        const title = Posts.localize(p, 'title', lang);
+        const desc = Posts.localize(p, 'description', lang);
+        const techTags = (p.tech || []).map(t =>
+          `<span class="project-tech-tag">${t}</span>`
+        ).join('');
+
+        const links = [];
+        if (p.github) {
+          links.push(`<a href="${p.github}" target="_blank" rel="noopener noreferrer" class="project-link" data-i18n-title="projects.source">GitHub</a>`);
+        }
+        if (p.demo) {
+          links.push(`<a href="${p.demo}" class="project-link project-link-demo" data-i18n-title="projects.demo">Demo</a>`);
+        }
+
+        const typeLabel = {
+          game: lang === 'zh' ? '游戏' : 'Game',
+          tool: lang === 'zh' ? '工具' : 'Tool',
+          library: lang === 'zh' ? '库' : 'Library',
+          website: lang === 'zh' ? '网站' : 'Website',
+          other: lang === 'zh' ? '其他' : 'Other'
+        }[p.type] || '';
+
+        return `
+          <article class="project-card">
+            <div class="project-card-header">
+              <h2 class="project-card-title">
+                ${title}
+                ${typeLabel ? `<span class="project-type-badge">${typeLabel}</span>` : ''}
+              </h2>
+            </div>
+            <p class="project-card-desc">${desc}</p>
+            <div class="project-card-meta">
+              <div class="project-tech">${techTags}</div>
+              <div class="project-links">${links.join(' · ')}</div>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      I18n.apply();
+    }
+
+    I18n.onChange(() => renderProjects());
+    window.initProjects = renderProjects;
+  </script>
+
+  <script src="scripts/main.js"></script>
+</body>
+</html>
