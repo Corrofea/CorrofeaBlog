@@ -18,6 +18,7 @@
   "post": {
     "back": "← Back",
     "not_found": "This feather was scattered by the wind.",
+    "toc": "Outline",
     "next": "Next",
     "no_next": "No more posts",
     "min_read": "min read"

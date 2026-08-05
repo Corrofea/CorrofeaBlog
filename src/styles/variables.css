@@ -20,9 +20,9 @@
   --color-heading:       #1A1A1A;
 
   /* 强调色 — 蚀羽棕 */
-  --color-accent:        #8B6F5C;
-  --color-accent-hover:  #7A5F4D;
-  --color-accent-subtle: #C4B5A9;
+  --color-accent:        #6B4F3E;
+  --color-accent-hover:  #5A3F2E;
+  --color-accent-subtle: #B8A08E;
 
   /* 代码块 */
   --color-code-bg:       #2A2623;
@@ -52,9 +52,9 @@
   --color-text-muted:    #6B6560;
   --color-heading:       #F0EDE6;
 
-  --color-accent:        #B8A69A;
-  --color-accent-hover:  #C9B9AD;
-  --color-accent-subtle: #5C5046;
+  --color-accent:        #C4AE9C;
+  --color-accent-hover:  #D4BEAE;
+  --color-accent-subtle: #6B5C50;
 
   --color-code-bg:       #151418;
   --color-code-text:     #D8D0C8;

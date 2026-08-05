@@ -41,7 +41,7 @@
 
 .archive-item-date {
   font-family: var(--font-heading);
-  font-size: 0.72rem;
+  font-size: 0.92rem;
   color: var(--color-text-muted);
   font-style: italic;
   white-space: nowrap;

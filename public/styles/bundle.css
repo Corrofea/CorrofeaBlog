@@ -104,9 +104,9 @@ table {
   --color-heading:       #1A1A1A;
 
   /* 强调色 — 蚀羽棕 */
-  --color-accent:        #8B6F5C;
-  --color-accent-hover:  #7A5F4D;
-  --color-accent-subtle: #C4B5A9;
+  --color-accent:        #6B4F3E;
+  --color-accent-hover:  #5A3F2E;
+  --color-accent-subtle: #B8A08E;
 
   /* 代码块 */
   --color-code-bg:       #2A2623;
@@ -136,9 +136,9 @@ table {
   --color-text-muted:    #6B6560;
   --color-heading:       #F0EDE6;
 
-  --color-accent:        #B8A69A;
-  --color-accent-hover:  #C9B9AD;
-  --color-accent-subtle: #5C5046;
+  --color-accent:        #C4AE9C;
+  --color-accent-hover:  #D4BEAE;
+  --color-accent-subtle: #6B5C50;
 
   --color-code-bg:       #151418;
   --color-code-text:     #D8D0C8;
@@ -331,14 +331,14 @@ hr {
 /* === layout.css === */
 /* ============================================
    Layout — 白夜書簡 · 蚀羽版
-   内容最大宽度 680px，居中
+   内容最大宽度 860px，居中
    ============================================ */
 
 /* ---- 内容容器 ---- */
 .container {
-  max-width: 680px;
+  max-width: 860px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 1rem;
 }
 
 /* ---- 全宽容器（header/footer） ---- */
@@ -542,7 +542,7 @@ hr {
 /* ---- 日期 — 极轻、像印在纸上的编号 ---- */
 .post-card-date {
   font-family: var(--font-heading);
-  font-size: 0.75rem;
+  font-size: 1rem;
   color: var(--color-text-muted);
   letter-spacing: 0.06em;
   margin-bottom: 0.5rem;
@@ -687,7 +687,7 @@ hr {
 .post-header .post-back {
   display: block;
   text-align: left;
-  font-size: 0.72rem;
+  font-size: 0.88rem;
   color: var(--color-text-muted);
   font-family: var(--font-heading);
   font-style: italic;
@@ -711,7 +711,7 @@ hr {
 
 .post-header .post-meta {
   font-family: var(--font-heading);
-  font-size: 0.78rem;
+  font-size: 0.95rem;
   color: var(--color-text-muted);
   font-style: italic;
   letter-spacing: 0.04em;
@@ -806,7 +806,151 @@ hr {
   min-height: 2rem;
 }
 
+/* ---- 文章 + 目录布局 ---- */
+.post-layout {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  padding: 0 3.5rem;
+}
+
+.post-layout .container {
+  flex: 0 1 860px;
+  min-width: 0;
+}
+
+/* ---- 侧边目录 ---- */
+.post-toc {
+  flex: 0 0 200px;
+  position: sticky;
+  top: 3rem;
+  align-self: flex-start;
+  max-height: calc(100vh - 6rem);
+  overflow-y: auto;
+  padding-top: 7.5vh;
+  font-family: var(--font-heading);
+}
+
+.toc-title {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--color-text-muted);
+  letter-spacing: 0.06em;
+  font-style: italic;
+  margin-bottom: 0.8rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toc-title:hover {
+  color: var(--color-accent);
+}
+
+.toc-arrow {
+  display: inline-block;
+  font-size: 0.6rem;
+  transition: transform 0.3s ease;
+  font-style: normal;
+}
+
+.toc-collapsed .toc-arrow {
+  transform: rotate(-90deg);
+}
+
+#toc-nav {
+  border-left: 1px solid var(--color-divider);
+  padding-left: 0.8rem;
+  overflow: hidden;
+  transition: max-height 0.35s ease, opacity 0.25s ease;
+  max-height: 2000px;
+  opacity: 1;
+}
+
+.toc-collapsed #toc-nav {
+  max-height: 0;
+  opacity: 0;
+}
+
+#toc-nav a {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  padding: 0.25em 0 0.25em 1.35em;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  letter-spacing: 0.03em;
+  position: relative;
+}
+
+#toc-nav a:hover,
+#toc-nav a.toc-active {
+  color: var(--color-accent);
+}
+
+/* ---- Tree collapsible groups ---- */
+.toc-group {
+  margin: 0.1em 0;
+}
+
+.toc-toggle {
+  position: absolute;
+  left: 0;
+  top: 0.25em;
+  width: 1.35em;
+  font-size: 0.55rem;
+  transition: transform 0.25s ease;
+  opacity: 0.5;
+  text-align: center;
+  line-height: inherit;
+}
+
+.toc-collapsed-group .toc-toggle {
+  transform: rotate(-90deg);
+}
+
+.toc-children {
+  position: relative;
+  margin-left: 0.85em;
+  padding-left: 0.6em;
+  border-left: 1px solid var(--color-divider);
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.25s ease;
+  max-height: 600px;
+  opacity: 1;
+}
+
+.toc-collapsed-group .toc-children {
+  max-height: 0;
+  opacity: 0;
+}
+
+.toc-h3 {
+  position: relative;
+  padding-left: 2rem;
+  font-size: 0.7rem !important;
+  opacity: 0.85;
+}
+
+.toc-h3::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 0.5em;
+  height: 1px;
+  background: var(--color-divider);
+}
+
 /* ---- 响应式 ---- */
+@media (max-width: 1200px) {
+  .post-toc {
+    display: none;
+  }
+}
+
 @media (max-width: 768px) {
   .post-header .post-title {
     font-size: 1.5rem;
@@ -937,7 +1081,7 @@ hr {
 
 .archive-item-date {
   font-family: var(--font-heading);
-  font-size: 0.72rem;
+  font-size: 0.92rem;
   color: var(--color-text-muted);
   font-style: italic;
   white-space: nowrap;

@@ -32,26 +32,36 @@
     <div id="site-header"></div>
 
     <main>
-      <article class="container">
-        <!-- Post header -->
-        <header class="post-header">
-          <a href="index.html" class="post-back" data-i18n="post.back">← 返回</a>
-          <h1 class="post-title" id="post-title"></h1>
-          <div class="post-meta" id="post-meta"></div>
-        </header>
+      <div class="post-layout">
+        <article class="container">
+          <!-- Post header -->
+          <header class="post-header">
+            <a href="index.html" class="post-back" data-i18n="post.back">← 返回</a>
+            <h1 class="post-title" id="post-title"></h1>
+            <div class="post-meta" id="post-meta"></div>
+          </header>
 
-        <!-- Post content -->
-        <div class="article-content" id="post-content"></div>
+          <!-- Post content -->
+          <div class="article-content" id="post-content"></div>
 
-        <!-- Post footer: tags + next preview -->
-        <footer class="post-footer">
-          <div class="post-tags" id="post-tags"></div>
-          <div class="post-next-preview" id="post-next"></div>
-        </footer>
+          <!-- Post footer: tags + next preview -->
+          <footer class="post-footer">
+            <div class="post-tags" id="post-tags"></div>
+            <div class="post-next-preview" id="post-next"></div>
+          </footer>
 
-        <!-- Comments placeholder -->
-        <div id="comments"></div>
-      </article>
+          <!-- Comments placeholder -->
+          <div id="comments"></div>
+        </article>
+
+        <aside class="post-toc" id="post-toc">
+          <div class="toc-title" onclick="document.getElementById('post-toc').classList.toggle('toc-collapsed')">
+            <span class="toc-arrow">▾</span>
+            <span data-i18n="post.toc">目录</span>
+          </div>
+          <nav id="toc-nav"></nav>
+        </aside>
+      </div>
     </main>
 
     <div id="site-footer"></div>
@@ -114,6 +124,7 @@
         var html = await Posts.renderContent(slug, lang);
         if (html) {
           contentEl.innerHTML = html;
+          buildTOC();
         } else {
           contentEl.innerHTML = '<p data-i18n="post.not_found">这片羽毛被风吹散了。</p>';
         }
@@ -147,6 +158,87 @@
       var el = document.querySelector(selector);
       if (el) el.content = value;
     }
+
+    /* ---- Build collapsible tree TOC ---- */
+    function buildTOC() {
+      var nav = document.getElementById('toc-nav');
+      var content = document.getElementById('post-content');
+      if (!nav || !content) return;
+
+      var headings = content.querySelectorAll('h2, h3');
+      if (headings.length < 2) {
+        document.getElementById('post-toc').style.display = 'none';
+        return;
+      }
+
+      var html = '';
+      var tocIdx = 0;
+      for (var i = 0; i < headings.length; i++) {
+        var h = headings[i];
+        var id = 'toc-' + tocIdx;
+        h.id = id;
+        tocIdx++;
+
+        if (h.tagName === 'H2') {
+          // Collect following h3 children
+          var children = '';
+          var j = i + 1;
+          while (j < headings.length && headings[j].tagName === 'H3') {
+            var h3id = 'toc-' + tocIdx;
+            headings[j].id = h3id;
+            children += '<a href="#' + h3id + '" class="toc-link toc-h3">' + headings[j].textContent + '</a>';
+            tocIdx++;
+            j++;
+          }
+          if (children) {
+            html += '<div class="toc-group">' +
+              '<a href="#' + id + '" class="toc-link toc-h2" onclick="toggleTOCGroup(this)">' +
+                '<span class="toc-toggle">▾</span>' + h.textContent +
+              '</a>' +
+              '<div class="toc-children">' + children + '</div>' +
+            '</div>';
+            i = j - 1;
+          } else {
+            html += '<a href="#' + id + '" class="toc-link toc-h2">' + h.textContent + '</a>';
+          }
+        } else {
+          // Standalone h3 (no parent h2)
+          html += '<a href="#' + id + '" class="toc-link toc-h3">' + h.textContent + '</a>';
+        }
+      }
+      nav.innerHTML = html;
+    }
+
+    /* ---- Toggle TOC group collapse ---- */
+    function toggleTOCGroup(link) {
+      var group = link.parentNode;
+      group.classList.toggle('toc-collapsed-group');
+    }
+    window.toggleTOCGroup = toggleTOCGroup;
+
+    /* ---- Scroll spy: highlight active TOC item ---- */
+    var tocScrollTimer = null;
+    window.addEventListener('scroll', function () {
+      if (tocScrollTimer) return;
+      tocScrollTimer = setTimeout(function () {
+        tocScrollTimer = null;
+        var links = document.querySelectorAll('#toc-nav a');
+        if (!links.length) return;
+        var active = null;
+        for (var i = links.length - 1; i >= 0; i--) {
+          var id = links[i].getAttribute('href').substring(1);
+          var el = document.getElementById(id);
+          if (el && el.getBoundingClientRect().top < window.innerHeight * 0.4) {
+            active = links[i];
+            break;
+          }
+        }
+        for (var j = 0; j < links.length; j++) {
+          links[j].classList.remove('toc-active');
+        }
+        if (active) active.classList.add('toc-active');
+      }, 80);
+    });
 
     /* Expose for language switch */
     window.reloadPost = async function () {

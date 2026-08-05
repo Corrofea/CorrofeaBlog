@@ -91,6 +91,8 @@ var Posts = (function () {
       var r = await fetchTimeout('posts/' + lang + '/' + slug + '.md', 8000);
       if (!r.ok) throw new Error('HTTP ' + r.status);
       var md = await r.text();
+      // Strip YAML frontmatter (--- ... ---)
+      md = md.replace(/^---[\s\S]*?---\s*\n/, '');
       MarkedSetup.init();
       return marked.parse(md);
     } catch (e) {
