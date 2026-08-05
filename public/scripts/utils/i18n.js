@@ -27,12 +27,12 @@ var I18n = (function () {
   /* Async fallback loader (if data wasn't preloaded) */
   async function loadFallback(lang) {
     try {
-      var r = await fetchTimeout('/i18n/' + lang + '.json', 5000);
+      var r = await fetchTimeout('i18n/' + lang + '.json', 5000);
       if (r.ok) { _translations = await r.json(); _lang = lang; return; }
     } catch (e) {}
     var fb = lang === 'zh' ? 'en' : 'zh';
     try {
-      var r2 = await fetchTimeout('/i18n/' + fb + '.json', 5000);
+      var r2 = await fetchTimeout('i18n/' + fb + '.json', 5000);
       if (r2.ok) { _translations = await r2.json(); _lang = fb; return; }
     } catch (e2) {}
     _translations = _translations || {};

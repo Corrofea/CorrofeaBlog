@@ -6,7 +6,7 @@
 const Footer = (() => {
   async function load() {
     try {
-      const resp = await fetch('/components/footer.html');
+      const resp = await fetch('components/footer.html');
       if (!resp.ok) return;
       const html = await resp.text();
 

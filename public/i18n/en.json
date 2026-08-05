@@ -17,7 +17,7 @@
   },
   "post": {
     "back": "← Back",
-    "not_found": "Failed to load this post. Perhaps this feather hasn't landed yet.",
+    "not_found": "This feather was scattered by the wind.",
     "next": "Next",
     "no_next": "No more posts",
     "min_read": "min read"

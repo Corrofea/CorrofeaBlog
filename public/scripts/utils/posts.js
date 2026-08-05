@@ -31,7 +31,7 @@ var Posts = (function () {
     }
     _loading = true;
     try {
-      var r = await fetchTimeout('/posts-index.json', 8000);
+      var r = await fetchTimeout('posts-index.json', 8000);
       if (!r.ok) throw new Error('HTTP ' + r.status);
       _index = await r.json();
     } catch (e) {
@@ -88,7 +88,7 @@ var Posts = (function () {
 
   async function renderContent(slug, lang) {
     try {
-      var r = await fetchTimeout('/posts/' + lang + '/' + slug + '.md', 8000);
+      var r = await fetchTimeout('posts/' + lang + '/' + slug + '.md', 8000);
       if (!r.ok) throw new Error('HTTP ' + r.status);
       var md = await r.text();
       MarkedSetup.init();

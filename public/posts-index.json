@@ -1,5 +1,21 @@
 [
   {
+    "slug": "20260805-nginx-403-debugging",
+    "title": {
+      "zh": "Nginx 部署踩坑实录：从 SSH 配置到 403 的旅程"
+    },
+    "date": "2026-08-05",
+    "tags": [
+      "Nginx",
+      "运维",
+      "部署"
+    ],
+    "summary": {
+      "zh": "从配置好 SSH 到解决 Nginx 403 的完整排错记录，涵盖权限、路径、SELinux 等五个层次。"
+    },
+    "draft": false
+  },
+  {
     "slug": "interactive-fiction-to-deploy",
     "title": {
       "zh": "从写一个交互小说到部署：一篇关于「百年孤独」的技术笔记",

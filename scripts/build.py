@@ -121,26 +121,28 @@ def write_index(posts):
         json.dump(posts, f, ensure_ascii=False, indent=2)
     print(f"  posts-index.json: {len(posts)} posts")
 
-# ----- 4. Inject into index.html -----
+# ----- 4. Inject into index.html and post.html -----
 
-def inject_index_html(posts):
-    html_file = ROOT / 'public' / 'index.html'
-    with open(html_file, 'r', encoding='utf-8') as f:
-        html = f.read()
-
+def inject_posts(posts):
     json_str = json.dumps(posts, ensure_ascii=False)
     new_block = f'window.__POSTS__ = {json_str};'
-
-    # Replace the existing __POSTS__ block
     pattern = r'window\.__POSTS__\s*=\s*\[.*?\];'
-    if re.search(pattern, html, re.DOTALL):
-        html = re.sub(pattern, new_block, html, flags=re.DOTALL)
-    else:
-        print("  WARN: window.__POSTS__ not found in index.html")
 
-    with open(html_file, 'w', encoding='utf-8') as f:
-        f.write(html)
-    print(f"  index.html: __POSTS__ updated with {len(posts)} posts")
+    for page in ['index.html', 'post.html']:
+        html_file = ROOT / 'public' / page
+        if not html_file.exists():
+            print(f"  WARN: {page} not found")
+            continue
+        with open(html_file, 'r', encoding='utf-8') as f:
+            html = f.read()
+        if re.search(pattern, html, re.DOTALL):
+            html = re.sub(pattern, new_block, html, flags=re.DOTALL)
+        else:
+            print(f"  WARN: window.__POSTS__ not found in {page}")
+            continue
+        with open(html_file, 'w', encoding='utf-8') as f:
+            f.write(html)
+        print(f"  {page}: __POSTS__ updated with {len(posts)} posts")
 
 # ----- 5. Regenerate bundle.css -----
 
@@ -178,7 +180,7 @@ if __name__ == '__main__':
     # Build posts
     posts = build_index()
     write_index(posts)
-    inject_index_html(posts)
+    inject_posts(posts)
 
     # Build CSS
     build_css()
