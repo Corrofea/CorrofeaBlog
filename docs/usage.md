@@ -1,0 +1,232 @@
+# 用法手册 · 蚀羽 CorrofeaBlog
+
+> 如何写文章、加项目、改样式、部署上线
+
+## 快速开始
+
+```bash
+# 本地预览
+cd CorrofeaBlog
+python3 -m http.server 8080
+# 浏览器打开 http://localhost:8080
+```
+
+## 写文章
+
+### 步骤 1：创建 Markdown 文件
+
+在 `posts/zh/` 和 `posts/en/` 下各创建一个同名 `.md` 文件：
+
+```
+posts/
+├── zh/
+│   └── my-new-post.md    ← 中文版
+└── en/
+    └── my-new-post.md    ← 英文版
+```
+
+Markdown 支持标准语法 + GFM 表格 + 代码块。图片放在 `assets/images/blog/{slug}/`，文中用相对路径引用：
+
+```markdown
+![配图](my-new-post/screenshot.png)
+```
+
+### 步骤 2：注册到索引
+
+编辑 `posts-index.json`，在数组末尾添加一条：
+
+```json
+{
+  "slug": "my-new-post",
+  "title": {
+    "zh": "我的新文章标题",
+    "en": "My New Post Title"
+  },
+  "date": "2025-08-10",
+  "tags": ["前端", "JavaScript"],
+  "summary": {
+    "zh": "一句话摘要，会显示在首页卡片上。",
+    "en": "One-line summary shown on the home page card."
+  },
+  "draft": false
+}
+```
+
+| 字段 | 说明 |
+|------|------|
+| `slug` | 唯一标识，与文件名一致（不含 `.md`），用于 URL：`post.html?slug=my-new-post` |
+| `title` | 中英文标题 |
+| `date` | `YYYY-MM-DD` 格式，用于排序和显示 |
+| `tags` | 标签数组，用于标签页聚合 |
+| `summary` | 摘要，首页卡片显示 |
+| `draft` | `true` 时首页和归档隐藏，`false` 时公开 |
+
+### 步骤 3：部署
+
+上传后即生效——`post.html?slug=my-new-post` 自动加载对应 MD 文件。
+
+### 首页预加载更新（重要）
+
+如果你看到首页没有新文章，需要更新 `index.html` 中的 `window.__POSTS__` 数据。这是因为首页为了加载可靠性，文章列表数据是直接内嵌在 HTML 中的。
+
+**方法**：在 `index.html` 中找到 `window.__POSTS__ = [...]` 这行，将 `posts-index.json` 的完整内容复制替换进去（推荐做法）。
+
+或者写一个简单的脚本自动同步（未来可做）。
+
+## 添加项目
+
+编辑 `projects.json`：
+
+```json
+{
+  "slug": "my-web-game",
+  "title": { "zh": "我的网页游戏", "en": "My Web Game" },
+  "description": {
+    "zh": "一个基于 Canvas 的 roguelike 游戏。",
+    "en": "A Canvas-based roguelike game."
+  },
+  "tech": ["HTML5 Canvas", "JavaScript"],
+  "github": "https://github.com/corrofea/my-game",
+  "demo": "/demos/my-web-game/",
+  "type": "game",
+  "featured": true
+}
+```
+
+| 字段 | 说明 |
+|------|------|
+| `type` | `game` / `tool` / `library` / `website` / `other`，决定卡片上的类型徽章 |
+| `featured` | `true` 时排在列表最前面 |
+| `demo` | 如果项目托管在本站，填 `/demos/project-name/`；否则填外部 URL 或 `null` |
+
+托管 Demo：把项目文件放入 `demos/` 目录，部署后即可通过 `/demos/project-name/` 访问。Nginx 已配置好 `/demos/` 路径。
+
+## 修改样式
+
+### 工作流
+
+1. 编辑 `styles/` 下的分模块文件（`variables.css`, `typography.css`, `components/*.css`, `pages/*.css`）
+2. 重新合并为 `bundle.css`：
+
+```bash
+cd styles
+cat reset.css variables.css typography.css layout.css \
+    components/header.css components/footer.css components/navbar.css \
+    components/card.css components/button.css components/post.css \
+    pages/home.css pages/archive.css pages/projects.css pages/about.css \
+    > bundle.css
+```
+
+### 修改配色
+
+编辑 `styles/variables.css`，修改 CSS 变量：
+
+```css
+:root, [data-theme="light"] {
+  --color-bg:     #F9F7F4;   /* 浅色背景 */
+  --color-text:   #2C2C2C;   /* 浅色正文 */
+  --color-accent: #8B6F5C;   /* 强调色 */
+  /* ... */
+}
+[data-theme="dark"] {
+  --color-bg:     #1A1A1F;   /* 深色背景 */
+  --color-text:   #E8E4DC;   /* 深色正文 */
+  --color-accent: #B8A69A;   /* 强调色 */
+  /* ... */
+}
+```
+
+修改后重新合并 `bundle.css` 并部署。
+
+### 修改字体
+
+编辑 `styles/typography.css`：
+
+```css
+:root {
+  --font-heading: "Your Heading Font", "Noto Serif SC", serif;
+  --font-body:    "Your Body Font", "Georgia", serif;
+  --font-code:    "Your Code Font", monospace;
+}
+```
+
+如果要使用本地字体（不依赖 Google Fonts）：
+
+1. 把字体文件放入 `assets/fonts/`
+2. 在 `typography.css` 顶部添加 `@font-face` 声明
+3. 修改 `--font-*` 变量使用本地字体名
+4. 删除 HTML 中的 Google Fonts `<link>` 标签
+
+## 添加新页面
+
+1. 复制任一现有页面（如 `about.html`）作为模板
+2. 修改内容区域
+3. 在 `styles/pages/` 下创建对应 CSS 文件
+4. 重新合并 `bundle.css`
+5. 在 `scripts/main.js` 的 `switch(page)` 中添加 case
+6. 在 `components/header.html` 导航栏中添加链接
+7. 在 `i18n/zh.json` 和 `i18n/en.json` 中添加翻译
+
+## 部署
+
+### 首次部署
+
+```bash
+# 1. 上传文件到服务器
+scp -r * user@your-server:/var/www/corrofea/
+
+# 2. 配置 Nginx
+sudo cp nginx/corrofea.conf /etc/nginx/sites-available/corrofea
+sudo ln -s /etc/nginx/sites-available/corrofea /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
+### 更新部署
+
+```bash
+# 增量上传
+rsync -avz --delete ./ user@your-server:/var/www/corrofea/
+```
+
+### HTTPS（Let's Encrypt）
+
+```bash
+sudo apt install certbot python3-certbot-nginx
+sudo certbot --nginx -d corrofea.com -d www.corrofea.com
+```
+
+然后取消 `nginx/corrofea.conf` 中 HTTPS server block 的注释。
+
+## 配置评论
+
+1. 在 GitHub 仓库开启 Discussions
+2. 安装 [Giscus](https://giscus.app/) 并获取配置
+3. 编辑 `scripts/components/comments.js`，取消注释中的 Giscus 代码，填入你的参数
+4. 部署
+
+## 添加代码高亮
+
+1. 下载 highlight.js 放到 `scripts/lib/highlight.min.js`
+2. 下载主题 CSS 放到 `styles/highlight.css`，合并到 `bundle.css`
+3. 编辑 `scripts/utils/marked-setup.js`，在 `marked.setOptions()` 中配置 highlight 回调
+
+## 常见问题
+
+### 首页打开空白
+
+1. 确保用 `python3 -m http.server` 而非直接双击打开 HTML（`file://` 协议有限制）
+2. 检查浏览器控制台是否有错误
+3. 清除浏览器缓存（Ctrl+Shift+R 强制刷新）
+
+### 修改了 posts-index.json 但首页不更新
+
+首页文章列表数据内嵌在 `index.html` 的 `<script>window.__POSTS__</script>` 中，不通过 fetch 获取。修改 `posts-index.json` 后需要同步更新 `index.html` 中的这段数据。
+
+### 文章详情页打不开
+
+确保 URL 参数正确：`post.html?slug=xxx`，`xxx` 与 MD 文件名一致（不含 `.md`）。
+
+### bundle.css 修改后不生效
+
+清除浏览器缓存。生产环境 Nginx 配置了 CSS 7 天缓存，更新后可以用 `?v=2` 参数强制刷新，或等待缓存过期。
