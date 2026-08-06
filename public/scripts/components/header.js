@@ -21,19 +21,16 @@ const Header = (() => {
     }
   }
 
-  async function switchToLang(lang) {
-    if (I18n.lang() === lang) return;
-    await I18n.switchLang(lang);
-    updateLangButtons();
-    if (typeof reloadPost === 'function') await reloadPost();
-    if (typeof renderPostList === 'function') await renderPostList();
-  }
-
   function bindEvents() {
-    var zhBtn = document.getElementById('btn-lang-zh');
-    var enBtn = document.getElementById('btn-lang-en');
-    if (zhBtn) zhBtn.addEventListener('click', function () { switchToLang('zh'); });
-    if (enBtn) enBtn.addEventListener('click', function () { switchToLang('en'); });
+    var langBtn = document.getElementById('btn-lang-toggle');
+    if (langBtn) {
+      langBtn.addEventListener('click', async function () {
+        await I18n.toggle();
+        updateLangButton();
+        if (typeof reloadPost === 'function') await reloadPost();
+        if (typeof renderPostList === 'function') await renderPostList();
+      });
+    }
 
     var themeBtn = document.getElementById('btn-theme-toggle');
     if (themeBtn) {
@@ -43,16 +40,16 @@ const Header = (() => {
       });
     }
 
-    updateLangButtons();
+    updateLangButton();
     updateThemeButton();
   }
 
-  function updateLangButtons() {
-    var zhBtn = document.getElementById('btn-lang-zh');
-    var enBtn = document.getElementById('btn-lang-en');
+  function updateLangButton() {
+    var zh = document.querySelector('.lang-zh');
+    var en = document.querySelector('.lang-en');
     var cur = I18n.lang();
-    if (zhBtn) zhBtn.classList.toggle('active', cur === 'zh');
-    if (enBtn) enBtn.classList.toggle('active', cur === 'en');
+    if (zh) zh.classList.toggle('active', cur === 'zh');
+    if (en) en.classList.toggle('active', cur === 'en');
   }
 
   function updateThemeButton() {
@@ -60,7 +57,7 @@ const Header = (() => {
     if (btn) btn.textContent = Theme.current() === 'dark' ? '☀' : '☾';
   }
 
-  return { load: load, updateLangButton: updateLangButtons, updateThemeButton: updateThemeButton };
+  return { load: load, updateLangButton: updateLangButton, updateThemeButton: updateThemeButton };
 })();
 
 window.Header = Header;

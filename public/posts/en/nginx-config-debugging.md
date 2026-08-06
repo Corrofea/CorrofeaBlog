@@ -14,6 +14,8 @@ draft: false
 
 ---
 
+## Round 1: Where Does 404 Come From
+
 **Me**: Why is my server showing 404 Not Found?
 
 ![404 Not Found screenshot](/assets/images/blog/nginx-config-debugging/404-error.webp)
@@ -82,6 +84,8 @@ The critical clue is `# configuration file /etc/nginx/conf.d/clickmacondo.conf:`
 
 ---
 
+## Round 2: Who's Really in Charge
+
 **Me**: clickmacondo.conf is from an old web game project. I don't want it anymore.
 
 **AI**: Delete it:
@@ -92,6 +96,8 @@ sudo nginx -t && sudo systemctl reload nginx
 ```
 
 ---
+
+## Round 3: The Case of the Vanished Root
 
 **Me**: After deleting, `sudo nginx -T | grep "root"` shows nothing at all. Now the site won't load at all.
 
@@ -104,6 +110,8 @@ ls -la /etc/nginx/sites-enabled/
 ```
 
 ---
+
+## Round 4: sites-available vs sites-enabled
 
 **Me**: Earlier you told me to edit `sites-available/default`. Now you're talking about `sites-enabled/default`. What's the difference? Which one is the system default?
 
@@ -149,6 +157,8 @@ Why symlinks instead of copying files? If you copy, changes to `sites-available/
 
 ---
 
+## Round 5: Enabling the Config
+
 **Me**: So what do I do now?
 
 **AI**: Create a symlink to enable your config:
@@ -181,6 +191,8 @@ sudo nginx -t && sudo systemctl reload nginx
 ```
 
 ---
+
+## Round 6: 403 and the Hidden index.html
 
 **Me**: Now I'm getting 403 Forbidden.
 
@@ -225,6 +237,10 @@ Reload, and the site should be live.
   → Update root to include /public
   → ✅ Live
 ```
+
+## Reference
+
+- [Nginx Beginner's Guide](https://nginx.org/en/docs/beginners_guide.html) — the official Nginx introduction, covering sites-available/enabled, server blocks, location directives, and more.
 
 ## Key Takeaways
 

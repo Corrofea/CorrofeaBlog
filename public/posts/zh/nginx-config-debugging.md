@@ -14,6 +14,8 @@ draft: false
 
 ---
 
+## 第一关：404 从哪来
+
 **我**：为什么我的服务器网页打开是 404 Not Found？
 
 ![404 Not Found 截图](/assets/images/blog/nginx-config-debugging/404-error.webp)
@@ -83,6 +85,8 @@ server {
 
 ---
 
+## 第二关：谁在真正生效
+
 **我**：clickmacondo.conf 是我之前做网页游戏时用的，现在不想用它了。
 
 **AI**：直接删：
@@ -93,6 +97,8 @@ sudo nginx -t && sudo systemctl reload nginx
 ```
 
 ---
+
+## 第三关：root 消失之谜
 
 **我**：删完之后 `sudo nginx -T | grep "root"` 什么都不显示了，网页也打不开了。
 
@@ -105,6 +111,8 @@ ls -la /etc/nginx/sites-enabled/
 ```
 
 ---
+
+## 第四关：sites-available 与 sites-enabled
 
 **我**：之前不是让我找 `sites-available/default` 吗，为什么现在又是 `sites-enabled/default`？这两个到底有什么区别，哪个才是系统默认？
 
@@ -150,6 +158,8 @@ include /etc/nginx/sites-enabled/*;
 
 ---
 
+## 第五关：启用配置
+
 **我**：所以我现在要做什么？
 
 **AI**：创建软链接来启用你的配置：
@@ -182,6 +192,8 @@ sudo nginx -t && sudo systemctl reload nginx
 ```
 
 ---
+
+## 第六关：403 与藏在子目录里的 index.html
 
 **我**：现在变成 403 Forbidden 了。
 
@@ -226,6 +238,10 @@ root /var/www/html/CorrofeaBlog/public;
   → 修改 root 加上 /public
   → ✅ 上线
 ```
+
+## 参考
+
+- [Nginx Beginner's Guide](https://nginx.org/en/docs/beginners_guide.html) — Nginx 官方入门手册，sites-available/enabled、server block、location 等概念讲得很清楚。
 
 ## 关键教训
 

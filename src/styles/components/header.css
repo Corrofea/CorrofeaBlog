@@ -77,39 +77,36 @@
   text-decoration: none;
 }
 
-/* ---- 语言切换 ZH / EN ---- */
-.lang-switch {
+/* ---- 语言切换按钮 ---- */
+.btn-lang {
   display: inline-flex;
   align-items: center;
-  gap: 0;
+  background: none;
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  padding: 0;
   font-family: var(--font-heading);
   font-size: 0.68rem;
   letter-spacing: 0.05em;
+  border-radius: 4px;
+  overflow: hidden;
 }
 
-.btn-lang {
-  background: none;
-  border: none;
+.lang-zh, .lang-en {
+  padding: 0.25em 0.5em;
+  border-radius: 3px;
+  transition: background 0.3s ease, color 0.3s ease;
   color: var(--color-text-muted);
-  cursor: pointer;
-  padding: 0.15em 0.2em;
-  font-family: inherit;
-  font-size: inherit;
-  letter-spacing: inherit;
-  transition: color 0.2s ease;
 }
 
-.btn-lang.active {
-  color: var(--color-accent);
-}
-
-.btn-lang:hover {
-  color: var(--color-accent);
+.lang-zh.active, .lang-en.active {
+  background: var(--color-accent-subtle);
+  color: var(--color-heading);
 }
 
 .lang-sep {
   color: var(--color-text-muted);
-  opacity: 0.3;
+  opacity: 0.2;
   user-select: none;
 }
 
