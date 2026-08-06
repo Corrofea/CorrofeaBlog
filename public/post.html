@@ -127,7 +127,10 @@
         if (html) {
           contentEl.innerHTML = html;
           buildTOC();
-          if (typeof mermaid !== 'undefined') { mermaid.run(); }
+          if (typeof mermaid !== 'undefined') {
+            mermaid.initialize({ theme: 'neutral', startOnLoad: false });
+            mermaid.run();
+          }
         } else {
           contentEl.innerHTML = '<p data-i18n="post.not_found">这片羽毛被风吹散了。</p>';
         }
