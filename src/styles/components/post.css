@@ -271,6 +271,14 @@
   background: var(--color-divider);
 }
 
+/* ---- Mermaid 图表：透明背景 ---- */
+.mermaid {
+  background: transparent !important;
+}
+.mermaid svg {
+  background: transparent !important;
+}
+
 /* ---- 响应式 ---- */
 @media (max-width: 1200px) {
   .post-toc {

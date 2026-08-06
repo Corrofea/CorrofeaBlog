@@ -128,7 +128,17 @@
           contentEl.innerHTML = html;
           buildTOC();
           if (typeof mermaid !== 'undefined') {
-            mermaid.initialize({ theme: 'neutral', startOnLoad: false });
+            mermaid.initialize({
+              theme: 'base',
+              startOnLoad: false,
+              themeVariables: {
+                background: 'transparent',
+                primaryColor: '#B8A08E',
+                primaryBorderColor: '#D8D2C8',
+                lineColor: '#A09890',
+                textColor: '#2C2C2C',
+              }
+            });
             mermaid.run();
           }
         } else {
