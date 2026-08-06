@@ -16,6 +16,8 @@ draft: false
 
 **Me**: Why is my server showing 404 Not Found?
 
+![404 Not Found screenshot](/assets/images/blog/nginx-config-debugging/404-error.webp)
+
 **AI**: First, check where Nginx's `root` is currently pointing:
 
 ```bash
@@ -30,8 +32,6 @@ sudo nginx -T | grep "root"
 | `grep "root"` | Search for lines containing "root" |
 
 Paste the output here.
-
-![404 Not Found screenshot](/assets/images/blog/nginx-config-debugging/404-error.webp)
 
 ---
 

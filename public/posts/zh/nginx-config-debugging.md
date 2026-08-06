@@ -16,6 +16,8 @@ draft: false
 
 **我**：为什么我的服务器网页打开是 404 Not Found？
 
+![404 Not Found 截图](/assets/images/blog/nginx-config-debugging/404-error.webp)
+
 **AI**：先确认 Nginx 当前 `root` 指向哪里：
 
 ```bash
@@ -30,8 +32,6 @@ sudo nginx -T | grep "root"
 | `grep "root"` | 搜索包含 `root` 的行 |
 
 把输出贴给我。
-
-![404 Not Found 截图](/assets/images/blog/nginx-config-debugging/404-error.webp)
 
 ---
 

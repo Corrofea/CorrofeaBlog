@@ -128,18 +128,57 @@
           contentEl.innerHTML = html;
           buildTOC();
           if (typeof mermaid !== 'undefined') {
-            mermaid.initialize({
-              theme: 'base',
-              startOnLoad: false,
-              themeVariables: {
-                background: 'transparent',
-                primaryColor: '#B8A08E',
-                primaryBorderColor: '#D8D2C8',
-                lineColor: '#A09890',
-                textColor: '#2C2C2C',
+            // Save original mermaid source code before rendering
+            var mermaidSources = [];
+            var blocks = document.querySelectorAll('.mermaid');
+            for (var b = 0; b < blocks.length; b++) {
+              mermaidSources.push(blocks[b].textContent);
+            }
+
+            window.renderMermaid = function () {
+              var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+              var container = document.getElementById('post-content');
+              // Remove existing rendered SVGs, re-insert fresh <pre class="mermaid">
+              var oldBlocks = container.querySelectorAll('.mermaid');
+              for (var i = 0; i < oldBlocks.length; i++) {
+                var fresh = document.createElement('pre');
+                fresh.className = 'mermaid';
+                fresh.textContent = mermaidSources[i] || '';
+                oldBlocks[i].parentNode.replaceChild(fresh, oldBlocks[i]);
               }
+              mermaid.initialize({
+                theme: 'base',
+                startOnLoad: false,
+                themeVariables: {
+                  background: 'transparent',
+                  primaryColor:    isDark ? '#3D3530' : '#f0e8e0',
+                  primaryBorderColor: isDark ? '#8B7565' : '#8B6F5C',
+                  primaryTextColor:   isDark ? '#D8D0C8' : '#2C2C2C',
+                  secondaryColor:     isDark ? '#2E2824' : '#e8e0d8',
+                  tertiaryColor:      isDark ? '#35302B' : '#f5f0eb',
+                  lineColor:          isDark ? '#5C5650' : '#A09890',
+                  textColor:          isDark ? '#C8C0B8' : '#2C2C2C',
+                  fontSize: '14px',
+                }
+              });
+              mermaid.run();
+              setTimeout(function () {
+                var svgs = document.querySelectorAll('.mermaid svg');
+                for (var i2 = 0; i2 < svgs.length; i2++) {
+                  var rects = svgs[i2].querySelectorAll('rect');
+                  for (var j = 0; j < rects.length; j++) {
+                    if (rects[j].getAttribute('width') && rects[j].getAttribute('height') &&
+                        parseFloat(rects[j].getAttribute('width')) > 300) {
+                      rects[j].setAttribute('fill', 'transparent');
+                    }
+                  }
+                }
+              }, 200);
+            };
+            window.renderMermaid();
+            document.addEventListener('theme-changed', function () {
+              window.renderMermaid();
             });
-            mermaid.run();
           }
         } else {
           contentEl.innerHTML = '<p data-i18n="post.not_found">这片羽毛被风吹散了。</p>';

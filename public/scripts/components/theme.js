@@ -38,6 +38,7 @@ const Theme = (() => {
   /* ---- Apply theme ---- */
   function apply(theme) {
     document.documentElement.setAttribute('data-theme', theme);
+    document.dispatchEvent(new CustomEvent('theme-changed', { detail: { theme: theme } }));
   }
 
   /* ---- Toggle ---- */
