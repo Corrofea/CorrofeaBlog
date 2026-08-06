@@ -47,7 +47,14 @@ var MarkedSetup = (function () {
       return '<a href="' + href + '"' + titleAttr + target + '>' + text + '</a>';
     };
 
-    /* ---- 代码块：无高亮（后续接入 highlight.js 在此配置） ---- */
+    /* ---- 代码块：mermaid 图表 / 无高亮（后续接入 highlight.js 在此配置） ---- */
+    var origCode = renderer.code.bind(renderer);
+    renderer.code = function (code, lang, escaped) {
+      if (lang === 'mermaid') {
+        return '<pre class="mermaid">' + code + '</pre>';
+      }
+      return origCode(code, lang, escaped);
+    };
 
     marked.setOptions({
       renderer: renderer,

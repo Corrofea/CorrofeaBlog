@@ -16,3 +16,4 @@ node_modules/
 
 # Local dev overrides
 *.local.*
+drafts/

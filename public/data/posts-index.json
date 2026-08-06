@@ -1,5 +1,26 @@
 [
   {
+    "slug": "nginx-config-debugging",
+    "title": {
+      "zh": "Nginx 配置排障实录：从 404 到上线，我踩过的每一个坑",
+      "en": "Nginx Debugging Log: From 404 to Live — Every Pitfall I Stepped In"
+    },
+    "date": "2026-08-06",
+    "tags": [
+      "Nginx",
+      "运维",
+      "Linux",
+      "服务器",
+      "DevOps",
+      "Server"
+    ],
+    "summary": {
+      "zh": "一次完整的 Nginx 故障排查记录：404 → 错误的配置文件 → sites-available vs sites-enabled → 403 → 找到藏在 public/ 里的 index.html。",
+      "en": "A complete Nginx troubleshooting journey: 404 → wrong config file → sites-available vs sites-enabled → 403 → finding index.html hidden in public/."
+    },
+    "draft": false
+  },
+  {
     "slug": "20260805-nginx-403-debugging",
     "title": {
       "zh": "Nginx 部署踩坑实录：从 SSH 配置到 403 的旅程"

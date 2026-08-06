@@ -38,6 +38,35 @@ public/                     ← 部署目录（Nginx root）
 src/styles/                 ← CSS 源文件（分模块编辑，build.py 读取合并）
 ```
 
+## 草稿
+
+先把想法丢进 `drafts/`，随便写，不需要 YAML frontmatter。写完再一键转正。
+
+### 写草稿
+
+```bash
+cp drafts/TEMPLATE.md drafts/我的想法.md
+# 随便写，不需要 --- 头部
+```
+
+建议：第一行 `# 标题` 会被自动提取；用 `##` 分章节，发布后自动生成目录。
+
+草稿不会被部署（`drafts/` 已加入 `.gitignore`）。草稿图片临时放 `drafts/images/`。
+
+### 转正
+
+```bash
+python3 scripts/new-post.py drafts/我的想法.md
+```
+
+脚本交互流程：自动提取标题 → 确认标签和日期 → 生成 `public/posts/zh/` 和 `public/posts/en/` → 创建图片目录 → 运行 build。
+
+也支持一键指定：
+
+```bash
+python3 scripts/new-post.py drafts/我的想法.md --slug my-post --tags "前端,Nginx" --date 2025-08-10
+```
+
 ## 写文章
 
 ### 3 步发布
