@@ -21,53 +21,46 @@ const Header = (() => {
     }
   }
 
-  function bindEvents() {
-    // Language toggle
-    const langBtn = document.getElementById('btn-lang-toggle');
-    if (langBtn) {
-      langBtn.addEventListener('click', async () => {
-        await I18n.toggle();
-        updateLangButton();
-        // Reload post content if on post page
-        if (typeof reloadPost === 'function') {
-          await reloadPost();
-        }
-        // Re-render post list if on home/archive
-        if (typeof renderPostList === 'function') {
-          await renderPostList();
-        }
-      });
-    }
+  async function switchToLang(lang) {
+    if (I18n.lang() === lang) return;
+    await I18n.switchLang(lang);
+    updateLangButtons();
+    if (typeof reloadPost === 'function') await reloadPost();
+    if (typeof renderPostList === 'function') await renderPostList();
+  }
 
-    // Theme toggle
-    const themeBtn = document.getElementById('btn-theme-toggle');
+  function bindEvents() {
+    var zhBtn = document.getElementById('btn-lang-zh');
+    var enBtn = document.getElementById('btn-lang-en');
+    if (zhBtn) zhBtn.addEventListener('click', function () { switchToLang('zh'); });
+    if (enBtn) enBtn.addEventListener('click', function () { switchToLang('en'); });
+
+    var themeBtn = document.getElementById('btn-theme-toggle');
     if (themeBtn) {
-      themeBtn.addEventListener('click', () => {
+      themeBtn.addEventListener('click', function () {
         Theme.toggle();
         updateThemeButton();
       });
     }
 
-    updateLangButton();
+    updateLangButtons();
     updateThemeButton();
   }
 
-  function updateLangButton() {
-    const btn = document.getElementById('btn-lang-toggle');
-    if (btn) {
-      btn.textContent = I18n.lang() === 'zh' ? 'EN' : '中';
-    }
+  function updateLangButtons() {
+    var zhBtn = document.getElementById('btn-lang-zh');
+    var enBtn = document.getElementById('btn-lang-en');
+    var cur = I18n.lang();
+    if (zhBtn) zhBtn.classList.toggle('active', cur === 'zh');
+    if (enBtn) enBtn.classList.toggle('active', cur === 'en');
   }
 
   function updateThemeButton() {
-    const btn = document.getElementById('btn-theme-toggle');
-    if (btn) {
-      btn.textContent = Theme.current() === 'dark' ? '☀' : '☾';
-    }
+    var btn = document.getElementById('btn-theme-toggle');
+    if (btn) btn.textContent = Theme.current() === 'dark' ? '☀' : '☾';
   }
 
-  // Re-expose for external calls
-  return { load, updateLangButton, updateThemeButton };
+  return { load: load, updateLangButton: updateLangButtons, updateThemeButton: updateThemeButton };
 })();
 
 window.Header = Header;

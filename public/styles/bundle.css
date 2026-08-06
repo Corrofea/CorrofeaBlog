@@ -505,6 +505,42 @@ hr {
   text-decoration: none;
 }
 
+/* ---- 语言切换 ZH / EN ---- */
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  font-family: var(--font-heading);
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+}
+
+.btn-lang {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: 0.15em 0.2em;
+  font-family: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+  transition: color 0.2s ease;
+}
+
+.btn-lang.active {
+  color: var(--color-accent);
+}
+
+.btn-lang:hover {
+  color: var(--color-accent);
+}
+
+.lang-sep {
+  color: var(--color-text-muted);
+  opacity: 0.3;
+  user-select: none;
+}
+
 /* ---- 响应式 ---- */
 @media (max-width: 768px) {
   .site-header .header-inner {
