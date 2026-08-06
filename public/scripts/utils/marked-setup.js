@@ -22,13 +22,10 @@ var MarkedSetup = (function () {
     /* ---- 图片：CDN-ready + 懒加载 + 按 slug 分目录 ---- */
     renderer.image = function (href, title, text) {
       var src = href || '';
-      // Full URL (http/https) → pass through (already CDN or external)
-      if (src.indexOf('http://') === 0 || src.indexOf('https://') === 0) {
+      // Full URL (http/https) → pass through
+      // Absolute path (/assets/...) → keep as-is (already rooted)
+      if (src.indexOf('http://') === 0 || src.indexOf('https://') === 0 || src.indexOf('/') === 0) {
         // keep as-is
-      }
-      // Absolute path (/...) → prepend imageBase
-      else if (src.indexOf('/') === 0) {
-        src = imageBase + src;
       }
       // Relative path (image.png) → prepend imageBase/slug/
       else {
