@@ -116,7 +116,7 @@ def build_index():
 # ----- 3. Write posts-index.json -----
 
 def write_index(posts):
-    out = ROOT / 'public' / 'posts-index.json'
+    out = ROOT / 'public' / 'data' / 'posts-index.json'
     with open(out, 'w', encoding='utf-8') as f:
         json.dump(posts, f, ensure_ascii=False, indent=2)
     print(f"  posts-index.json: {len(posts)} posts")

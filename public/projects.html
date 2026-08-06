@@ -67,7 +67,7 @@
 
       let projects = [];
       try {
-        const resp = await fetch('/projects.json');
+        const resp = await fetch('data/projects.json');
         if (resp.ok) projects = await resp.json();
       } catch (e) {
         console.warn('[Projects] Failed to load projects.json', e);

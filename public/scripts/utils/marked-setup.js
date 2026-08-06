@@ -1,49 +1,56 @@
 /* ============================================
-   Marked Setup — 白夜書簡 · 蚀羽版
-   配置 marked.js：图片路径、代码高亮预留、懒加载
+   Marked Setup — 白夜书简 · 蚀羽版
+   配置 marked.js：图片路径(CDN-ready)、懒加载、代码高亮预留
    ============================================ */
 
-const MarkedSetup = (() => {
-  let _initialized = false;
+var MarkedSetup = (function () {
+  var _initialized = false;
+  var _currentSlug = '';
 
-  function init() {
+  function init(slug) {
     if (_initialized) return;
     if (typeof marked === 'undefined') {
       console.warn('[MarkedSetup] marked.js not loaded yet.');
       return;
     }
+    if (slug) _currentSlug = slug;
 
-    /* ---- Configure renderer ---- */
-    const renderer = new marked.Renderer();
+    var renderer = new marked.Renderer();
+    var cfg = window.__CONFIG__ || {};
+    var imageBase = cfg.imageBase || '/assets/images/blog';
 
-    /* ---- 图片：自动添加懒加载 + 处理相对路径 ---- */
-    const origImage = renderer.image.bind(renderer);
+    /* ---- 图片：CDN-ready + 懒加载 + 按 slug 分目录 ---- */
     renderer.image = function (href, title, text) {
-      // Handle relative image paths
-      let src = href;
-      if (src && !src.startsWith('http') && !src.startsWith('/')) {
-        // Relative to assets/images/blog/
-        src = `/assets/images/blog/${src}`;
+      var src = href || '';
+      // Full URL (http/https) → pass through (already CDN or external)
+      if (src.indexOf('http://') === 0 || src.indexOf('https://') === 0) {
+        // keep as-is
       }
-      const titleAttr = title ? ` title="${title}"` : '';
-      const altAttr = text ? ` alt="${text}"` : '';
-      return `<img src="${src}"${altAttr}${titleAttr} loading="lazy" decoding="async" />`;
+      // Absolute path (/...) → prepend imageBase
+      else if (src.indexOf('/') === 0) {
+        src = imageBase + src;
+      }
+      // Relative path (image.png) → prepend imageBase/slug/
+      else {
+        src = imageBase + '/' + _currentSlug + '/' + src;
+      }
+      var titleAttr = title ? ' title="' + title + '"' : '';
+      var altAttr = text ? ' alt="' + text + '"' : '';
+      return '<img src="' + src + '"' + altAttr + titleAttr + ' loading="lazy" decoding="async" />';
     };
 
     /* ---- 链接：外部链接新窗口打开 ---- */
-    const origLink = renderer.link.bind(renderer);
     renderer.link = function (href, title, text) {
-      const isExternal = href && (href.startsWith('http://') || href.startsWith('https://'));
-      const target = isExternal ? ' target="_blank" rel="noopener noreferrer"' : '';
-      const titleAttr = title ? ` title="${title}"` : '';
-      return `<a href="${href}"${titleAttr}${target}>${text}</a>`;
+      var isExternal = href && (href.indexOf('http://') === 0 || href.indexOf('https://') === 0);
+      var target = isExternal ? ' target="_blank" rel="noopener noreferrer"' : '';
+      var titleAttr = title ? ' title="' + title + '"' : '';
+      return '<a href="' + href + '"' + titleAttr + target + '>' + text + '</a>';
     };
 
-    /* ---- 代码块：无高亮（后续可在此接入 highlight.js） ---- */
-    // renderer.code = function(code, infostring, escaped) { ... }
+    /* ---- 代码块：无高亮（后续接入 highlight.js 在此配置） ---- */
 
     marked.setOptions({
-      renderer,
+      renderer: renderer,
       gfm: true,
       breaks: false,
       smartLists: true,
@@ -53,8 +60,7 @@ const MarkedSetup = (() => {
     _initialized = true;
   }
 
-  return { init };
+  return { init: init };
 })();
 
-/* Expose globally */
 window.MarkedSetup = MarkedSetup;

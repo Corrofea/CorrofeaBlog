@@ -31,7 +31,7 @@ var Posts = (function () {
     }
     _loading = true;
     try {
-      var r = await fetchTimeout('posts-index.json', 8000);
+      var r = await fetchTimeout('data/posts-index.json', 8000);
       if (!r.ok) throw new Error('HTTP ' + r.status);
       _index = await r.json();
     } catch (e) {
@@ -93,7 +93,7 @@ var Posts = (function () {
       var md = await r.text();
       // Strip YAML frontmatter (--- ... ---)
       md = md.replace(/^---[\s\S]*?---\s*\n/, '');
-      MarkedSetup.init();
+      MarkedSetup.init(slug);
       return marked.parse(md);
     } catch (e) {
       console.warn('[Posts] renderContent failed:', e.message || e);
