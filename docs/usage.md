@@ -240,6 +240,25 @@ sudo certbot --nginx -d corrofea.com -d www.corrofea.com
 
 基于 `public/data/posts-index.json` 实现，客户端 JS 即可。
 
+## 文艺化表达一览
+
+博客 UI 中使用了一些蚀羽主题的文艺化表达。修改 `public/i18n/zh.json` 和 `public/i18n/en.json` 即可替换。
+
+| 场景 | 中文 | 英文 | 含义 |
+|------|------|------|------|
+| 首页无文章 | 羽毛还在生长…… | Feathers are still growing... | 还没有发布过文章 |
+| 文章加载中 | 羽笔蘸墨中…… | — | 正在 fetch 并渲染 Markdown |
+| 404 页面 | 这片羽毛被风吹走了。 | — | 页面不存在 |
+| 文章不存在（无 slug） | 羽落无声 | — | URL 没有传入 slug 参数 |
+| 文章不存在（索引中无匹配） | 此羽未落 | — | slug 在索引中找不到对应文章 |
+| 文章内容加载失败（fetch 失败） | 这片羽毛被风吹散了。 | This feather was scattered by the wind. | MD 文件 fetch 失败或 marked 解析失败 |
+| JS 初始化异常 | 羽翼未丰 | — | main.js 渲染流程崩溃 |
+| 崩溃后提示 | 这片羽毛还未落下，请稍后再试。 | — | try-catch 兜底，建议刷新重试 |
+| 归档页无文章 | 时光还未留下痕迹。 | Time has left no trace yet. | 没有任何已发表的文章 |
+| 标签页无标签 | 暂无标签。 | No tags yet. | 文章没有打过标签 |
+| 项目页无项目 | 还没有项目展示。 | No projects to show yet. | projects.json 为空 |
+| 关于页格言 | 代码会过时，羽毛会风化，但蚀痕本身就是意义。 | Code becomes obsolete, feathers weather away, but the marks of erosion themselves carry meaning. | 站点座右铭 |
+
 ## 常见问题
 
 ### 首页空白
