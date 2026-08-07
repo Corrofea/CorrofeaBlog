@@ -215,10 +215,10 @@
         Comments.init();
         I18n.apply();
       } catch (e) {
-        console.warn('[Post] render error:', e.message || e);
+        console.error('[Post] render error:', e.message || e, e.stack);
         setTitle('羽翼未丰');
         var ce = document.getElementById('post-content');
-        if (ce) ce.innerHTML = '<p style="text-align:center;color:var(--color-text-muted);">这片羽毛还未落下，请稍后再试。</p>';
+        if (ce) ce.innerHTML = '<p style="text-align:center;color:var(--color-text-muted);">这片羽毛还未落下，请稍后再试。<br><small>' + (e.message || e) + '</small></p>';
       }
     }
 
