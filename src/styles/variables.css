@@ -8,10 +8,10 @@
 :root,
 [data-theme="light"] {
   /* 背景与表面 */
-  --color-bg:            #FAF7F3;
-  --color-surface:       #F2EDE6;
-  --color-surface-hover: #EBE4DC;
-  --color-border:        #E0D9D0;
+  --color-bg:            #FCFAF7;
+  --color-surface:       #F5F0EA;
+  --color-surface-hover: #EFE8E0;
+  --color-border:        #E5DED6;
 
   /* 文字层级 */
   --color-text:          #262626;

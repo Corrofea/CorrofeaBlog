@@ -16,32 +16,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&family=Noto+Serif+SC:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'; this.onload=null;">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&family=Noto+Serif+SC:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
 
-<!-- Critical inline CSS -->
+<!-- Minimal critical inline: prevent FOUC before bundle.css loads -->
 <style>
-body{background:#FAF7F3;color:#262626;font-family:"Noto Serif SC",Georgia,serif;margin:0;min-height:100vh}
+body{background:#FCFAF7;color:#262626;font-family:"Noto Serif SC",Georgia,serif;margin:0;min-height:100vh}
 [data-theme="dark"] body{background:#15151A;color:#EDE9E2}
-.home-signature{text-align:center;padding-top:12vh;font-family:"Cormorant Garamond","Noto Serif SC",serif}
-.home-signature .sig-zh,.home-signature .sig-en{font-size:.8rem;color:#8A8078;font-weight:300;font-style:italic;letter-spacing:.08em}
-.home-signature .sig-sep{margin:0 .5em;color:#8A8078;opacity:.4}
-[data-theme="dark"] .home-signature .sig-zh,[data-theme="dark"] .home-signature .sig-en{color:#787068}
-.year-label{font-family:"Cormorant Garamond",serif;font-size:2.2rem;font-weight:200;font-style:italic;color:#1A1A1A;letter-spacing:.12em;margin-bottom:.6rem;padding-bottom:.3rem;border-bottom:1px solid #D5CFC8}
-[data-theme="dark"] .year-label{border-color:#3A3A42;color:#F2EFE9}
-.post-card{position:relative;display:flex;align-items:baseline;gap:1.2rem;padding:.9rem 0;border-bottom:1px solid #D8D2C8;transition:background .15s ease}
-.post-card-title a::after{content:'';position:absolute;inset:0}
-.post-card:hover{background:#F2EDE6}
-[data-theme="dark"] .post-card:hover{background:#1E1E24}
-[data-theme="dark"] .post-card{border-color:#3A3A42}
-.post-card-date{flex:0 0 auto;font-family:"Cormorant Garamond",serif;font-size:1.25rem;font-weight:300;color:#5C3D2A;letter-spacing:.06em;font-style:italic;white-space:nowrap;min-width:8em}
-[data-theme="dark"] .post-card-date{color:#D2B8A2}
-.post-card-body{flex:1;min-width:0}
-.post-card-title{font-family:"Cormorant Garamond","Noto Serif SC",serif;font-size:1.25rem;font-weight:300;line-height:1.4;color:#1A1A1A;margin-bottom:.25rem}
-[data-theme="dark"] .post-card-title{color:#F0EDE6}
-.post-card-title a{color:inherit;text-decoration:none}
-.post-card-summary{font-size:.88rem;color:#5A5048;line-height:1.6;margin-top:.2rem}
-[data-theme="dark"] .post-card-summary{color:#A8A098}
-.post-card-tag{font-size:.68rem;color:#8A8078;font-family:"Cormorant Garamond",serif;letter-spacing:.04em;font-style:italic}
-.home-empty{text-align:center;color:#8A8078;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:.88rem;padding:3rem 0}
-@media(max-width:600px){.post-card{flex-direction:column;gap:.2rem}}
+.home-signature{text-align:center;padding-top:12vh}
+#post-list:empty::after{content:"...";display:block;text-align:center;color:#8A8078;padding:3rem 0;font-style:italic}
 @media(max-width:768px){.home-signature{padding-top:8vh}}
 </style>
 
