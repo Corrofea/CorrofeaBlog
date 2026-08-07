@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <!-- Background: warm off-white circle with subtle border -->
+  <circle cx="60" cy="60" r="58" fill="#F5F0EA" stroke="#B8A090" stroke-width="1.2"/>
+
+  <!-- Feather: minimalist quill shape -->
+  <!-- Vane: left side -->
+  <path d="
+    M 58 18
+    C 35 25, 22 42, 24 68
+    C 26 88, 35 98, 44 104
+    C 38 94, 32 80, 31 66
+    C 30 48, 38 32, 58 18
+    Z
+  " fill="#5C3D2A" opacity="0.55"/>
+
+  <!-- Vane: right side -->
+  <path d="
+    M 60 18
+    C 75 28, 82 42, 81 66
+    C 80 82, 76 94, 70 104
+    C 75 96, 82 84, 84 64
+    C 86 38, 75 24, 60 18
+    Z
+  " fill="#5C3D2A" opacity="0.35"/>
+
+  <!-- Rachis (central shaft) -->
+  <line x1="59" y1="16" x2="56" y2="106" stroke="#4A2E1C" stroke-width="1.8" stroke-linecap="round"/>
+
+  <!-- Calamus (quill tip, slightly curved) -->
+  <path d="M 56 98 Q 54 104, 50 108" stroke="#4A2E1C" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+</svg>

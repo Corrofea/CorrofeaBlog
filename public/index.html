@@ -20,9 +20,19 @@
 <style>
 body{background:#FCFAF7;color:#262626;font-family:"Noto Serif SC",Georgia,serif;margin:0;min-height:100vh}
 [data-theme="dark"] body{background:#15151A;color:#EDE9E2}
-.home-signature{text-align:center;padding-top:12vh}
+.home-hero{min-height:85vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;padding:2rem 1rem}
+.hero-avatar{width:120px;height:120px;border-radius:50%;overflow:hidden;margin-bottom:2.5rem;border:1px solid #B8A090;box-shadow:0 0 0 8px #F5F0EA}
+[data-theme="dark"] .hero-avatar{box-shadow:0 0 0 8px #1E1E24}
+.hero-title{font-family:"Cormorant Garamond","Noto Serif SC",serif;font-size:3.5rem;font-weight:300;font-style:italic;color:#1A1A1A;letter-spacing:.08em;margin:0;line-height:1.2}
+[data-theme="dark"] .hero-title{color:#F2EFE9}
+.hero-title-sep{color:#B8A090;margin:0 .3em;font-style:normal}
+.hero-subtitle{font-size:.9rem;color:#8A8078;margin-top:1rem;letter-spacing:.06em}
+.hero-scroll{position:absolute;bottom:2rem;left:0;right:0;text-align:center}
+.hero-scroll .arrow-down{display:inline-block;font-size:.8rem;color:#8A8078;opacity:.35;animation:arrowPulse 3s ease infinite}
+@keyframes arrowPulse{0%,100%{opacity:.25;transform:translateY(0)}50%{opacity:.6;transform:translateY(4px)}}
 #post-list:empty::after{content:"...";display:block;text-align:center;color:#8A8078;padding:3rem 0;font-style:italic}
-@media(max-width:768px){.home-signature{padding-top:8vh}}
+.home-posts-section{padding:0 1rem;max-width:860px;margin:0 auto 4rem}
+@media(max-width:768px){.home-hero{min-height:75vh}.hero-title{font-size:2.4rem}.hero-avatar{width:96px;height:96px;margin-bottom:2rem;box-shadow:0 0 0 6px #F5F0EA}}
 </style>
 
 <link rel="stylesheet" href="styles/bundle.css?v=1786068559">
@@ -31,17 +41,24 @@ body{background:#FCFAF7;color:#262626;font-family:"Noto Serif SC",Georgia,serif;
 <div class="page">
 <div id="site-header"></div>
 <main>
-<div class="container">
-<div class="home-hero">
-<div class="home-signature">
-<span class="sig-zh">蚀羽</span>
-<span class="sig-sep">·</span>
-<span class="sig-en">corrofea</span>
+<!-- Hero: 头像 + 站点标识 + 滚动引导 -->
+<header class="home-hero">
+<div class="hero-avatar">
+<img src="assets/images/common/avatar.svg" alt="corrofea">
 </div>
+<h1 class="hero-title">
+<span>蚀羽</span>
+<span class="hero-title-sep">·</span>
+<span>corrofea</span>
+</h1>
+<p class="hero-subtitle" data-i18n="site.description">被时间侵蚀的羽毛 — 个人技术博客</p>
+<div class="hero-scroll"><span class="arrow-down">↓</span></div>
+</header>
+
+<!-- 文章列表 -->
+<div class="home-posts-section">
 <div class="home-posts" id="post-list"></div>
 </div>
-</div>
-<div class="home-scroll-hint"><span class="arrow-down">↓</span></div>
 </main>
 <div id="site-footer"></div>
 </div>
