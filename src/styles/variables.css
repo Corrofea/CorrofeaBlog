@@ -25,9 +25,9 @@
   --color-accent-subtle: #B8A090;
 
   /* 代码块 */
-  --color-code-bg:       #2A2623;
-  --color-code-text:     #E8E0D8;
-  --color-code-border:   #3D3834;
+  --color-code-bg:       #F0EBE4;
+  --color-code-text:     #3D3530;
+  --color-code-border:   #E0D9D0;
 
   /* 引用 */
   --color-quote-text:    #5C5852;
@@ -56,9 +56,9 @@
   --color-accent-hover:  #E0C8B2;
   --color-accent-subtle: #5C4E42;
 
-  --color-code-bg:       #151418;
+  --color-code-bg:       #24222A;
   --color-code-text:     #D8D0C8;
-  --color-code-border:   #2A282D;
+  --color-code-border:   #3A3840;
 
   --color-quote-text:    #A09890;
 
