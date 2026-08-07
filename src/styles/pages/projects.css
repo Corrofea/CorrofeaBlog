@@ -11,7 +11,7 @@
 .projects-header .projects-title {
   font-family: var(--font-heading);
   font-size: 1.5rem;
-  font-weight: 300;
+  font-weight: 500;
   color: var(--color-heading);
   letter-spacing: 0.04em;
 }
@@ -45,7 +45,7 @@
 .project-card-title {
   font-family: var(--font-heading);
   font-size: 1.2rem;
-  font-weight: 300;
+  font-weight: 500;
   color: var(--color-heading);
   line-height: 1.4;
 }

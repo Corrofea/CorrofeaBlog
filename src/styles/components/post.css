@@ -30,7 +30,7 @@
 .post-header .post-title {
   font-family: var(--font-heading);
   font-size: 2rem;
-  font-weight: 300;
+  font-weight: 500;
   color: var(--color-heading);
   line-height: 1.35;
   margin-bottom: 0.8rem;
@@ -64,7 +64,7 @@
   margin-bottom: 0.6em;
 }
 
-.article-content h1 { font-size: 2rem; font-weight: 300; }
+.article-content h1 { font-size: 2rem; font-weight: 400; }
 .article-content h2 { font-size: 1.6rem; margin-top: 2.2em; }
 .article-content h3 { font-size: 1.3rem; }
 .article-content h2::after {
@@ -132,7 +132,7 @@
   display: block;
   font-family: var(--font-heading);
   font-size: 0.95rem;
-  font-weight: 300;
+  font-weight: 500;
   color: var(--color-heading);
   line-height: 1.4;
 }
