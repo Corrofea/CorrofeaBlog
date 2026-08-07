@@ -92,10 +92,10 @@ table {
 :root,
 [data-theme="light"] {
   /* 背景与表面 */
-  --color-bg:            #F5F0EB;
-  --color-surface:       #ECE6DE;
-  --color-surface-hover: #E5DED6;
-  --color-border:        #D5CFC8;
+  --color-bg:            #FAF7F3;
+  --color-surface:       #F2EDE6;
+  --color-surface-hover: #EBE4DC;
+  --color-border:        #E0D9D0;
 
   /* 文字层级 */
   --color-text:          #262626;
