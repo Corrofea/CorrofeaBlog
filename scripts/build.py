@@ -144,7 +144,21 @@ def inject_posts(posts):
             f.write(html)
         print(f"  {page}: __POSTS__ updated with {len(posts)} posts")
 
-# ----- 5. Regenerate bundle.css -----
+# ----- 5. Cache buster: add ?v=TIMESTAMP to CSS/JS references -----
+
+def cache_bust():
+    import time
+    stamp = str(int(time.time()))
+    html_files = list((ROOT / 'public').glob('*.html'))
+    for f in html_files:
+        text = f.read_text(encoding='utf-8')
+        # Replace .css and .js references with versioned URLs
+        text = re.sub(r'(src|href)="(scripts/[^"]+\.js)"', rf'\1="\2?v={stamp}"', text)
+        text = re.sub(r'(src|href)="(styles/[^"]+\.css)"', rf'\1="\2?v={stamp}"', text)
+        f.write_text(text, encoding='utf-8')
+    print(f'  cache-bust: ?v={stamp} added to {len(html_files)} files')
+
+# ----- 6. Regenerate bundle.css -----
 
 def build_css():
     src_dir = ROOT / 'src' / 'styles'
@@ -184,6 +198,9 @@ if __name__ == '__main__':
 
     # Build CSS
     build_css()
+
+    # Cache bust
+    cache_bust()
 
     print(f"\nDone. {len(posts)} posts indexed.")
     print("Run: python3 -m http.server 8080 -d public")
