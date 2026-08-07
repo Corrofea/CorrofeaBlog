@@ -198,7 +198,7 @@ header, footer, nav,
 
 /* ---- 基础排版 ---- */
 html {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 body {
@@ -355,7 +355,7 @@ hr {
 /* ---- 响应式字号 ---- */
 @media (max-width: 768px) {
   html {
-    font-size: 16px;
+    font-size: 15px;
   }
   h1 { font-size: 1.75rem; }
   h2 { font-size: 1.4rem; }
