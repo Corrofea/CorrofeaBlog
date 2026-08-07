@@ -127,11 +127,17 @@ var Posts = (function () {
     return idx > 0 ? all[idx - 1] : null;
   }
 
+  async function prevPost(slug) {
+    var all = await published();
+    var idx = all.findIndex(function (p) { return p.slug === slug; });
+    return (idx >= 0 && idx < all.length - 1) ? all[idx + 1] : null;
+  }
+
   return {
     publishedSync: publishedSync, loadIndex: loadIndex, published: published,
     getBySlug: getBySlug, byTag: byTag, allTags: allTags, years: years,
     renderContent: renderContent, localize: localize, formatDate: formatDate,
-    readingTime: readingTime, nextPost: nextPost
+    readingTime: readingTime, nextPost: nextPost, prevPost: prevPost
   };
 })();
 window.Posts = Posts;

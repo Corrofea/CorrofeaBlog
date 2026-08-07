@@ -8,21 +8,21 @@
 :root,
 [data-theme="light"] {
   /* 背景与表面 */
-  --color-bg:            #F9F7F4;
-  --color-surface:       #F0EDE8;
-  --color-surface-hover: #EBE6E0;
-  --color-border:        #E0DBD4;
+  --color-bg:            #F5F0EB;
+  --color-surface:       #ECE6DE;
+  --color-surface-hover: #E5DED6;
+  --color-border:        #D5CFC8;
 
   /* 文字层级 */
-  --color-text:          #2C2C2C;
-  --color-text-secondary:#6B635B;
-  --color-text-muted:    #A09890;
+  --color-text:          #262626;
+  --color-text-secondary:#5A5048;
+  --color-text-muted:    #8A8078;
   --color-heading:       #1A1A1A;
 
   /* 强调色 — 蚀羽棕 */
-  --color-accent:        #6B4F3E;
-  --color-accent-hover:  #5A3F2E;
-  --color-accent-subtle: #B8A08E;
+  --color-accent:        #5C3D2A;
+  --color-accent-hover:  #4A2E1C;
+  --color-accent-subtle: #B8A090;
 
   /* 代码块 */
   --color-code-bg:       #2A2623;
@@ -42,19 +42,19 @@
 
 /* ---- 深色主题 ---- */
 [data-theme="dark"] {
-  --color-bg:            #1A1A1F;
-  --color-surface:       #222228;
-  --color-surface-hover: #2A2A32;
-  --color-border:        #33333A;
+  --color-bg:            #15151A;
+  --color-surface:       #1E1E24;
+  --color-surface-hover: #26262E;
+  --color-border:        #3A3A42;
 
-  --color-text:          #E8E4DC;
-  --color-text-secondary:#9A948A;
-  --color-text-muted:    #6B6560;
-  --color-heading:       #F0EDE6;
+  --color-text:          #EDE9E2;
+  --color-text-secondary:#A8A098;
+  --color-text-muted:    #787068;
+  --color-heading:       #F2EFE9;
 
-  --color-accent:        #C4AE9C;
-  --color-accent-hover:  #D4BEAE;
-  --color-accent-subtle: #6B5C50;
+  --color-accent:        #D2B8A2;
+  --color-accent-hover:  #E0C8B2;
+  --color-accent-subtle: #5C4E42;
 
   --color-code-bg:       #151418;
   --color-code-text:     #D8D0C8;

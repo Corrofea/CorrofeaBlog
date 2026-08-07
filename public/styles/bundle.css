@@ -92,21 +92,21 @@ table {
 :root,
 [data-theme="light"] {
   /* 背景与表面 */
-  --color-bg:            #F9F7F4;
-  --color-surface:       #F0EDE8;
-  --color-surface-hover: #EBE6E0;
-  --color-border:        #E0DBD4;
+  --color-bg:            #F5F0EB;
+  --color-surface:       #ECE6DE;
+  --color-surface-hover: #E5DED6;
+  --color-border:        #D5CFC8;
 
   /* 文字层级 */
-  --color-text:          #2C2C2C;
-  --color-text-secondary:#6B635B;
-  --color-text-muted:    #A09890;
+  --color-text:          #262626;
+  --color-text-secondary:#5A5048;
+  --color-text-muted:    #8A8078;
   --color-heading:       #1A1A1A;
 
   /* 强调色 — 蚀羽棕 */
-  --color-accent:        #6B4F3E;
-  --color-accent-hover:  #5A3F2E;
-  --color-accent-subtle: #B8A08E;
+  --color-accent:        #5C3D2A;
+  --color-accent-hover:  #4A2E1C;
+  --color-accent-subtle: #B8A090;
 
   /* 代码块 */
   --color-code-bg:       #2A2623;
@@ -126,19 +126,19 @@ table {
 
 /* ---- 深色主题 ---- */
 [data-theme="dark"] {
-  --color-bg:            #1A1A1F;
-  --color-surface:       #222228;
-  --color-surface-hover: #2A2A32;
-  --color-border:        #33333A;
+  --color-bg:            #15151A;
+  --color-surface:       #1E1E24;
+  --color-surface-hover: #26262E;
+  --color-border:        #3A3A42;
 
-  --color-text:          #E8E4DC;
-  --color-text-secondary:#9A948A;
-  --color-text-muted:    #6B6560;
-  --color-heading:       #F0EDE6;
+  --color-text:          #EDE9E2;
+  --color-text-secondary:#A8A098;
+  --color-text-muted:    #787068;
+  --color-heading:       #F2EFE9;
 
-  --color-accent:        #C4AE9C;
-  --color-accent-hover:  #D4BEAE;
-  --color-accent-subtle: #6B5C50;
+  --color-accent:        #D2B8A2;
+  --color-accent-hover:  #E0C8B2;
+  --color-accent-subtle: #5C4E42;
 
   --color-code-bg:       #151418;
   --color-code-text:     #D8D0C8;
@@ -597,42 +597,86 @@ hr {
 
 /* === components/card.css === */
 /* ============================================
-   Card — 白夜書簡 · 蚀羽版
-   文章卡片：日期 + 极细分割线 + 标题
-   悬停时标题颜色极轻微加深，无花哨效果
+   Card — 白夜书简 · 蚀羽版
+   文章卡片：日期左置 + 标题 + 年份分组
    ============================================ */
 
-.post-card {
-  padding: 1.2rem 0;
+/* ---- 年份标题 ---- */
+.year-group {
+  margin-top: 2.5rem;
+}
+
+.year-group:first-child {
+  margin-top: 0;
+}
+
+.year-label {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  font-weight: 200;
+  font-style: italic;
+  color: var(--color-heading);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.6rem;
+  padding-bottom: 0.3rem;
   border-bottom: 1px solid var(--color-divider);
 }
 
-.post-card:first-child {
-  padding-top: 0;
+/* ---- 文章卡片 ---- */
+.post-card {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 1.2rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--color-divider);
+  transition: background 0.15s ease;
 }
 
-/* ---- 日期 — 极轻、像印在纸上的编号 ---- */
+/* 整个卡片可点击 */
+.post-card-title a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+/* 悬停整卡高亮 */
+.post-card:hover {
+  background: var(--color-surface);
+}
+
+/* ---- 日期 — 左侧固定宽度 ---- */
 .post-card-date {
+  flex: 0 0 auto;
   font-family: var(--font-heading);
-  font-size: 1rem;
-  color: var(--color-text-muted);
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: var(--color-accent);
   letter-spacing: 0.06em;
-  margin-bottom: 0.5rem;
   font-style: italic;
+  white-space: nowrap;
+  min-width: 8em;
 }
 
-/* ---- 标题 — 首页使用极细字重 ---- */
+/* ---- 右侧内容 ---- */
+.post-card-body {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ---- 标题 ---- */
 .post-card-title {
   font-family: var(--font-heading);
   font-size: 1.25rem;
   font-weight: 300;
   line-height: 1.4;
   color: var(--color-heading);
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.25rem;
 }
 
 .post-card-title a {
   color: inherit;
+  transition: color 0.4s ease;
 }
 
 .post-card-title a:hover {
@@ -640,17 +684,17 @@ hr {
   text-decoration: none;
 }
 
-/* ---- 摘要 — 可选，用于首页预览 ---- */
+/* ---- 摘要 ---- */
 .post-card-summary {
   font-size: 0.88rem;
   color: var(--color-text-secondary);
   line-height: 1.6;
-  margin-top: 0.3rem;
+  margin-top: 0.2rem;
 }
 
-/* ---- 标签 — 极小，次要信息 ---- */
+/* ---- 标签 ---- */
 .post-card-tags {
-  margin-top: 0.5rem;
+  margin-top: 0.35rem;
   display: flex;
   gap: 0.6rem;
   flex-wrap: wrap;
@@ -664,9 +708,15 @@ hr {
   font-style: italic;
 }
 
-/* ---- 悬停效果：仅标题颜色极轻微过渡 ---- */
-.post-card-title a {
-  transition: color 0.4s ease;
+/* ---- 响应式 ---- */
+@media (max-width: 600px) {
+  .post-card {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .post-card-date {
+    min-width: auto;
+  }
 }
 
 /* === components/button.css === */
@@ -832,26 +882,72 @@ hr {
   border-top: 1px solid var(--color-divider);
 }
 
-/* ---- 下一篇预览 ---- */
-.post-next-preview {
-  font-size: 0.82rem;
-  color: var(--color-text-muted);
-  font-family: var(--font-heading);
-  font-style: italic;
+/* ---- 上/下篇导航卡片 ---- */
+.post-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 3rem;
 }
 
-.post-next-preview a {
+.post-nav-card {
+  position: relative;
   display: block;
-  font-size: 1rem;
-  font-style: normal;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--color-divider);
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.post-nav-card:hover {
+  background: var(--color-surface);
+  text-decoration: none;
+}
+
+.post-nav-label {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.4rem;
+}
+
+.post-nav-title {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
   font-weight: 300;
   color: var(--color-heading);
-  margin-top: 0.3rem;
+  line-height: 1.4;
 }
 
-.post-next-preview a:hover {
-  color: var(--color-accent);
-  text-decoration: none;
+.post-nav-date {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+  margin-top: 0.4rem;
+}
+
+.post-nav-prev {
+  text-align: left;
+}
+
+.post-nav-next {
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .post-nav {
+    grid-template-columns: 1fr;
+  }
+  .post-nav-next {
+    text-align: left;
+  }
 }
 
 /* ---- 标签列表 ---- */

@@ -1,40 +1,84 @@
 /* ============================================
-   Card — 白夜書簡 · 蚀羽版
-   文章卡片：日期 + 极细分割线 + 标题
-   悬停时标题颜色极轻微加深，无花哨效果
+   Card — 白夜书简 · 蚀羽版
+   文章卡片：日期左置 + 标题 + 年份分组
    ============================================ */
 
-.post-card {
-  padding: 1.2rem 0;
+/* ---- 年份标题 ---- */
+.year-group {
+  margin-top: 2.5rem;
+}
+
+.year-group:first-child {
+  margin-top: 0;
+}
+
+.year-label {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  font-weight: 200;
+  font-style: italic;
+  color: var(--color-heading);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.6rem;
+  padding-bottom: 0.3rem;
   border-bottom: 1px solid var(--color-divider);
 }
 
-.post-card:first-child {
-  padding-top: 0;
+/* ---- 文章卡片 ---- */
+.post-card {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 1.2rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--color-divider);
+  transition: background 0.15s ease;
 }
 
-/* ---- 日期 — 极轻、像印在纸上的编号 ---- */
+/* 整个卡片可点击 */
+.post-card-title a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+/* 悬停整卡高亮 */
+.post-card:hover {
+  background: var(--color-surface);
+}
+
+/* ---- 日期 — 左侧固定宽度 ---- */
 .post-card-date {
+  flex: 0 0 auto;
   font-family: var(--font-heading);
-  font-size: 1rem;
-  color: var(--color-text-muted);
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: var(--color-accent);
   letter-spacing: 0.06em;
-  margin-bottom: 0.5rem;
   font-style: italic;
+  white-space: nowrap;
+  min-width: 8em;
 }
 
-/* ---- 标题 — 首页使用极细字重 ---- */
+/* ---- 右侧内容 ---- */
+.post-card-body {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ---- 标题 ---- */
 .post-card-title {
   font-family: var(--font-heading);
   font-size: 1.25rem;
   font-weight: 300;
   line-height: 1.4;
   color: var(--color-heading);
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.25rem;
 }
 
 .post-card-title a {
   color: inherit;
+  transition: color 0.4s ease;
 }
 
 .post-card-title a:hover {
@@ -42,17 +86,17 @@
   text-decoration: none;
 }
 
-/* ---- 摘要 — 可选，用于首页预览 ---- */
+/* ---- 摘要 ---- */
 .post-card-summary {
   font-size: 0.88rem;
   color: var(--color-text-secondary);
   line-height: 1.6;
-  margin-top: 0.3rem;
+  margin-top: 0.2rem;
 }
 
-/* ---- 标签 — 极小，次要信息 ---- */
+/* ---- 标签 ---- */
 .post-card-tags {
-  margin-top: 0.5rem;
+  margin-top: 0.35rem;
   display: flex;
   gap: 0.6rem;
   flex-wrap: wrap;
@@ -66,7 +110,13 @@
   font-style: italic;
 }
 
-/* ---- 悬停效果：仅标题颜色极轻微过渡 ---- */
-.post-card-title a {
-  transition: color 0.4s ease;
+/* ---- 响应式 ---- */
+@media (max-width: 600px) {
+  .post-card {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .post-card-date {
+    min-width: auto;
+  }
 }

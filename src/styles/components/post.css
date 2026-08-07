@@ -87,26 +87,72 @@
   border-top: 1px solid var(--color-divider);
 }
 
-/* ---- 下一篇预览 ---- */
-.post-next-preview {
-  font-size: 0.82rem;
-  color: var(--color-text-muted);
-  font-family: var(--font-heading);
-  font-style: italic;
+/* ---- 上/下篇导航卡片 ---- */
+.post-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 3rem;
 }
 
-.post-next-preview a {
+.post-nav-card {
+  position: relative;
   display: block;
-  font-size: 1rem;
-  font-style: normal;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--color-divider);
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.post-nav-card:hover {
+  background: var(--color-surface);
+  text-decoration: none;
+}
+
+.post-nav-label {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.4rem;
+}
+
+.post-nav-title {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
   font-weight: 300;
   color: var(--color-heading);
-  margin-top: 0.3rem;
+  line-height: 1.4;
 }
 
-.post-next-preview a:hover {
-  color: var(--color-accent);
-  text-decoration: none;
+.post-nav-date {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+  margin-top: 0.4rem;
+}
+
+.post-nav-prev {
+  text-align: left;
+}
+
+.post-nav-next {
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .post-nav {
+    grid-template-columns: 1fr;
+  }
+  .post-nav-next {
+    text-align: left;
+  }
 }
 
 /* ---- 标签列表 ---- */

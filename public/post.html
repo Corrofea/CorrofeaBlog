@@ -17,11 +17,11 @@
 
   <!-- Critical inline -->
   <style>
-    body{background:#F9F7F4;color:#2C2C2C;font-family:"Noto Serif SC",Georgia,serif;margin:0;min-height:100vh}
-    [data-theme="dark"] body{background:#1A1A1F;color:#E8E4DC}
+    body{background:#F5F0EB;color:#262626;font-family:"Noto Serif SC",Georgia,serif;margin:0;min-height:100vh}
+    [data-theme="dark"] body{background:#15151A;color:#EDE9E2}
     .post-header{padding-top:6vh;text-align:center}
-    .post-back{font-size:.72rem;color:#A09890;font-style:italic}
-    [data-theme="dark"] .post-back{color:#6B6560}
+    .post-back{font-size:.72rem;color:#8A8078;font-style:italic}
+    [data-theme="dark"] .post-back{color:#787068}
   </style>
 
   <!-- Styles (single bundle, no @import chain) -->
@@ -47,7 +47,7 @@
           <!-- Post footer: tags + next preview -->
           <footer class="post-footer">
             <div class="post-tags" id="post-tags"></div>
-            <div class="post-next-preview" id="post-next"></div>
+            <div class="post-nav" id="post-nav"></div>
           </footer>
 
           <!-- Comments placeholder -->
@@ -186,14 +186,31 @@
 
         document.getElementById('post-meta').textContent = date + ' · ' + Posts.readingTime(contentEl.textContent, lang);
 
+        var prev = await Posts.prevPost(slug);
         var next = await Posts.nextPost(slug);
-        var nextEl = document.getElementById('post-next');
+        var navEl = document.getElementById('post-nav');
+        if (!navEl) return;
+
+        var navHtml = '';
+        if (prev) {
+          var prevTitle = Posts.localize(prev, 'title', lang);
+          var prevDate = Posts.formatDate(prev.date);
+          navHtml += '<a href="post.html?slug=' + prev.slug + '" class="post-nav-card post-nav-prev">' +
+            '<span class="post-nav-label">← ' + I18n.t('post.prev') + '</span>' +
+            '<span class="post-nav-title">' + prevTitle + '</span>' +
+            '<span class="post-nav-date">' + prevDate + '</span>' +
+            '</a>';
+        }
         if (next) {
           var nextTitle = Posts.localize(next, 'title', lang);
-          nextEl.innerHTML = '<span data-i18n="post.next">下一篇</span> <a href="post.html?slug=' + next.slug + '">' + nextTitle + '</a>';
-        } else {
-          nextEl.innerHTML = '';
+          var nextDate = Posts.formatDate(next.date);
+          navHtml += '<a href="post.html?slug=' + next.slug + '" class="post-nav-card post-nav-next">' +
+            '<span class="post-nav-label">' + I18n.t('post.next') + ' →</span>' +
+            '<span class="post-nav-title">' + nextTitle + '</span>' +
+            '<span class="post-nav-date">' + nextDate + '</span>' +
+            '</a>';
         }
+        navEl.innerHTML = navHtml;
 
         Comments.init();
         I18n.apply();
