@@ -2,7 +2,7 @@
 
 /* === reset.css === */
 /* ============================================
-   Reset — 白夜書簡 · 蚀羽版
+   Reset — 羽落逢蚀 · 蚀羽版
    极简重置，保留必要的可访问性
    ============================================ */
 
@@ -83,7 +83,7 @@ table {
 
 /* === variables.css === */
 /* ============================================
-   Design Variables — 白夜書簡 · 蚀羽版
+   Design Variables — 羽落逢蚀 · 蚀羽版
    无纯白、无纯黑。所有颜色带轻微风化感。
    Theme transition: 1.2s ease on background-color
    ============================================ */
@@ -93,6 +93,7 @@ table {
 [data-theme="light"] {
   /* 背景与表面 */
   --color-bg:            #FCFAF7;
+  --color-card:          #FFFDF9;
   --color-surface:       #F5F0EA;
   --color-surface-hover: #EFE8E0;
   --color-border:        #E5DED6;
@@ -127,6 +128,7 @@ table {
 /* ---- 深色主题 ---- */
 [data-theme="dark"] {
   --color-bg:            #15151A;
+  --color-card:          #1C1C24;
   --color-surface:       #1E1E24;
   --color-surface-hover: #26262E;
   --color-border:        #3A3A42;
@@ -179,7 +181,7 @@ header, footer, nav,
 
 /* === typography.css === */
 /* ============================================
-   Typography — 白夜書簡 · 蚀羽版
+   Typography — 羽落逢蚀 · 蚀羽版
    标题: Cormorant Garamond + Noto Serif SC
    正文: Noto Serif SC + Georgia
    代码: JetBrains Mono + SF Mono
@@ -364,7 +366,7 @@ hr {
 
 /* === layout.css === */
 /* ============================================
-   Layout — 白夜書簡 · 蚀羽版
+   Layout — 羽落逢蚀 · 蚀羽版
    内容最大宽度 860px，居中
    ============================================ */
 
@@ -422,12 +424,12 @@ hr {
 
 /* === components/header.css === */
 /* ============================================
-   Header — 白夜書簡 · 蚀羽版
+   Header — 羽落逢蚀 · 蚀羽版
    极简导航：站点标识 + 导航链接 + 控制按钮
    ============================================ */
 
 .site-header {
-  padding: 2rem 0 1.5rem;
+  padding: 2rem 2rem 1.5rem;
   font-family: var(--font-body);
 }
 
@@ -522,7 +524,18 @@ hr {
   text-decoration: none;
 }
 
-/* ---- 语言切换按钮 ---- */
+/* 主题切换按钮：固定宽高防止 ☀/☾ 切换时大小跳动 */
+#btn-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4em;
+  height: 2em;
+  line-height: 1;
+  padding: 0;
+}
+
+/* ---- 语言切换按钮：与主题按钮等高对齐 ---- */
 .btn-lang {
   display: inline-flex;
   align-items: center;
@@ -531,15 +544,20 @@ hr {
   cursor: pointer;
   padding: 0;
   font-family: var(--font-heading);
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   letter-spacing: 0.05em;
-  border-radius: 4px;
+  border-radius: 3px;
   overflow: hidden;
+  height: 2em;
+  line-height: 1;
 }
 
 .lang-zh, .lang-en {
-  padding: 0.25em 0.5em;
-  border-radius: 3px;
+  padding: 0 0.55em;
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+  border-radius: 2px;
   transition: background 0.3s ease, color 0.3s ease;
   color: var(--color-text-muted);
 }
@@ -570,13 +588,13 @@ hr {
   .header-controls {
     position: absolute;
     top: 2rem;
-    right: 1.5rem;
+    right: 2rem;
   }
 }
 
 /* === components/footer.css === */
 /* ============================================
-   Footer — 白夜書簡 · 蚀羽版
+   Footer — 羽落逢蚀 · 蚀羽版
    极淡、极小、像页脚的尘埃
    ============================================ */
 
@@ -603,7 +621,7 @@ hr {
 
 /* === components/navbar.css === */
 /* ============================================
-   Navbar — 白夜書簡 · 蚀羽版
+   Navbar — 羽落逢蚀 · 蚀羽版
    （被 header.css 引用，导航栏内部细节）
    ============================================ */
 
@@ -614,7 +632,7 @@ hr {
 
 /* === components/card.css === */
 /* ============================================
-   Card — 白夜书简 · 蚀羽版
+   Card — 羽落逢蚀 · 蚀羽版
    文章卡片：日期左置 + 标题 + 年份分组
    ============================================ */
 
@@ -741,7 +759,7 @@ hr {
 
 /* === components/button.css === */
 /* ============================================
-   Button — 白夜書簡 · 蚀羽版
+   Button — 羽落逢蚀 · 蚀羽版
    按钮风格：极简、无花哨装饰
    ============================================ */
 
@@ -814,7 +832,7 @@ hr {
 
 /* === components/post.css === */
 /* ============================================
-   Post — 白夜書簡 · 蚀羽版
+   Post — 羽落逢蚀 · 蚀羽版
    文章详情页排版：标题居中、正文行高 1.8
    代码块深色无边、引用斜体无竖线
    ============================================ */
@@ -823,7 +841,7 @@ hr {
 .post-header {
   text-align: center;
   margin-bottom: 3rem;
-  padding-top: 6vh;
+  padding-top: 0;
 }
 
 .post-header .post-back {
@@ -1007,12 +1025,23 @@ hr {
   display: flex;
   justify-content: center;
   gap: 2.5rem;
-  padding: 0 3.5rem;
+  padding: 2.5rem 3.5rem 4rem;
 }
 
 .post-layout .container {
   flex: 0 1 860px;
   min-width: 0;
+  /* 卡片样式：与背景分离 */
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 3rem 3.5rem;
+  box-shadow: 0 2px 16px 3px rgba(0,0,0,0.04);
+}
+
+/* 深色模式下阴影加深 */
+[data-theme="dark"] .post-layout .container {
+  box-shadow: 0 2px 20px 4px rgba(0,0,0,0.25);
 }
 
 /* ---- 侧边目录 ---- */
@@ -1023,7 +1052,7 @@ hr {
   align-self: flex-start;
   max-height: calc(100vh - 6rem);
   overflow-y: auto;
-  padding-top: 7.5vh;
+  padding-top: 3rem;
   font-family: var(--font-heading);
 }
 
@@ -1203,7 +1232,7 @@ hr {
 
 /* === pages/home.css === */
 /* ============================================
-   Home Page — 白夜書簡 · 蚀羽版
+   Home Page — 羽落逢蚀 · 蚀羽版
    首屏 Hero + 文章列表
    ============================================ */
 
@@ -1331,7 +1360,7 @@ hr {
 
 /* === pages/archive.css === */
 /* ============================================
-   Archive Page — 白夜書簡 · 蚀羽版
+   Archive Page — 羽落逢蚀 · 蚀羽版
    按年份分组的时间线
    ============================================ */
 
@@ -1401,7 +1430,7 @@ hr {
 
 /* === pages/projects.css === */
 /* ============================================
-   Projects Page — 白夜書簡 · 蚀羽版
+   Projects Page — 羽落逢蚀 · 蚀羽版
    项目卡片：名称 + 类型徽章 + 描述 + 技术栈
    ============================================ */
 
@@ -1559,7 +1588,7 @@ hr {
 
 /* === pages/about.css === */
 /* ============================================
-   About Page — 白夜書簡 · 蚀羽版
+   About Page — 羽落逢蚀 · 蚀羽版
    关于页：个人信息、博客说明
    ============================================ */
 

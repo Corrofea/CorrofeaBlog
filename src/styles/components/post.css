@@ -1,5 +1,5 @@
 /* ============================================
-   Post — 白夜書簡 · 蚀羽版
+   Post — 羽落逢蚀 · 蚀羽版
    文章详情页排版：标题居中、正文行高 1.8
    代码块深色无边、引用斜体无竖线
    ============================================ */
@@ -8,7 +8,7 @@
 .post-header {
   text-align: center;
   margin-bottom: 3rem;
-  padding-top: 6vh;
+  padding-top: 0;
 }
 
 .post-header .post-back {
@@ -192,12 +192,23 @@
   display: flex;
   justify-content: center;
   gap: 2.5rem;
-  padding: 0 3.5rem;
+  padding: 2.5rem 3.5rem 4rem;
 }
 
 .post-layout .container {
   flex: 0 1 860px;
   min-width: 0;
+  /* 卡片样式：与背景分离 */
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 3rem 3.5rem;
+  box-shadow: 0 2px 16px 3px rgba(0,0,0,0.04);
+}
+
+/* 深色模式下阴影加深 */
+[data-theme="dark"] .post-layout .container {
+  box-shadow: 0 2px 20px 4px rgba(0,0,0,0.25);
 }
 
 /* ---- 侧边目录 ---- */
@@ -208,7 +219,7 @@
   align-self: flex-start;
   max-height: calc(100vh - 6rem);
   overflow-y: auto;
-  padding-top: 7.5vh;
+  padding-top: 3rem;
   font-family: var(--font-heading);
 }
 

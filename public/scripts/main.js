@@ -1,5 +1,5 @@
 /* ============================================
-   Main Entry — 白夜书简 · 蚀羽版
+   Main Entry — 羽落逢蚀 · 蚀羽版
    初始化顺序: Theme -> i18n -> Header/Footer -> Page Logic
    所有阶段都有超时兜底，绝不死等
    ============================================ */
@@ -97,7 +97,7 @@
   withTimeout(doInit(), 10000, 'total init').then(function () {
     forceDisplay();
     try {
-      console.log('%c🪶 蚀羽 · corrofea %c白夜书简',
+      console.log('%c🪶 蚀羽 · corrofea %c羽落逢蚀',
         'color: #8B6F5C; font-size: 1.2em;',
         'color: #A09890;');
     } catch (e) {}

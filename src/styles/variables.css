@@ -1,5 +1,5 @@
 /* ============================================
-   Design Variables — 白夜書簡 · 蚀羽版
+   Design Variables — 羽落逢蚀 · 蚀羽版
    无纯白、无纯黑。所有颜色带轻微风化感。
    Theme transition: 1.2s ease on background-color
    ============================================ */
@@ -9,6 +9,7 @@
 [data-theme="light"] {
   /* 背景与表面 */
   --color-bg:            #FCFAF7;
+  --color-card:          #FFFDF9;
   --color-surface:       #F5F0EA;
   --color-surface-hover: #EFE8E0;
   --color-border:        #E5DED6;
@@ -43,6 +44,7 @@
 /* ---- 深色主题 ---- */
 [data-theme="dark"] {
   --color-bg:            #15151A;
+  --color-card:          #1C1C24;
   --color-surface:       #1E1E24;
   --color-surface-hover: #26262E;
   --color-border:        #3A3A42;
