@@ -19,6 +19,14 @@
   <style>
     body{background:#FCFAF7;color:#262626;font-family:"Noto Serif SC",Georgia,serif;margin:0;min-height:100vh}
     [data-theme="dark"] body{background:#15151A;color:#EDE9E2}
+    .lightbox{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .25s ease,visibility .25s ease}
+    .lightbox.open{opacity:1;visibility:visible}
+    .lightbox-backdrop{position:absolute;inset:0;background:rgba(21,21,26,.92)}
+    [data-theme="light"] .lightbox-backdrop{background:rgba(21,21,26,.85)}
+    .lightbox-close{position:absolute;top:1.5rem;right:1.5rem;z-index:2;background:none;border:none;color:#ccc;font-size:1.5rem;cursor:pointer;line-height:1;padding:.3em}
+    .lightbox-close:hover{color:#fff}
+    .lightbox-img{position:relative;z-index:1;max-width:90vw;max-height:90vh;object-fit:contain;border-radius:2px;cursor:default}
+    .article-content img{cursor:zoom-in}
   </style>
 
   <!-- Styles (single bundle, no @import chain) -->
@@ -124,6 +132,7 @@
         if (html) {
           contentEl.innerHTML = html;
           addCopyButtons(contentEl);
+          initLightbox(contentEl);
           buildTOC();
           if (typeof mermaid !== 'undefined') {
             // Save original mermaid source code before rendering
@@ -279,6 +288,31 @@
       }
     }
 
+    function initLightbox(container) {
+      var lb = document.getElementById('lightbox');
+      if (!lb) return;
+      var lbImg = lb.querySelector('.lightbox-img');
+      var imgs = container.querySelectorAll('img');
+      function close() {
+        lb.classList.remove('open');
+        lb.setAttribute('aria-hidden', 'true');
+        setTimeout(function () { lbImg.src = ''; }, 300);
+      }
+      for (var i = 0; i < imgs.length; i++) {
+        imgs[i].addEventListener('click', function () {
+          lbImg.src = this.src;
+          lbImg.alt = this.alt || '';
+          lb.classList.add('open');
+          lb.setAttribute('aria-hidden', 'false');
+        });
+      }
+      lb.querySelector('.lightbox-backdrop').addEventListener('click', close);
+      lb.querySelector('.lightbox-close').addEventListener('click', close);
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && lb.classList.contains('open')) close();
+      });
+    }
+
     function setMeta(selector, value) {
       var el = document.querySelector(selector);
       if (el) el.content = value;
@@ -377,5 +411,12 @@
   </script>
 
   <script src="scripts/main.js?v=1786068559"></script>
+
+  <!-- Image lightbox -->
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <div class="lightbox-backdrop"></div>
+    <button class="lightbox-close" aria-label="Close">✕</button>
+    <img class="lightbox-img" src="" alt="">
+  </div>
 </body>
 </html>
