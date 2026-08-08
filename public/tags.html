@@ -58,8 +58,7 @@
       const lang = I18n.lang();
 
       if (tags.length === 0) {
-        container.innerHTML = `<p style="text-align:center;color:var(--color-text-muted);padding:4rem 0;" data-i18n="tags.empty">暂无标签</p>`;
-        I18n.apply();
+        container.innerHTML = '<p style="text-align:center;color:var(--color-text-muted);padding:4rem 0;">' + I18n.t('tags.empty') + '</p>';
         return;
       }
 
@@ -85,8 +84,6 @@
           </section>
         `;
       }).join('');
-
-      I18n.apply();
     }
 
     I18n.onChange(() => renderTags());

@@ -58,8 +58,7 @@
       const lang = I18n.lang();
 
       if (posts.length === 0) {
-        container.innerHTML = `<p style="text-align:center;color:var(--color-text-muted);padding:4rem 0;" data-i18n="archive.empty">暂无文章</p>`;
-        I18n.apply();
+        container.innerHTML = '<p style="text-align:center;color:var(--color-text-muted);padding:4rem 0;">' + I18n.t('archive.empty') + '</p>';
         return;
       }
 
@@ -85,8 +84,6 @@
           </section>
         `;
       }).join('');
-
-      I18n.apply();
     }
 
     I18n.onChange(() => renderArchive());
