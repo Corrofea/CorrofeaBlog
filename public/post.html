@@ -406,14 +406,10 @@
     window.addEventListener('scroll', function () {
       var bar = document.getElementById('progress-bar');
       if (!bar) return;
-      var article = document.getElementById('post-content');
-      if (!article) return;
-      var rect = article.getBoundingClientRect();
-      var total = rect.height;
-      var scrolled = -rect.top;
-      if (scrolled <= 0) { bar.style.width = '0'; return; }
-      if (scrolled >= total) { bar.style.width = '100%'; return; }
-      bar.style.width = Math.min((scrolled / total) * 100, 100) + '%';
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      var total = document.documentElement.scrollHeight - window.innerHeight;
+      if (total <= 0) { bar.style.width = '0'; return; }
+      bar.style.width = Math.min((scrollTop / total) * 100, 100) + '%';
     });
 
     /* Expose for language switch */
