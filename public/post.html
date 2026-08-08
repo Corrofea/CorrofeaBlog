@@ -238,7 +238,8 @@
           var code = this.parentNode.querySelector('code');
           var text = code ? code.textContent : this.parentNode.textContent;
           var self = this;
-          navigator.clipboard.writeText(text).then(function () {
+
+          function onSuccess() {
             self.innerHTML = checkIcon;
             self.classList.add('copied');
             self.title = 'Copied';
@@ -247,7 +248,32 @@
               self.classList.remove('copied');
               self.title = 'Copy code';
             }, 1500);
-          }).catch(function () {});
+          }
+
+          // Clipboard API (requires HTTPS or localhost)
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(onSuccess).catch(function () {
+              fallbackCopy(text);
+            });
+          } else {
+            fallbackCopy(text);
+          }
+
+          function fallbackCopy(text) {
+            var textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.left = '-9999px';
+            textarea.style.top = '-9999px';
+            document.body.appendChild(textarea);
+            textarea.focus();
+            textarea.select();
+            try {
+              document.execCommand('copy');
+              onSuccess();
+            } catch (e) {}
+            document.body.removeChild(textarea);
+          }
         };
         blocks[i].appendChild(btn);
       }
