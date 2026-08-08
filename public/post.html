@@ -27,12 +27,15 @@
     .lightbox-close:hover{color:#fff}
     .lightbox-img{position:relative;z-index:1;max-width:90vw;max-height:90vh;object-fit:contain;border-radius:2px;cursor:default}
     .article-content img{cursor:zoom-in}
+    .progress-bar{position:fixed;top:0;left:0;width:0;height:2px;background:var(--color-accent,#5C3D2A);z-index:10000;transition:width .1s linear}
+    [data-theme="dark"] .progress-bar{background:var(--color-accent,#D2B8A2)}
   </style>
 
   <!-- Styles (single bundle, no @import chain) -->
   <link rel="stylesheet" href="styles/bundle.css?v=1786068559" />
 </head>
 <body>
+  <div class="progress-bar" id="progress-bar"></div>
   <div class="page">
     <div id="site-header"></div>
 
@@ -397,6 +400,20 @@
         }
         if (active) active.classList.add('toc-active');
       }, 80);
+    });
+
+    /* Reading progress bar */
+    window.addEventListener('scroll', function () {
+      var bar = document.getElementById('progress-bar');
+      if (!bar) return;
+      var article = document.getElementById('post-content');
+      if (!article) return;
+      var rect = article.getBoundingClientRect();
+      var total = rect.height;
+      var scrolled = -rect.top;
+      if (scrolled <= 0) { bar.style.width = '0'; return; }
+      if (scrolled >= total) { bar.style.width = '100%'; return; }
+      bar.style.width = Math.min((scrolled / total) * 100, 100) + '%';
     });
 
     /* Expose for language switch */
