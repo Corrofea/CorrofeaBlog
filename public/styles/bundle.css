@@ -183,14 +183,14 @@ header, footer, nav,
 /* ============================================
    Typography — 羽落逢蚀 · 蚀羽版
    标题: Cormorant Garamond + Noto Serif SC
-   正文: Noto Serif SC + Georgia
+   正文: 系统无衬线 (PingFang SC / Microsoft YaHei)
    代码: JetBrains Mono + SF Mono
    ============================================ */
 
 /* ---- 字体栈 ---- */
 :root {
   --font-heading:  "Cormorant Garamond", "Noto Serif SC", "STIX Two Text", "Times New Roman", serif;
-  --font-body:     "Noto Serif SC", "Georgia", "STIX Two Text", "Songti SC", serif;
+  --font-body:     -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", sans-serif;
   --font-code:     "JetBrains Mono", "SF Mono", "Cascadia Code", "Fira Code", monospace;
 }
 
@@ -205,11 +205,11 @@ html {
 
 body {
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: 1.05rem;
   line-height: 1.8;
-  font-weight: 400;
+  font-weight: 420;
   color: var(--color-text);
-  letter-spacing: 0.01em;
+  letter-spacing: 0.012em;
 }
 
 /* ---- 标题层级 ---- */
@@ -447,7 +447,7 @@ hr {
   font-weight: 400;
   color: var(--color-text-muted);
   letter-spacing: 0.06em;
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-style: italic;
   white-space: nowrap;
 }
@@ -515,7 +515,7 @@ hr {
   border-radius: 3px;
   cursor: pointer;
   letter-spacing: 0.04em;
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
 }
 
 .header-controls button:hover {
@@ -547,6 +547,7 @@ hr {
   font-size: 0.7rem;
   letter-spacing: 0.05em;
   border-radius: 3px;
+  font-family: var(--font-body);
   overflow: hidden;
   height: 2em;
   line-height: 1;
@@ -741,7 +742,7 @@ hr {
 .post-card-tag {
   font-size: 0.68rem;
   color: var(--color-text-muted);
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   letter-spacing: 0.04em;
   font-style: italic;
 }
@@ -1080,7 +1081,7 @@ hr {
 }
 
 .post-tag {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 0.68rem;
   font-style: italic;
   color: var(--color-text-muted);
@@ -1099,18 +1100,19 @@ hr {
 .post-layout {
   display: flex;
   justify-content: center;
-  gap: 2.5rem;
+  gap: 1.5rem;
   padding: 2.5rem 3.5rem 4rem;
 }
 
 .post-layout .container {
   flex: 0 1 860px;
   min-width: 0;
+  margin: 0;
   /* 卡片样式：与背景分离 */
   background: var(--color-card);
   border: 1px solid var(--color-border);
   border-radius: 8px;
-  padding: 3rem 3.5rem;
+  padding: 3rem 3rem;
   box-shadow: 0 2px 16px 3px rgba(0,0,0,0.04);
 }
 
@@ -1121,25 +1123,32 @@ hr {
 
 /* ---- 侧边目录 ---- */
 .post-toc {
-  flex: 0 0 200px;
+  flex: 0 0 260px;
   position: sticky;
-  top: 3rem;
+  top: 2.5rem;
   align-self: flex-start;
-  max-height: calc(100vh - 6rem);
+  max-height: calc(100vh - 5rem);
   overflow-y: auto;
-  padding-top: 3rem;
-  font-family: var(--font-heading);
+  padding: 1.8rem 1.6rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  box-shadow: 0 2px 16px 3px rgba(0,0,0,0.04);
+}
+
+[data-theme="dark"] .post-toc {
+  box-shadow: 0 2px 20px 4px rgba(0,0,0,0.25);
 }
 
 .toc-title {
   display: flex;
   align-items: center;
   gap: 0.3em;
-  font-size: 0.72rem;
+  font-size: 0.85rem;
   font-weight: 400;
   color: var(--color-text-muted);
   letter-spacing: 0.06em;
-  font-style: italic;
   margin-bottom: 0.8rem;
   cursor: pointer;
   user-select: none;
@@ -1151,9 +1160,8 @@ hr {
 
 .toc-arrow {
   display: inline-block;
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   transition: transform 0.3s ease;
-  font-style: normal;
 }
 
 .toc-collapsed .toc-arrow {
@@ -1176,9 +1184,9 @@ hr {
 
 #toc-nav a {
   display: block;
-  font-size: 0.75rem;
+  font-size: 0.82rem;
   color: var(--color-text-muted);
-  padding: 0.25em 0 0.25em 1.35em;
+  padding: 0.3em 0 0.3em 1.35em;
   text-decoration: none;
   transition: color 0.2s ease;
   letter-spacing: 0.03em;
@@ -1200,7 +1208,7 @@ hr {
   left: 0;
   top: 0.25em;
   width: 1.35em;
-  font-size: 0.55rem;
+  font-size: 0.65rem;
   transition: transform 0.25s ease;
   opacity: 0.5;
   text-align: center;
@@ -1230,7 +1238,7 @@ hr {
 .toc-h3 {
   position: relative;
   padding-left: 2rem;
-  font-size: 0.7rem !important;
+  font-size: 0.78rem !important;
   opacity: 0.85;
 }
 
@@ -1389,7 +1397,7 @@ hr {
 }
 
 .search-filter-label {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 0.62rem;
   font-weight: 400;
   color: var(--color-text-muted);
@@ -1408,9 +1416,8 @@ hr {
 
 .search-tag {
   padding: 0.18em 0.55em;
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 0.65rem;
-  font-style: italic;
   color: var(--color-text-secondary);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -1439,7 +1446,7 @@ hr {
 
 .search-year {
   padding: 0.18em 0.55em;
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 0.65rem;
   color: var(--color-text-secondary);
   background: var(--color-surface);
@@ -1580,7 +1587,7 @@ hr {
 
 /* ---- 卡片标题 ---- */
 .fortune-title {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 0.72rem;
   font-weight: 400;
   font-style: italic;

@@ -1,14 +1,14 @@
 /* ============================================
    Typography — 羽落逢蚀 · 蚀羽版
    标题: Cormorant Garamond + Noto Serif SC
-   正文: Noto Serif SC + Georgia
+   正文: 系统无衬线 (PingFang SC / Microsoft YaHei)
    代码: JetBrains Mono + SF Mono
    ============================================ */
 
 /* ---- 字体栈 ---- */
 :root {
   --font-heading:  "Cormorant Garamond", "Noto Serif SC", "STIX Two Text", "Times New Roman", serif;
-  --font-body:     "Noto Serif SC", "Georgia", "STIX Two Text", "Songti SC", serif;
+  --font-body:     -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", sans-serif;
   --font-code:     "JetBrains Mono", "SF Mono", "Cascadia Code", "Fira Code", monospace;
 }
 
@@ -23,11 +23,11 @@ html {
 
 body {
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: 1.05rem;
   line-height: 1.8;
-  font-weight: 400;
+  font-weight: 420;
   color: var(--color-text);
-  letter-spacing: 0.01em;
+  letter-spacing: 0.012em;
 }
 
 /* ---- 标题层级 ---- */

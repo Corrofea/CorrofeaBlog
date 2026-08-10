@@ -81,7 +81,7 @@
 }
 
 .search-filter-label {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 0.62rem;
   font-weight: 400;
   color: var(--color-text-muted);
@@ -100,9 +100,8 @@
 
 .search-tag {
   padding: 0.18em 0.55em;
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 0.65rem;
-  font-style: italic;
   color: var(--color-text-secondary);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -131,7 +130,7 @@
 
 .search-year {
   padding: 0.18em 0.55em;
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 0.65rem;
   color: var(--color-text-secondary);
   background: var(--color-surface);

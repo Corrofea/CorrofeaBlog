@@ -1,4 +1,4 @@
-# 用法手册 . 蚀羽 CorrofeaBlog
+# 用法手册 · 蚀羽 CorrofeaBlog
 
 ## 快速开始
 
@@ -11,60 +11,32 @@ python3 -m http.server 8080 -d public
 ## 文件结构速览
 
 ```
-public/                     ← 部署目录（Nginx root）
-├── index.html              ← 首页
-├── post.html               ← 文章详情（?slug=xxx）
-├── archive.html            ← 归档 / tags.html 标签 / projects.html 项目
-├── about.html / 404.html
-├── robots.txt / sitemap.xml
+public/                         ← 部署目录（Nginx root）
+├── index.html                  ← 首页（Hero + 仪表盘 + 文章）
+├── post.html                   ← 文章详情（?slug=xxx）
+├── archive.html                ← 归档 / tags.html 标签
+├── projects.html               ← 项目 / about.html 关于
+├── 404.html / robots.txt / sitemap.xml
 │
-├── scripts/                ← JS
-│   ├── config.js           ←   ★ 站点配置（CDN、评论等，改这里）
-│   ├── lib/                ←   第三方库（marked.js）
-│   ├── utils/              ←   核心模块（i18n, posts, router）
-│   ├── components/         ←   组件逻辑（header, footer, theme）
-│   └── main.js             ←   总入口
+├── scripts/                    ← JS
+│   ├── config.js               ←   ★ 站点配置（CDN、评论等）
+│   ├── lib/                    ←   第三方库（marked.js, mermaid.js）
+│   ├── utils/                  ←   核心模块（i18n, posts, router）
+│   ├── components/             ←   组件（header, footer, theme, fortune, search）
+│   └── main.js                 ←   总入口
 │
-├── styles/bundle.css       ← 合并版 CSS（build.py 生成）
-├── posts/zh/  posts/en/    ← Markdown 文章
-├── data/                   ← JSON 数据（build.py 生成）
-│   ├── posts-index.json
-│   └── projects.json
-├── i18n/                   ← 翻译文件
-├── components/             ← HTML 片段（header, footer）
-├── assets/                 ← 图片 / 字体 / 文件
-└── demos/                  ← 托管项目 Demo
+├── styles/bundle.css           ← 合并版 CSS（build.py 生成）
+├── data/
+│   ├── posts-index.json        ← 文章索引（build.py 生成）
+│   ├── projects.json           ← 项目数据
+│   └── fortunes.json           ← ★ 签文数据池
+├── posts/zh/  posts/en/        ← Markdown 文章
+├── i18n/                       ← 翻译文件
+├── components/                 ← HTML 片段（header, footer）
+├── assets/                     ← 图片 / 字体 / 文件
+└── demos/                      ← 托管项目 Demo
 
-src/styles/                 ← CSS 源文件（分模块编辑，build.py 读取合并）
-```
-
-## 草稿
-
-先把想法丢进 `drafts/`，随便写，不需要 YAML frontmatter。写完再一键转正。
-
-### 写草稿
-
-```bash
-cp drafts/TEMPLATE.md drafts/我的想法.md
-# 随便写，不需要 --- 头部
-```
-
-建议：第一行 `# 标题` 会被自动提取；用 `##` 分章节，发布后自动生成目录。
-
-草稿不会被部署（`drafts/` 已加入 `.gitignore`）。草稿图片临时放 `drafts/images/`。
-
-### 转正
-
-```bash
-python3 scripts/new-post.py drafts/我的想法.md
-```
-
-脚本交互流程：自动提取标题 → 确认标签和日期 → 生成 `public/posts/zh/` 和 `public/posts/en/` → 创建图片目录 → 运行 build。
-
-也支持一键指定：
-
-```bash
-python3 scripts/new-post.py drafts/我的想法.md --slug my-post --tags "前端,Nginx" --date 2025-08-10
+src/styles/                     ← CSS 源文件（分模块编辑，build.py 读取合并）
 ```
 
 ## 写文章
@@ -122,6 +94,28 @@ rsync -avz public/ user@server:/var/www/corrofea/public/   # 部署
 | `summary_en` | 否 | 英文摘要 |
 | `draft` | 否 | `true` 隐藏，`false` 公开（默认 false） |
 
+## 草稿
+
+先把想法丢进 `drafts/`，随便写，不需要 YAML frontmatter。写完再一键转正。
+
+```bash
+cp drafts/TEMPLATE.md drafts/我的想法.md
+```
+
+草稿不会被部署（`drafts/` 已加入 `.gitignore`）。
+
+### 转正
+
+```bash
+python3 scripts/new-post.py drafts/我的想法.md
+```
+
+也支持一键指定：
+
+```bash
+python3 scripts/new-post.py drafts/我的想法.md --slug my-post --tags "前端,Nginx" --date 2025-08-10
+```
+
 ## 插入图片
 
 将图片放入文章对应目录：
@@ -139,45 +133,35 @@ Markdown 中用文件名引用：
 ![截图](screenshot.png)
 ```
 
-渲染后自动拼接完整路径，懒加载、自适应。
+渲染后自动拼接完整路径，懒加载、自适应。支持点击放大灯箱预览。
 
-**CDN 切换**：编辑 `public/scripts/config.js`，改一行：
+## 管理签文
 
-```javascript
-imageBase: '/assets/images/blog',          // 本地
-imageBase: 'https://your-cdn.com/blog',   // CDN（将来启用时）
-```
-
-三种路径写法：
-
-| Markdown | 解析 |
-|----------|------|
-| `![图](photo.png)` | `{imageBase}/{slug}/photo.png` |
-| `![图](/common/logo.png)` | `{imageBase}/common/logo.png` |
-| `![图](https://cdn.io/x.jpg)` | 原样保留 |
-
-## 添加项目
-
-编辑 `public/data/projects.json`：
+编辑 `public/data/fortunes.json`，按等级分组。每条签文包含：
 
 ```json
 {
-  "slug": "my-game",
-  "title": { "zh": "游戏名", "en": "Game" },
-  "description": { "zh": "描述", "en": "Desc" },
-  "tech": ["Canvas", "JS"],
-  "github": "https://github.com/xxx",
-  "demo": "/demos/my-game/",
-  "type": "game",
-  "featured": true
+  "level": "大吉",
+  "good": "宜：部署到生产环境",
+  "bad": "忌：反复修改一行样式",
+  "quote": "羽落无声，万物归位。今日代码如流水，一次通过。"
 }
 ```
 
-| 字段 | 说明 |
-|------|------|
-| `type` | `game` / `tool` / `library` / `website` / `other` |
-| `featured` | `true` 排最前 |
-| `demo` | 托管 Demo 路径或外部 URL |
+### 概率配置
+
+编辑 `public/scripts/components/fortune.js`，找到 `WEIGHTS` 数组：
+
+| 等级 | 权重 | 概率 |
+|------|------|------|
+| 大吉 | 5 | 5% |
+| 中吉 | 10 | 10% |
+| 小吉 | 20 | 20% |
+| 中平 | 30 | 30% |
+| 凶 | 25 | 25% |
+| 大凶 | 10 | 10% |
+
+调概率只需改权重数字，总和建议保持 100。
 
 ## 修改样式
 
@@ -195,17 +179,6 @@ python3 scripts/build.py   # 自动合并 → public/styles/bundle.css
 
 编辑 `src/styles/typography.css`，修改 `--font-heading` / `--font-body` / `--font-code` 变量。本地字体放入 `public/assets/fonts/`，添加 `@font-face` 声明即可。
 
-## CDN 与站点配置
-
-编辑 `public/scripts/config.js`：
-
-```javascript
-window.__CONFIG__ = {
-  imageBase: '/assets/images/blog',   // 图片基础路径
-  commentProvider: null,              // 后续接入 Giscus 时改为 'giscus'
-};
-```
-
 ## 部署
 
 ```bash
@@ -222,42 +195,24 @@ rsync -avz public/ user@server:/var/www/corrofea/public/
 sudo certbot --nginx -d corrofea.com -d www.corrofea.com
 ```
 
-## 扩展功能
-
-### 评论系统
-
-1. [Giscus](https://giscus.app/) 获取配置
-2. 编辑 `public/scripts/config.js`：`commentProvider: 'giscus'`
-3. 编辑 `public/scripts/components/comments.js`，取消注释填入参数
-
-### 代码高亮
-
-1. 放 `highlight.min.js` → `public/scripts/lib/`
-2. 编辑 `public/scripts/utils/marked-setup.js`，配置 `marked.setOptions({ highlight: ... })`
-3. 主题 CSS 加入 `src/styles/`，重建 bundle
-
-### RSS / 搜索
-
-基于 `public/data/posts-index.json` 实现，客户端 JS 即可。
-
 ## 文艺化表达一览
 
-博客 UI 中使用了一些蚀羽主题的文艺化表达。修改 `public/i18n/zh.json` 和 `public/i18n/en.json` 即可替换。
+博客 UI 中使用的蚀羽主题文艺化表达。修改 `public/i18n/zh.json` 和 `public/i18n/en.json` 即可替换。
 
-| 场景 | 中文 | 英文 | 含义 |
-|------|------|------|------|
-| 首页无文章 | 羽毛还在生长…… | Feathers are still growing... | 还没有发布过文章 |
-| 文章加载中 | 羽笔蘸墨中…… | — | 正在 fetch 并渲染 Markdown |
-| 404 页面 | 这片羽毛被风吹走了。 | — | 页面不存在 |
-| 文章不存在（无 slug） | 羽落无声 | — | URL 没有传入 slug 参数 |
-| 文章不存在（索引中无匹配） | 此羽未落 | — | slug 在索引中找不到对应文章 |
-| 文章内容加载失败（fetch 失败） | 这片羽毛被风吹散了。 | This feather was scattered by the wind. | MD 文件 fetch 失败或 marked 解析失败 |
-| JS 初始化异常 | 羽翼未丰 | — | main.js 渲染流程崩溃 |
-| 崩溃后提示 | 这片羽毛还未落下，请稍后再试。 | — | try-catch 兜底，建议刷新重试 |
-| 归档页无文章 | 时光还未留下痕迹。 | Time has left no trace yet. | 没有任何已发表的文章 |
-| 标签页无标签 | 暂无标签。 | No tags yet. | 文章没有打过标签 |
-| 项目页无项目 | 还没有项目展示。 | No projects to show yet. | projects.json 为空 |
-| 关于页格言 | 代码会过时，羽毛会风化，但蚀痕本身就是意义。 | Code becomes obsolete, feathers weather away, but the marks of erosion themselves carry meaning. | 站点座右铭 |
+| 场景 | 中文 | 英文 |
+|------|------|------|
+| 首页无文章 | 羽毛还在生长…… | Feathers are still growing... |
+| 文章加载中 | 羽笔蘸墨中…… | — |
+| 404 页面 | 这片羽毛被风吹走了。 | — |
+| 文章不存在（无 slug） | 羽落无声 | — |
+| 文章不存在（索引无匹配） | 此羽未落 | — |
+| 文章加载失败 | 这片羽毛被风吹散了。 | This feather was scattered by the wind. |
+| JS 初始化异常 | 羽翼未丰 | — |
+| 崩溃后提示 | 这片羽毛还未落下，请稍后再试。 | — |
+| 归档无文章 | 时光还未留下痕迹。 | Time has left no trace yet. |
+| 标签无标签 | 暂无标签。 | No tags yet. |
+| 项目无项目 | 还没有项目展示。 | No projects to show yet. |
+| 关于页格言 | 代码会过时，羽毛会风化，但蚀痕本身就是意义。 | Code becomes obsolete, feathers weather away, but the marks of erosion themselves carry meaning. |
 
 ## 常见问题
 
