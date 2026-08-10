@@ -86,12 +86,27 @@
 
 /* ---- 等级大字 ---- */
 .fortune-level {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4em;
   font-family: var(--font-heading);
   font-size: 3rem;
   font-weight: 300;
   letter-spacing: 0.2em;
   margin-bottom: 0.8rem;
   animation: fortuneReveal 0.6s ease both;
+}
+
+.fortune-level-mark {
+  font-size: 1em;
+  font-weight: 200;
+  opacity: 0.55;
+  letter-spacing: 0;
+}
+
+.fortune-level-text {
+  letter-spacing: 0.2em;
 }
 
 @keyframes fortuneReveal {
@@ -167,12 +182,12 @@
 /* ---- 日期水印 ---- */
 .fortune-date {
   font-family: var(--font-heading);
-  font-size: 0.65rem;
+  font-size: 1rem;
   font-style: italic;
   color: var(--color-text-muted);
   letter-spacing: 0.06em;
   margin-top: 1rem;
-  opacity: 0.5;
+  opacity: 0.65;
   animation: fortuneReveal 0.6s 0.3s ease both;
 }
 

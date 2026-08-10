@@ -112,7 +112,7 @@ const Fortune = (() => {
     return '<div class="fortune-card fortune-card--result" id="fortune-card">' +
       '<div class="fortune-card-inner">' +
       '<div class="fortune-title fortune-title--result">片羽签</div>' +
-      '<div class="fortune-level" style="color:' + levelColor + '">' + fortune.level + '</div>' +
+      '<div class="fortune-level" style="color:' + levelColor + '"><span class="fortune-level-mark">§</span><span class="fortune-level-text">' + fortune.level + '</span><span class="fortune-level-mark">§</span></div>' +
       '<div class="fortune-quote">' + fortune.quote + '</div>' +
       '<div class="fortune-advice">' +
       '<div class="fortune-advice-item fortune-good"><span class="fortune-label">宜</span>' + fortune.good + '</div>' +
