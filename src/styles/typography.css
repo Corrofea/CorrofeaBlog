@@ -8,7 +8,9 @@
 /* ---- 字体栈 ---- */
 :root {
   --font-heading:  "Cormorant Garamond", "Noto Serif SC", "STIX Two Text", "Times New Roman", serif;
-  --font-body:     -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+  --font-body:     "Times New Roman", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-display:  "Babylonica", "Pinyon Script", "Ruthie", cursive;
+  --font-brush:    "Ma Shan Zheng", cursive;
   --font-code:     "JetBrains Mono", "SF Mono", "Cascadia Code", "Fira Code", monospace;
 }
 

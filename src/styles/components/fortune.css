@@ -35,7 +35,7 @@
 
 /* ---- 卡片标题 ---- */
 .fortune-title {
-  font-family: var(--font-body);
+  font-family: var(--font-heading);
   font-size: 0.72rem;
   font-weight: 400;
   font-style: italic;

@@ -247,7 +247,7 @@
 }
 
 .post-tag {
-  font-family: var(--font-body);
+  font-family: var(--font-heading);
   font-size: 0.68rem;
   font-style: italic;
   color: var(--color-text-muted);
