@@ -3,9 +3,20 @@
    首屏 Hero + 文章列表
    ============================================ */
 
+/* ---- 首页：导航栏浮在 hero 上方，不额外占高 ---- */
+#home-page #site-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
 /* ---- 首屏 Hero ---- */
 .home-hero {
-  min-height: 85vh;
+  height: 100vh;
+  height: 100dvh;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -13,6 +24,11 @@
   text-align: center;
   position: relative;
   padding: 2rem 1rem;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+[data-theme="dark"] .home-hero {
+  border-bottom-color: var(--color-border);
 }
 
 /* ---- 头像 ---- */
@@ -68,29 +84,57 @@
 /* ---- 滚动引导 ---- */
 .hero-scroll {
   position: absolute;
-  bottom: 2rem;
+  bottom: 12%;
   left: 0;
   right: 0;
   text-align: center;
 }
 
-.hero-scroll .arrow-down {
+.hero-scroll-arrow {
   display: inline-block;
-  font-size: 0.8rem;
+  font-size: 1.4rem;
   color: var(--color-text-muted);
-  opacity: 0.35;
-  animation: arrowPulse 3s ease infinite;
-  font-family: var(--font-heading);
+  opacity: 0.5;
+  cursor: pointer;
+  animation: featherFloat 3s ease-in-out infinite;
+  transition: opacity 0.3s ease;
+  user-select: none;
 }
 
-@keyframes arrowPulse {
-  0%, 100% { opacity: 0.25; transform: translateY(0); }
-  50%      { opacity: 0.6;  transform: translateY(4px); }
+.hero-scroll-arrow:hover {
+  opacity: 0.8;
+}
+
+@keyframes featherFloat {
+  0%, 100% { transform: translateY(0); opacity: 0.4; }
+  50%      { transform: translateY(-8px); opacity: 0.7; }
+}
+
+/* ---- 仪表盘双栏：搜索 + 片羽签（黄金分割 ≈ 1.618 : 1） ---- */
+.home-dashboard {
+  display: flex;
+  gap: 1.5rem;
+  max-width: 1080px;
+  margin: 3rem auto 3rem;
+  padding: 0;
+  align-items: stretch;
+}
+
+.home-dashboard-search {
+  flex: 1.618;
+  min-width: 0;
+}
+
+.home-dashboard-fortune {
+  flex: 1;
+  min-width: 0;
 }
 
 /* ---- 文章列表区块 ---- */
 .home-posts-section {
-  margin-bottom: 4rem;
+  max-width: 1080px;
+  margin: 0 auto 4rem;
+  padding: 0;
 }
 
 .home-posts {
@@ -110,7 +154,9 @@
 /* ---- 响应式 ---- */
 @media (max-width: 768px) {
   .home-hero {
-    min-height: 75vh;
+    height: 90vh;
+    height: 90dvh;
+    padding: 2rem 1rem;
   }
 
   .hero-title {
@@ -122,5 +168,15 @@
     height: 96px;
     margin-bottom: 2rem;
     box-shadow: 0 0 0 6px var(--color-surface);
+  }
+
+  .home-dashboard {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+
+  .home-posts-section {
+    padding: 0 1rem;
   }
 }

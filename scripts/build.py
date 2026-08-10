@@ -168,6 +168,7 @@ def build_css():
         'reset.css', 'variables.css', 'typography.css', 'layout.css',
         'components/header.css', 'components/footer.css', 'components/navbar.css',
         'components/card.css', 'components/button.css', 'components/post.css',
+        'components/search.css', 'components/fortune.css',
         'pages/home.css', 'pages/archive.css', 'pages/projects.css', 'pages/about.css'
     ]
     bundle = out_dir / 'bundle.css'

@@ -20,24 +20,26 @@
 <style>
 body{background:#FCFAF7;color:#262626;font-family:"Noto Serif SC",Georgia,serif;margin:0;min-height:100vh}
 [data-theme="dark"] body{background:#15151A;color:#EDE9E2}
-.home-hero{min-height:85vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;padding:2rem 1rem}
+#home-page #site-header{position:absolute;top:0;left:0;right:0;z-index:10}.home-hero{height:100vh;height:100dvh;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;padding:2rem 1rem;border-bottom:1px solid #D8D2C8}
 .hero-avatar{width:120px;height:120px;border-radius:50%;overflow:hidden;margin-bottom:2.5rem;border:1px solid #B8A090;box-shadow:0 0 0 8px #F5F0EA}
-[data-theme="dark"] .hero-avatar{box-shadow:0 0 0 8px #1E1E24}
+[data-theme="dark"] .hero-avatar{box-shadow:0 0 0 8px #1E1E24}[data-theme="dark"] .home-hero{border-bottom-color:#2E2E36}
 .hero-title{font-family:"Cormorant Garamond","Noto Serif SC",serif;font-size:3.5rem;font-weight:300;font-style:italic;color:#1A1A1A;letter-spacing:.08em;margin:0;line-height:1.2}
 [data-theme="dark"] .hero-title{color:#F2EFE9}
 .hero-title-sep{color:#B8A090;margin:0 .3em;font-style:normal}
 .hero-subtitle{font-size:.9rem;color:#8A8078;margin-top:1rem;letter-spacing:.06em}
-.hero-scroll{position:absolute;bottom:2rem;left:0;right:0;text-align:center}
-.hero-scroll .arrow-down{display:inline-block;font-size:.8rem;color:#8A8078;opacity:.35;animation:arrowPulse 3s ease infinite}
-@keyframes arrowPulse{0%,100%{opacity:.25;transform:translateY(0)}50%{opacity:.6;transform:translateY(4px)}}
+.hero-scroll{position:absolute;bottom:12%;left:0;right:0;text-align:center;z-index:1}
+.hero-scroll-arrow{display:inline-block;font-size:1.4rem;color:#8A8078;opacity:.5;cursor:pointer;animation:featherFloat 3s ease-in-out infinite;user-select:none}
+.hero-scroll-arrow:hover{opacity:.8}
+@keyframes featherFloat{0%,100%{transform:translateY(0);opacity:.4}50%{transform:translateY(-8px);opacity:.7}}
 #post-list:empty::after{content:"...";display:block;text-align:center;color:#8A8078;padding:3rem 0;font-style:italic}
-.home-posts-section{padding:0 1rem;max-width:860px;margin:0 auto 4rem}
-@media(max-width:768px){.home-hero{min-height:75vh}.hero-title{font-size:2.4rem}.hero-avatar{width:96px;height:96px;margin-bottom:2rem;box-shadow:0 0 0 6px #F5F0EA}}
+.home-posts-section{max-width:1080px;margin:0 auto 4rem;padding:0}
+.home-dashboard{display:flex;gap:1.5rem;max-width:1080px;margin:3rem auto;padding:0;align-items:stretch}.home-dashboard-search{flex:1.618;min-width:0}.home-dashboard-fortune{flex:1;min-width:0}
+@media(max-width:768px){.home-hero{height:90vh;height:90dvh;padding:2rem 1rem}.hero-title{font-size:2.4rem}.hero-avatar{width:96px;height:96px;margin-bottom:2rem;box-shadow:0 0 0 6px #F5F0EA}.home-dashboard{flex-direction:column;gap:1rem;padding:0 1rem}.home-posts-section{padding:0 1rem}}
 </style>
 
 <link rel="stylesheet" href="styles/bundle.css?v=1786068559">
 </head>
-<body>
+<body id="home-page">
 <div class="page">
 <div id="site-header"></div>
 <main>
@@ -52,8 +54,15 @@ body{background:#FCFAF7;color:#262626;font-family:"Noto Serif SC",Georgia,serif;
 <span>corrofea</span>
 </h1>
 <p class="hero-subtitle" data-i18n="site.description">被时间侵蚀的羽毛 — 个人技术博客</p>
-<div class="hero-scroll"><span class="arrow-down">↓</span></div>
+<div class="hero-scroll"><span class="hero-scroll-arrow" onclick="document.getElementById('hero-end').scrollIntoView({behavior:'smooth',block:'start'})" title="向下翻">↓</span></div>
 </header>
+<div id="hero-end"></div>
+
+<!-- 仪表盘：搜索 + 片羽签 -->
+<div class="home-dashboard" id="dashboard">
+<div class="home-dashboard-search" id="search-panel-container"></div>
+<div class="home-dashboard-fortune" id="fortune-container"></div>
+</div>
 
 <!-- 文章列表 -->
 <div class="home-posts-section">
@@ -80,6 +89,8 @@ window.__POSTS__ = [{"slug": "nginx-config-debugging", "title": {"zh": "Nginx �
 <script src="scripts/components/theme.js?v=1786068559"></script>
 <script src="scripts/components/header.js?v=1786068559"></script>
 <script src="scripts/components/footer.js?v=1786068559"></script>
+<script src="scripts/components/search.js?v=1786068559"></script>
+<script src="scripts/components/fortune.js?v=1786068559"></script>
 
 <script>
 (function () {
@@ -135,7 +146,20 @@ window.__POSTS__ = [{"slug": "nginx-config-debugging", "title": {"zh": "Nginx �
 
   I18n.onChange(function () { renderPostList(); });
   window.renderPostList = renderPostList;
-  window.initHome = renderPostList;
+  window.initHome = function () {
+    // 搜索面板
+    var sc = document.getElementById('search-panel-container');
+    if (sc) {
+      var posts = Posts.publishedSync();
+      sc.innerHTML = Search.buildPanel(posts);
+      Search.bindEvents(function () { return I18n.lang(); });
+    }
+    // 片羽签
+    var fc = document.getElementById('fortune-container');
+    if (fc) Fortune.render(fc);
+    // 文章列表
+    renderPostList();
+  };
 })();
 </script>
 

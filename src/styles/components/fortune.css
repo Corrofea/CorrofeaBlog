@@ -1,0 +1,192 @@
+/* ============================================
+   Fortune — 羽落占 · 片羽签
+   每日抽签卡片，位于 hero 与文章列表之间
+   ============================================ */
+
+/* ---- 卡片容器 ---- */
+.fortune-card {
+  height: 100%;
+  box-sizing: border-box;
+  padding: 2.2rem 1.5rem;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 1px 8px 2px rgba(0,0,0,0.03);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.fortune-card:hover {
+  box-shadow: 0 2px 14px 3px rgba(0,0,0,0.06);
+  transform: translateY(-1px);
+}
+
+.fortune-card:hover {
+  box-shadow: 0 2px 14px 3px rgba(0,0,0,0.06);
+}
+
+[data-theme="dark"] .fortune-card {
+  box-shadow: 0 1px 8px 2px rgba(0,0,0,0.15);
+}
+
+[data-theme="dark"] .fortune-card:hover {
+  box-shadow: 0 2px 14px 3px rgba(0,0,0,0.25);
+}
+
+/* ---- 卡片标题 ---- */
+.fortune-title {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--color-text-muted);
+  letter-spacing: 0.08em;
+  margin-bottom: 1.5rem;
+}
+
+.fortune-title--result {
+  margin-bottom: 1rem;
+}
+
+/* ---- 抽签按钮 ---- */
+.fortune-draw-btn {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  padding: 1.8rem 3rem;
+  border: 1px dashed var(--color-accent-subtle);
+  border-radius: 6px;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+  user-select: none;
+}
+
+.fortune-draw-btn:hover {
+  background: var(--color-surface);
+  border-color: var(--color-accent);
+  transform: scale(1.02);
+}
+
+.fortune-draw-btn:active {
+  transform: scale(0.98);
+}
+
+.fortune-feather {
+  font-size: 1.6rem;
+  transition: transform 0.6s ease;
+}
+
+.fortune-draw-btn:hover .fortune-feather {
+  transform: translateY(-4px);
+}
+
+/* ---- 等级大字 ---- */
+.fortune-level {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  margin-bottom: 0.8rem;
+  animation: fortuneReveal 0.6s ease both;
+}
+
+@keyframes fortuneReveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ---- 哲言 ---- */
+.fortune-quote {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  letter-spacing: 0.04em;
+  margin-bottom: 1.5rem;
+  padding: 0 1rem;
+  animation: fortuneReveal 0.6s 0.1s ease both;
+}
+
+/* ---- 宜忌 ---- */
+.fortune-advice {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1.2rem;
+  padding: 0 2rem;
+  animation: fortuneReveal 0.6s 0.2s ease both;
+}
+
+.fortune-advice-item {
+  font-family: var(--font-body);
+  font-size: 0.84rem;
+  color: var(--color-text);
+  letter-spacing: 0.03em;
+  text-align: left;
+  display: flex;
+  align-items: baseline;
+  gap: 0.6em;
+}
+
+.fortune-label {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+  min-width: 1.2em;
+}
+
+.fortune-good .fortune-label {
+  color: #6B8E6B;
+}
+
+.fortune-bad .fortune-label {
+  color: #B8766B;
+}
+
+[data-theme="dark"] .fortune-good .fortune-label {
+  color: #8AB88A;
+}
+
+[data-theme="dark"] .fortune-bad .fortune-label {
+  color: #D49080;
+}
+
+/* ---- 日期水印 ---- */
+.fortune-date {
+  font-family: var(--font-heading);
+  font-size: 0.65rem;
+  font-style: italic;
+  color: var(--color-text-muted);
+  letter-spacing: 0.06em;
+  margin-top: 1rem;
+  opacity: 0.5;
+  animation: fortuneReveal 0.6s 0.3s ease both;
+}
+
+/* ---- 响应式 ---- */
+@media (max-width: 768px) {
+  .fortune-card {
+    padding: 2rem 1.2rem;
+  }
+
+  .fortune-level {
+    font-size: 2.4rem;
+  }
+
+  .fortune-advice {
+    padding: 0 0.5rem;
+  }
+}
