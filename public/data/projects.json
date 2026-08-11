@@ -13,6 +13,22 @@
     "featured": true
   },
   {
+    "slug": "campus-accounting",
+    "title": {
+      "zh": "校园记账软件",
+      "en": "Campus Accounting"
+    },
+    "description": {
+      "zh": "面向大学生的轻量记账工具，支持多账户管理、预算控制、月度统计和数据导出。Node.js + Express 后端，SQLite 数据库，原生 JS 前端。",
+      "en": "A lightweight bookkeeping tool for college students. Multi-account management, budget control, monthly statistics, CSV export. Node.js + Express backend, SQLite, vanilla JS frontend."
+    },
+    "tech": ["Node.js", "Express", "SQLite", "JavaScript", "HTML", "CSS"],
+    "github": "https://github.com/Vantchy/creating_accounting",
+    "demo": "/accounting/",
+    "type": "tool",
+    "featured": false
+  },
+  {
     "slug": "demo-game-example",
     "title": {
       "zh": "示例网页游戏",
